@@ -1,8 +1,10 @@
-<h2>Hi! 👋</h2>
-<h4>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!
+<h1>Hi! 👋</h1>
+<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!
 <p style="white-space: pre;">{{STARS}} 🌟  |  {{REPOS}} 📂  |  {{FOLLOWERS}} 👥</p>
+
 <hr>
-<h3>🧬 Language I Can Speak:</h3>
+
+<h4>🧬 Language I Can Speak:</h4>
 <span>
 	<img style="margin: 0 3px" width="64" src="assets/icons/js.png" title="JavaScript">
 	<img style="margin: 0 3px" width="64" src="assets/icons/ts.png" title="TypeScript">
@@ -13,7 +15,7 @@
 	<img style="margin: 0 3px" width="64" src="assets/icons/cpp.png" title="C++">
 </span>
 
-<h3>🥇 Top Starred Repo:</h3>
+<h4>🥇 Top Starred Repo:</h4>
 {{REPOLISTS}}
 
 <hr>
