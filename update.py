@@ -74,27 +74,11 @@ def repoLists():
 	sortedList = sorted(REPOS_DATA, key = lambda k: k["stargazers_count"], reverse = True)
 	counter = 0
 
-	html = """\n<tr>
-		<th>#</th>
-		<th>Name</th>
-		<th>Star</th>
-		<th>Size</th>
-		<th>Language</th>
-		<th>Last Update</th>
-		<th></th>
-	</tr>\n"""
+	html = """\n|#|Name|Star|Size|Language|Last Update|\n|---|---|---:|---:|:---:|---|\n"""
 
 	for item in sortedList:
 		counter += 1
-		html += f"""<tr>
-			<td style="text-align: right;">{counter}</td>
-			<td><a href="{item['html_url']}" target="_blank">{item['name']}</a></td>
-			<td style="text-align: right;">{item['stargazers_count']} ⭐</td>
-			<td style="text-align: right;">{round(item['size'] / 1024, 2)} MB</td>
-			<td>{item['language']}</td>
-			<td style="text-align: right;">{item['updated_at']}</td>
-			<td style="white-space: pre;">{item['open_issues']} ⚠  |  {item['forks_count']} 🍴</td>
-		</tr>\n"""
+		html += f"""|{counter}|[{item['name']}]({item['html_url']})|{item['stargazers_count']} ⭐|{round(item['size'] / 1024, 2)} MB|{item['language']}|{item['updated_at']}|{item['open_issues']} ⚠  |  {item['forks_count']} 🍴|\n"""
 
 		if (counter >= 5):
 			break
