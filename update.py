@@ -12,7 +12,7 @@ log("OKAY", "Imported: colorama")
 from datetime import datetime
 log("OKAY", "Imported: datetime.datetime")
 
-from time import perf_counter
+from time import perf_counter, time
 log("OKAY", "Imported: time.perf_counter")
 
 import requests
@@ -20,6 +20,8 @@ log("OKAY", "Imported: requests")
 
 import json
 log("OKAY", "Imported: json")
+
+import pytz
 
 def logStatus(text, status, overWrite = False):
 	statusText = [f"{Fore.RED}✗ ERRR", f"{Fore.YELLOW}● WAIT", f"{Fore.GREEN}✓ OKAY"]
@@ -56,7 +58,10 @@ logStatus("Fetching Repos Data", 1, True)
 
 def updateTime():
 	now = datetime.now()
-	return now.strftime("%d/%m/%Y %I:%M:%S %p")
+	timezone = pytz.timezone("Asia/Ho_Chi_Minh")
+	nowAware = timezone.localize(now)
+
+	return nowAware.strftime("%d/%m/%Y %I:%M:%S %p")
 
 def starsCount():
 	stars = 0
@@ -88,7 +93,7 @@ def repoLists():
 	return html
 
 def runTime():
-	return round(perf_counter() - TIME_START, 4)
+	return "{:.4f}".format(perf_counter() - TIME_START)
 
 ##? ============= MAIN CODE =============
 
