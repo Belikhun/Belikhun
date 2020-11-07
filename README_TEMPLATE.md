@@ -1,6 +1,9 @@
-<h1>Hi! 👋</h1>
-<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!</h3>
-<p style="white-space: pre;">{{STARS}} 🌟  |  {{REPOS}} 📂  |  {{FOLLOWERS}} 👥</p>
+<h3>Hi! 👋 I'm Ha, a 18 y/o Student studying Information Technology</h3>
+<span>
+	<img src="https://img.shields.io/badge/{{STARS}}-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/{{REPOS}}-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/{{FOLLOWERS}}-FOLLOWERS-ff9eb6?style=for-the-badge">
+</span>
 
 <hr>
 
