@@ -39,7 +39,7 @@ jobs:
           cp -f README.md /tmp/README.md
           cp -f update.py /tmp/update.py
           mv -f assets /tmp/assets
-          mv -f .github/. /tmp/.github
+          mv -f .github /tmp/.github
 
           git fetch --all
           git checkout --progress --force -B main refs/remotes/origin/main
