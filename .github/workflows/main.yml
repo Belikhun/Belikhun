@@ -38,7 +38,7 @@ jobs:
         run: |-
           cp -f README.md /tmp/README.md
           cp -f update.py /tmp/update.py
-          mv -f assets/. /tmp/assets
+          mv -f assets /tmp/assets
           mv -f .github/. /tmp/.github
 
           git fetch --all
