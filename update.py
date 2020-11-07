@@ -81,7 +81,7 @@ def repoLists():
 	sortedList = sorted(REPOS_DATA, key = lambda k: k["stargazers_count"], reverse = True)
 	counter = 0
 
-	html = """\n|#|Name|Star|Size|Language|Last Update|\n|---|---|---:|---:|:---:|---|\n"""
+	html = """\n|#|Name|Star|Size|Language|Last Update||\n|---|---|---:|---:|:---:|---|--|\n"""
 
 	for item in sortedList:
 		counter += 1
