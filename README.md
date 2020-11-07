@@ -1,5 +1,5 @@
 <h1>Hi! 👋</h1>
-<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!
+<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!</h3>
 <p style="white-space: pre;">16 🌟  |  7 📂  |  5 👥</p>
 
 <hr>
@@ -21,13 +21,13 @@
 |---|---|---:|---:|:---:|---|
 |1|[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)|14 ⭐|24.16 MB|PHP|2020-10-18T05:55:40Z|4 ⚠  |  5 🍴|
 |2|[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  |  2 🍴|
-|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.13 MB|Python|2020-11-07T12:33:20Z|0 ⚠  |  0 🍴|
+|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.13 MB|Python|2020-11-07T12:34:24Z|0 ⚠  |  0 🍴|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 12:33:56 PM</span>
+	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 12:34:37 PM</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.21013627299998916s /w Github Actions</span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.2112771099999975s /w Github Actions</span>
 </span>
