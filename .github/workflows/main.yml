@@ -38,8 +38,8 @@ jobs:
         run: |-
           cp -f README.md /tmp/README.md
           cp -f update.py /tmp/update.py
-          mkdir /tmp/assets
-          cp -rf assets/. /tmp/assets
+          mv -rf assets/. /tmp/assets
+          mv -rf .github/. /tmp/.github
 
           git fetch --all
           git checkout --progress --force -B main refs/remotes/origin/main
@@ -47,7 +47,9 @@ jobs:
           mv -f /tmp/README.md README.md
           mv -f /tmp/update.py update.py
           rm -rf assets
+          rm -rf .github
           mv -f /tmp/assets assets
+          mv -f /tmp/.github .github
 
           git add .
           git diff
