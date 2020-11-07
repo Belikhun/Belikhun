@@ -28,6 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install colorama
           pip install requests
+          pip install pytz
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: 🏗 Build README
