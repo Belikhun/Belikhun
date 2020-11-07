@@ -46,7 +46,7 @@ jobs:
 
           mv -f /tmp/README.md README.md
           mv -f /tmp/update.py update.py
-          mv -rf /tmp/assets assets/
+          mv -f /tmp/assets assets/
 
           git add .
           git diff
