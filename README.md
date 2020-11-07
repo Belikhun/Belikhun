@@ -1,6 +1,9 @@
-<h1>Hi! 👋</h1>
-<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!</h3>
-<p style="white-space: pre;">16 🌟  |  7 📂  |  5 👥</p>
+<h3>Hi! 👋 I'm Ha, a 18 y/o Student studying Information Technology</h3>
+<span>
+	<img src="https://img.shields.io/badge/16-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/7-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/5-FOLLOWERS-ff9eb6?style=for-the-badge">
+</span>
 
 <hr>
 
@@ -21,13 +24,13 @@
 |---|---|---:|---:|:---:|---|
 |1|[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)|14 ⭐|24.16 MB|PHP|2020-10-18T05:55:40Z|4 ⚠  |  5 🍴|
 |2|[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  |  2 🍴|
-|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.17 MB|Python|2020-11-07T13:23:14Z|0 ⚠  |  0 🍴|
+|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.17 MB|Python|2020-11-07T13:25:16Z|0 ⚠  |  0 🍴|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 01:25:11 PM</span>
+	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 02:01:21 PM</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.2209s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.2514s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>

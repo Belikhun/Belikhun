@@ -1,0 +1,59 @@
+name: Build README
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8]
+
+    steps:
+      - name: 📁 Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: 🛠 Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 🛒 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install colorama
+          pip install requests
+          pip install pytz
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: 🏗 Build README
+        run: python update.py
+
+      - name: ⛳ Commit Update
+        run: |-
+          cp -f README.md /tmp/README.md
+          cp -f update.py /tmp/update.py
+          mv -f assets /tmp/assets
+          mv -f .github /tmp/.github
+
+          git fetch --all
+          git checkout --progress --force -B main refs/remotes/origin/main
+
+          mv -f /tmp/README.md README.md
+          mv -f /tmp/update.py update.py
+          rm -rf assets
+          rm -rf .github
+          mv -f /tmp/assets assets
+          mv -f /tmp/.github .github
+
+          git add .
+          git diff
+          git config --global user.email "anonymous@github.com"
+          git config --global user.name "Belikhun Bot"
+          git commit -m "[GA Build $GITHUB_RUN_NUMBER] 🔮 README.md: Update README" -m "Commit $GITHUB_SHA by $GITHUB_ACTOR" -m "Ref: $GITHUB_REF"
+          git push
