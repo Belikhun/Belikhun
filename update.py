@@ -85,7 +85,7 @@ def repoLists():
 
 	for item in sortedList:
 		counter += 1
-		html += f"""|{counter}|[{item['name']}]({item['html_url']})|{item['stargazers_count']} ⭐|{round(item['size'] / 1024, 2)} MB|{item['language']}|{item['updated_at']}|{item['open_issues']} ⚠  |  {item['forks_count']} 🍴|\n"""
+		html += f"""|{counter}|[{item['name']}]({item['html_url']})|{item['stargazers_count']} ⭐|{round(item['size'] / 1024, 2)} MB|{item['language']}|{item['updated_at']}|{item['open_issues']} ⚠  \|  {item['forks_count']} 🍴|\n"""
 
 		if (counter >= 3):
 			break
