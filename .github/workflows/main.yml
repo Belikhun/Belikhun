@@ -43,5 +43,5 @@ jobs:
           git diff
           git config --global user.email "anonymous@github.com"
           git config --global user.name "Belikhun Bot"
-          git commit -m "(GA Build $GITHUB_RUN_NUMBER)🔮 README.md: Update README" -m "Commit $GITHUB_SHA by $GITHUB_ACTOR" -m "Ref: $GITHUB_REF"
+          git commit -m "[GA Build $GITHUB_RUN_NUMBER] 🔮 README.md: Update README" -m "Commit $GITHUB_SHA by $GITHUB_ACTOR" -m "Ref: $GITHUB_REF"
           git push
