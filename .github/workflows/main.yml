@@ -51,7 +51,7 @@ jobs:
           mv -f /tmp/update.py update.py
           rm -rf assets
           rm -rf .github
-          rm -rf .lib
+          rm -rf lib
           mv -f /tmp/assets assets
           mv -f /tmp/lib lib
           mv -f /tmp/.github .github
