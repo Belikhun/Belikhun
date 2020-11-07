@@ -37,7 +37,7 @@ jobs:
         run: |-
           git add .
           git diff
-          git config --global user.email "belivipro9x99@gmail.com"
+          git config --global user.email "anonymous@github.com"
           git config --global user.name "Belikhun Bot"
           git commit -m "🔮 README.md: Update README"
           git push
