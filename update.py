@@ -88,7 +88,7 @@ def repoLists():
 	return html
 
 def runTime():
-	return perf_counter() - TIME_START;
+	return round(perf_counter() - TIME_START, 4)
 
 ##? ============= MAIN CODE =============
 
