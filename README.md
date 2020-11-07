@@ -22,15 +22,15 @@
 
 |#|Name|Star|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
-|1|[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)|14 ⭐|24.16 MB|PHP|2020-10-18T05:55:40Z|4 ⚠  |  5 🍴|
-|2|[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  |  2 🍴|
-|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.17 MB|Python|2020-11-07T14:02:17Z|0 ⚠  |  0 🍴|
+|1|[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)|14 ⭐|24.16 MB|PHP|2020-10-18T05:55:40Z|4 ⚠  \|  5 🍴|
+|2|[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  \|  2 🍴|
+|3|[belivipro9x99](https://github.com/belivipro9x99/belivipro9x99)|0 ⭐|0.17 MB|Python|2020-11-07T14:03:45Z|0 ⚠  \|  0 🍴|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 02:03:40 PM</span>
+	<span align="left">⏰ <b>UPDATED:</b> 07/11/2020 02:06:12 PM</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.2868s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.2259s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>
