@@ -1,5 +1,5 @@
 <h1>Hi! 👋</h1>
-<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!
+<h3>My name is Ha, usually known as Belikhun. I'm a Student studying Information Technology. I 💙 OpenSource!</h3>
 <p style="white-space: pre;">{{STARS}} 🌟  |  {{REPOS}} 📂  |  {{FOLLOWERS}} 👥</p>
 
 <hr>
