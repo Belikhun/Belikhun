@@ -36,6 +36,7 @@ jobs:
       - name: ⛳ Commit Update
         run: |-
           cp -f README.md /tmp/README.md
+          git fetch --all
           git checkout --progress --force -B main refs/remotes/origin/main
           mv -f /tmp/README.md README.md
           git add README.md
