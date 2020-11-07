@@ -27,6 +27,8 @@ def logStatus(text, status, overWrite = False):
 
 	log(logStatus[status + 1], "{:48}{}{}".format(text, statusText[status + 1], Fore.RESET), resetCursor = (not overWrite))
 
+TIME_START = perf_counter();
+
 ##? ============= FETCH DATA =============
 logStatus("Fetching User Data", 0)
 USER_DATA = None
@@ -86,7 +88,7 @@ def repoLists():
 	return html
 
 def runTime():
-	return perf_counter()
+	return perf_counter() - TIME_START;
 
 ##? ============= MAIN CODE =============
 
