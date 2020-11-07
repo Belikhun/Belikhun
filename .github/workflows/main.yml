@@ -46,6 +46,8 @@ jobs:
 
           mv -f /tmp/README.md README.md
           mv -f /tmp/update.py update.py
+          rm -rf assets
+          mkdir assets
           mv -f /tmp/assets assets/
 
           git add .
