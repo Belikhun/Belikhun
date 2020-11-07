@@ -39,6 +39,7 @@ jobs:
           cp -f README.md /tmp/README.md
           cp -f update.py /tmp/update.py
           mv -f assets /tmp/assets
+          mv -f libs /tmp/libs
           mv -f .github /tmp/.github
 
           git fetch --all
@@ -49,6 +50,7 @@ jobs:
           rm -rf assets
           rm -rf .github
           mv -f /tmp/assets assets
+          mv -f /tmp/libs libs
           mv -f /tmp/.github .github
 
           git add .
