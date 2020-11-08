@@ -3,6 +3,7 @@
 	<img src="https://img.shields.io/badge/{{STARS}}-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/{{REPOS}}-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/{{FOLLOWERS}}-FOLLOWERS-ff9eb6?style=for-the-badge">
+	<img src="https://estruyf-github.azurewebsites.net/api/VisitorHit?user=belivipro9x99&repo=belivipro9x99&countColor=#ff85c8">
 </span>
 
 <hr>
