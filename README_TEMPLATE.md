@@ -8,7 +8,7 @@
 
 <hr>
 
-<h4>🧬 Language I Can Speak:</h4>
+<h4>🧬 Languages I Can Speak:</h4>
 <span>
 	<img style="margin: 0 3px" width="64" src="assets/icons/js.png" title="JavaScript">
 	<img style="margin: 0 3px" width="64" src="assets/icons/ts.png" title="TypeScript">
