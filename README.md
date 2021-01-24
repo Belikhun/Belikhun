@@ -19,7 +19,7 @@
 	<img style="margin: 0 3px" width="64" src="assets/icons/cpp.png" title="C++">
 </span>
 
-<h4>🥇 Top Starred Repo:</h4>
+<h4>🥇 Top Starred Repos:</h4>
 
 |#|Name|Star|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
@@ -31,7 +31,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 24/01/2021 02:50:56 PM</span>
+	<span align="left">⏰ <b>UPDATED:</b> 24/01/2021 09:58:54 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.1978s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.2086s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>

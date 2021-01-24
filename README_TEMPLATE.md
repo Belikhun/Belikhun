@@ -19,7 +19,7 @@
 	<img style="margin: 0 3px" width="64" src="assets/icons/cpp.png" title="C++">
 </span>
 
-<h4>🥇 Top Starred Repo:</h4>
+<h4>🥇 Top Starred Repos:</h4>
 {{REPOLISTS}}
 
 <hr>
