@@ -22,6 +22,7 @@ import json
 log("OKAY", "Imported: json")
 
 import pytz
+log("OKAY", "Imported: pytz")
 
 def logStatus(text, status, overWrite = False):
 	statusText = [f"{Fore.RED}✗ ERRR", f"{Fore.YELLOW}● WAIT", f"{Fore.GREEN}✓ OKAY"]
@@ -58,10 +59,10 @@ logStatus("Fetching Repos Data", 1, True)
 
 def updateTime():
 	now = datetime.now()
-	timezone = pytz.timezone("Asia/Ho_Chi_Minh")
-	nowAware = timezone.localize(now)
+	now = pytz.timezone("UTC").localize(now)
+	now = pytz.timezone("Asia/Ho_Chi_Minh").normalize(now)
 
-	return nowAware.strftime("%d/%m/%Y %I:%M:%S %p")
+	return now.strftime("%d/%m/%Y %I:%M:%S %p (GMT+7)")
 
 def starsCount():
 	stars = 0
