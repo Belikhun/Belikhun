@@ -1,6 +1,6 @@
 <h3>Hi! 👋 I'm Ha, a 18 y/o Student studying Information Technology</h3>
 <span>
-	<img src="https://img.shields.io/badge/22-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/23-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/7-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/6-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<img src="https://estruyf-github.azurewebsites.net/api/VisitorHit?user=belivipro9x99&repo=belivipro9x99&countColor=#ff85c8">
@@ -23,7 +23,7 @@
 
 |#|Name|Star|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
-|1|**[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)**|18 ⭐|24.33 MB|PHP|2021-01-29T15:12:10Z|4 ⚠  \|  8 🍴|
+|1|**[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)**|19 ⭐|24.33 MB|PHP|2021-02-06T09:16:04Z|4 ⚠  \|  8 🍴|
 |2|**[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)**|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  \|  2 🍴|
 |3|**[thi-trac-nghiem](https://github.com/belivipro9x99/thi-trac-nghiem)**|2 ⭐|13.72 MB|PHP|2021-01-03T10:54:58Z|0 ⚠  \|  0 🍴|
 
@@ -31,7 +31,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 06/02/2021 04:11:20 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 06/02/2021 04:30:19 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.1924s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.1978s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>
