@@ -2,7 +2,7 @@
 <span>
 	<img src="https://img.shields.io/badge/24-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/7-REPOS-f2e174?style=for-the-badge">
-	<img src="https://img.shields.io/badge/6-FOLLOWERS-ff9eb6?style=for-the-badge">
+	<img src="https://img.shields.io/badge/7-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<img src="https://estruyf-github.azurewebsites.net/api/VisitorHit?user=belivipro9x99&repo=belivipro9x99&countColor=#ff85c8">
 </span>
 
@@ -31,7 +31,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 13/03/2021 07:40:29 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 13/03/2021 08:05:27 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.7416s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 1.5589s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>
