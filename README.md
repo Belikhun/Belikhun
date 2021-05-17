@@ -1,6 +1,6 @@
 <h3>Hi! 👋 I'm Ha, a 18 y/o Student studying Information Technology</h3>
 <span>
-	<img src="https://img.shields.io/badge/27-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/28-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/8-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/8-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<img src="https://estruyf-github.azurewebsites.net/api/VisitorHit?user=belivipro9x99&repo=belivipro9x99&countColor=#ff85c8">
@@ -23,7 +23,7 @@
 
 |#|Name|Star|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
-|1|**[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)**|21 ⭐|25.93 MB|PHP|2021-04-08T14:08:57Z|2 ⚠  \|  9 🍴|
+|1|**[themis-web-interface](https://github.com/belivipro9x99/themis-web-interface)**|22 ⭐|25.93 MB|PHP|2021-05-17T02:10:41Z|2 ⚠  \|  9 🍴|
 |2|**[corona-tracker-extension](https://github.com/belivipro9x99/corona-tracker-extension)**|2 ⭐|6.68 MB|CSS|2020-04-30T10:13:58Z|0 ⚠  \|  2 🍴|
 |3|**[StudentsManager](https://github.com/belivipro9x99/StudentsManager)**|2 ⭐|0.71 MB|Java|2021-04-19T17:03:22Z|0 ⚠  \|  0 🍴|
 
@@ -31,7 +31,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 17/05/2021 08:19:53 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 17/05/2021 09:35:03 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.2008s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.3980s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>
