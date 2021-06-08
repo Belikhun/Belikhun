@@ -10,13 +10,13 @@
 
 <h4>🧬 Languages I Can Speak:</h4>
 <span>
-	<img style="margin: 0 2px" width="32" src="assets/icons/js.png" title="JavaScript">
-	<img style="margin: 0 2px" width="32" src="assets/icons/ts.png" title="TypeScript">
-	<img style="margin: 0 2px" width="32" src="assets/icons/py.png" title="Python">
-	<img style="margin: 0 2px" width="32" src="assets/icons/html.png" title="Hypertext Markup Language">
-	<img style="margin: 0 2px" width="32" src="assets/icons/css.png" title="Cascading Style Sheets">
-	<img style="margin: 0 2px" width="32" src="assets/icons/php.png" title="Hypertext Preprocessor">
-	<img style="margin: 0 2px" width="32" src="assets/icons/cpp.png" title="C++">
+	<img style="margin: 0 2px" width="48" src="assets/icons/js.png" title="JavaScript">
+	<img style="margin: 0 2px" width="48" src="assets/icons/ts.png" title="TypeScript">
+	<img style="margin: 0 2px" width="48" src="assets/icons/py.png" title="Python">
+	<img style="margin: 0 2px" width="48" src="assets/icons/html.png" title="Hypertext Markup Language">
+	<img style="margin: 0 2px" width="48" src="assets/icons/css.png" title="Cascading Style Sheets">
+	<img style="margin: 0 2px" width="48" src="assets/icons/php.png" title="Hypertext Preprocessor">
+	<img style="margin: 0 2px" width="48" src="assets/icons/cpp.png" title="C++">
 </span>
 
 <h4>🥇 Top Starred Repo:</h4>
