@@ -2,16 +2,16 @@
 
 <div>
 	<a href="https://github.com/belivipro9x99/themis-web-interface">
-		<img style="width: 48%" src="assets/img/twi.svg" />
+		<img style="width: 47%" src="assets/img/twi.svg" />
 	</a>
 	<a href="https://github.com/belivipro9x99/dealHunterSuiteArchive">
-		<img style="width: 48%" align="right" src="assets/img/dhs.svg" />
+		<img style="width: 47%" align="right" src="assets/img/dhs.svg" />
 	</a>
 </div>
 &nbsp;
 <div align="middle">
 	<a href="https://ctmsplus.netlify.com">
-		<img style="width: 48%" src="assets/img/ctms.svg" />
+		<img style="width: 47%" src="assets/img/ctms.svg" />
 	</a>
 </div>
 
