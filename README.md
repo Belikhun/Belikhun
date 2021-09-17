@@ -2,16 +2,16 @@
 
 <div>
 	<a href="https://github.com/belivipro9x99/themis-web-interface">
-		<img style="width: calc(50% - 5px); float: left;" src="assets/img/twi.svg" />
+		<img style="width: 48%" src="assets/img/twi.svg" />
 	</a>
 	<a href="https://github.com/belivipro9x99/dealHunterSuiteArchive">
-		<img style="width: calc(50% - 5px); float: right;" src="assets/img/dhs.svg" />
+		<img style="width: 48%" align="right" src="assets/img/dhs.svg" />
 	</a>
 </div>
 
 <div align="middle">
 	<a href="https://ctmsplus.netlify.com">
-		<img style="width: calc(50% - 5px);" src="assets/img/ctms.svg" />
+		<img style="width: 48%" src="assets/img/ctms.svg" />
 	</a>
 </div>
 
@@ -36,7 +36,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 17/09/2021 08:09:02 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 17/09/2021 08:14:46 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.3482s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.2473s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
 </span>
