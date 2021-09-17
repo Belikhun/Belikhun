@@ -8,7 +8,7 @@
 		<img style="width: 48%" align="right" src="assets/img/dhs.svg" />
 	</a>
 </div>
-
+&nbsp;
 <div align="middle">
 	<a href="https://ctmsplus.netlify.com">
 		<img style="width: 48%" src="assets/img/ctms.svg" />
