@@ -37,6 +37,7 @@ jobs:
       - name: ⛳ Commit Update
         run: |-
           cp -f README.md /tmp/README.md
+          cp -f header.svg /tmp/header.svg
           cp -f README_TEMPLATE.md /tmp/README_TEMPLATE.md
           cp -f update.py /tmp/update.py
           mv -f assets /tmp/assets
@@ -47,6 +48,7 @@ jobs:
           git checkout --progress --force -B main refs/remotes/origin/main
 
           mv -f /tmp/README.md README.md
+          mv -f /tmp/header.svg header.svg
           mv -f /tmp/README_TEMPLATE.md README_TEMPLATE.md
           mv -f /tmp/update.py update.py
           rm -rf assets
