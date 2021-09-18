@@ -1,4 +1,4 @@
-<img src="assets/img/header.svg" width="100%" />
+<img src="header.svg" width="100%" />
 
 &nbsp;
 <div>
