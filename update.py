@@ -32,7 +32,7 @@ def logStatus(text, status, overWrite = False):
 
 	log(logStatus[status + 1], "{:58}{}{}".format(text, statusText[status + 1], Fore.RESET), resetCursor = (not overWrite))
 
-USERNAME = "belivipro9x99"
+USERNAME = "Belikhun"
 TIME_START = perf_counter()
 
 
