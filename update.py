@@ -61,7 +61,8 @@ logStatus("Fetching Repos Data", 0)
 REPOS_DATA = None
 
 try:
-	REPOS_DATA = requests.get(f"https://api.github.com/users/{USERNAME}/repos", headers = headers).json()
+	REPOS_DATA = requests.get(f"https://api.github.com/search/repositories?q=user:{USERNAME}&per_page=100", headers = headers).json()
+	REPOS_DATA = REPOS_DATA["items"]
 except json.JSONDecodeError as error:
 	logStatus("Parse Repos Data Failed: Malformed JSON Data", -1, True)
 	raise error
