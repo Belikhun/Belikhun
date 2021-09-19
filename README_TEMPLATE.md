@@ -2,10 +2,10 @@
 
 &nbsp;
 <div>
-	<a href="https://github.com/belivipro9x99/themis-web-interface">
+	<a href="https://github.com/Belikhun/themis-web-interface">
 		<img style="width: 46%" src="assets/img/twi.svg" />
 	</a>
-	<a href="https://github.com/belivipro9x99/dealHunterSuiteArchive">
+	<a href="https://github.com/Belikhun/dealHunterSuiteArchive">
 		<img style="width: 46%" align="right" src="assets/img/dhs.svg" />
 	</a>
 </div>
@@ -22,7 +22,7 @@
 	<img src="https://img.shields.io/badge/{{STARS}}-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/{{REPOS}}-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/{{FOLLOWERS}}-FOLLOWERS-ff9eb6?style=for-the-badge">
-	<img src="https://estruyf-github.azurewebsites.net/api/VisitorHit?user=belivipro9x99&repo=belivipro9x99&countColor=#ff85c8">
+	<img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8">
 </div>
 
 <h4>🥇 Top Starred Repos:</h4>
@@ -33,5 +33,5 @@
 <span style="clear: both">
 	<span align="left">⏰ <b>UPDATED:</b> {{TIME}}</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> {{RUNTIME}}s /w <a href="https://github.com/belivipro9x99/belivipro9x99/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> {{RUNTIME}}s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
