@@ -115,7 +115,7 @@ def repoLists():
 			f"{round(item['size'] / 1024, 2)} MB",
 			f"{item['language']}",
 			updated.strftime('%d/%m/%Y %I:%M:%S %p'),
-			f"{item['open_issues']} ⚠  \|  {item['forks_count']} 🥢  \|  {item['watchers']} 👀"
+			f"{item['open_issues']} ⚠  \|  {item['forks_count']} 🥢"
 		]
 
 		html += f"""|{'|'.join(cells)}|\n"""
