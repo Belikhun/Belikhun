@@ -38,8 +38,13 @@ TIME_START = perf_counter()
 
 ##? ============= CHECK TOKEN =============
 token = os.getenv("GITHUB_TOKEN")
+secret = os.getenv("SECRET_TOKEN")
 headers = {}
-if (token):
+
+if (secret):
+	log("OKAY", "Found Secret Token")
+	headers = { "Authorization": f"Bearer {secret}" }
+elif (token):
 	log("OKAY", "Found Github Token")
 	headers = { "Authorization": f"Bearer {token}" }
 
