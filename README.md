@@ -27,19 +27,19 @@
 
 <h4>🥇 Top Starred Repos:</h4>
 
-|#|Name|Stars|Size|Language|License|Last Update||
-|---|---|---:|---:|:---:|:---:|---|--|
-|1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|23 ⭐|26.0 MB|JavaScript|MIT|17/09/2021 07:44:33 AM|2 ⚠  \|  12 🥢  \|  23 👀|
-|2|**[StudentsManager](https://github.com/Belikhun/StudentsManager)**|6 ⭐|0.71 MB|Java|None|03/09/2021 06:07:20 PM|0 ⚠  \|  1 🥢  \|  6 👀|
-|3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|4 ⭐|11.08 MB|JavaScript|NOASSERTION|19/09/2021 03:40:06 AM|4 ⚠  \|  2 🥢  \|  4 👀|
-|4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|MIT|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢  \|  3 👀|
-|5|**[corona-tracker-extension](https://github.com/Belikhun/corona-tracker-extension)**|2 ⭐|6.73 MB|JavaScript|MIT|17/06/2021 12:50:58 PM|0 ⚠  \|  2 🥢  \|  2 👀|
+|#|Name|Stars|Size|Language|Last Update||
+|---|---|---:|---:|:---:|---|--|
+|1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|23 ⭐|26.0 MB|JavaScript|17/09/2021 07:44:33 AM|2 ⚠  \|  12 🥢  \|  23 👀|
+|2|**[StudentsManager](https://github.com/Belikhun/StudentsManager)**|6 ⭐|0.71 MB|Java|03/09/2021 06:07:20 PM|0 ⚠  \|  1 🥢  \|  6 👀|
+|3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|4 ⭐|11.08 MB|JavaScript|19/09/2021 03:40:06 AM|4 ⚠  \|  2 🥢  \|  4 👀|
+|4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢  \|  3 👀|
+|5|**[corona-tracker-extension](https://github.com/Belikhun/corona-tracker-extension)**|2 ⭐|6.73 MB|JavaScript|17/06/2021 12:50:58 PM|0 ⚠  \|  2 🥢  \|  2 👀|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 19/09/2021 01:29:43 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 19/09/2021 01:32:46 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.5289s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.5547s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>

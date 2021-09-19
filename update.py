@@ -102,7 +102,7 @@ def repoLists():
 	sortedList = sorted(REPOS_DATA, key = lambda k: k["stargazers_count"], reverse = True)
 	counter = 0
 
-	html = """\n|#|Name|Stars|Size|Language|License|Last Update||\n|---|---|---:|---:|:---:|:---:|---|--|\n"""
+	html = """\n|#|Name|Stars|Size|Language|Last Update||\n|---|---|---:|---:|:---:|---|--|\n"""
 
 	for item in sortedList:
 		counter += 1
@@ -114,7 +114,6 @@ def repoLists():
 			f"{item['stargazers_count']} ⭐",
 			f"{round(item['size'] / 1024, 2)} MB",
 			f"{item['language']}",
-			item["license"]["spdx_id"] if (item["license"]) else "None",
 			updated.strftime('%d/%m/%Y %I:%M:%S %p'),
 			f"{item['open_issues']} ⚠  \|  {item['forks_count']} 🥢  \|  {item['watchers']} 👀"
 		]
