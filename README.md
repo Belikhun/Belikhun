@@ -20,7 +20,7 @@
 
 <div>
 	<img src="https://img.shields.io/badge/40-STARS-8cecff?style=for-the-badge">
-	<img src="https://img.shields.io/badge/10-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/16-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/16-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8">
 </div>
@@ -39,7 +39,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 19/09/2021 12:39:21 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 19/09/2021 12:42:02 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.4284s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.6492s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
