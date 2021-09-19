@@ -33,6 +33,7 @@ jobs:
 
       - name: 🏗 Build README
         env:
+          SECRET_TOKEN: ${{ secrets.SECRET_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python update.py
 

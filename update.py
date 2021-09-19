@@ -41,10 +41,10 @@ token = os.getenv("GITHUB_TOKEN")
 secret = os.getenv("SECRET_TOKEN")
 headers = {}
 
-if (secret):
+if (secret and len(secret) > 4):
 	log("OKAY", "Found Secret Token")
 	headers = { "Authorization": f"Bearer {secret}" }
-elif (token):
+elif (token and len(token) > 4):
 	log("OKAY", "Found Github Token")
 	headers = { "Authorization": f"Bearer {token}" }
 
