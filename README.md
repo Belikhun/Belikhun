@@ -33,13 +33,13 @@
 |2|**[StudentsManager](https://github.com/Belikhun/StudentsManager)**|5 ⭐|0.71 MB|Java|07/10/2021 11:43:26 PM|0 ⚠  \|  1 🥢|
 |3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|4 ⭐|11.26 MB|JavaScript|12/10/2021 08:03:24 AM|4 ⚠  \|  2 🥢|
 |4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢|
-|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|15.92 MB|Python|12/10/2021 04:30:47 PM|0 ⚠  \|  0 🥢|
+|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|15.92 MB|Python|12/10/2021 05:00:28 PM|0 ⚠  \|  0 🥢|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 13/10/2021 12:00:21 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 13/10/2021 12:23:30 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.6937s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 1.6747s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
