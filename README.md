@@ -31,15 +31,15 @@
 |---|---|---:|---:|:---:|---|--|
 |1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|24 ⭐|26.11 MB|JavaScript|07/10/2021 06:04:17 AM|3 ⚠  \|  11 🥢|
 |2|**[StudentsManager](https://github.com/Belikhun/StudentsManager)**|5 ⭐|0.71 MB|Java|07/10/2021 11:43:26 PM|0 ⚠  \|  1 🥢|
-|3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|5 ⭐|11.33 MB|JavaScript|14/10/2021 06:38:52 PM|4 ⚠  \|  2 🥢|
+|3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|5 ⭐|11.33 MB|JavaScript|16/10/2021 05:24:03 PM|4 ⚠  \|  2 🥢|
 |4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢|
-|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|15.37 MB|Python|16/10/2021 04:53:04 PM|0 ⚠  \|  0 🥢|
+|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|15.37 MB|Python|16/10/2021 05:08:40 PM|0 ⚠  \|  0 🥢|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 17/10/2021 12:08:32 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 17/10/2021 12:29:20 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.7076s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.5277s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
