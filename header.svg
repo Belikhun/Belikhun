@@ -192,7 +192,7 @@
         <path id="star-solid" d="M27.986.546,25.938,4.7l-4.58.668A1,1,0,0,0,20.8,7.076L24.117,10.3l-.784,4.561a1,1,0,0,0,1.455,1.056l4.1-2.154,4.1,2.154a1,1,0,0,0,1.455-1.056L33.653,10.3l3.314-3.229a1,1,0,0,0-.555-1.712L31.832,4.7,29.785.546A1,1,0,0,0,27.986.546Z" transform="translate(424.975 412.514)" fill="rgba(232,232,232,0.39)"/>
       </g>
       <g id="commits" transform="translate(0 -1)">
-        <text id="_COMMITS_" data-name="1839" transform="translate(573 427)" fill="#bcbcbc" font-size="18" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">1839</tspan></text>
+        <text id="_COMMITS_" data-name="1844" transform="translate(573 427)" fill="#bcbcbc" font-size="18" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">1844</tspan></text>
         <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(552 413)" fill="none" stroke="rgba(232,232,232,0.39)" stroke-width="4">
           <circle cx="8" cy="8" r="8" stroke="none"/>
           <circle cx="8" cy="8" r="6" fill="none"/>
