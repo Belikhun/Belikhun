@@ -19,9 +19,9 @@
 <hr>
 
 <div>
-	<img src="https://img.shields.io/badge/44-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/45-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/17-REPOS-f2e174?style=for-the-badge">
-	<img src="https://img.shields.io/badge/19-FOLLOWERS-ff9eb6?style=for-the-badge">
+	<img src="https://img.shields.io/badge/20-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
 </div>
 
@@ -29,17 +29,17 @@
 
 |#|Name|Stars|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
-|1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|24 ⭐|26.21 MB|JavaScript|07/10/2021 06:04:17 AM|3 ⚠  \|  11 🥢|
+|1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|25 ⭐|26.21 MB|JavaScript|16/11/2021 07:19:17 AM|3 ⚠  \|  11 🥢|
 |2|**[StudentsManager](https://github.com/Belikhun/StudentsManager)**|5 ⭐|0.71 MB|Java|07/10/2021 11:43:26 PM|0 ⚠  \|  1 🥢|
 |3|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|5 ⭐|11.74 MB|JavaScript|15/11/2021 12:02:49 PM|4 ⚠  \|  2 🥢|
 |4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢|
-|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|23.78 MB|Python|16/11/2021 06:59:03 AM|0 ⚠  \|  0 🥢|
+|5|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|23.78 MB|Python|16/11/2021 07:17:52 AM|0 ⚠  \|  0 🥢|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 16/11/2021 02:17:45 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 16/11/2021 02:30:12 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.5426s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 1.0863s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
