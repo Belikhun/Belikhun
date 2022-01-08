@@ -32,14 +32,14 @@
 |1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|27 ⭐|26.26 MB|JavaScript|06/01/2022 03:19:25 AM|3 ⚠  \|  12 🥢|
 |2|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|5 ⭐|12.18 MB|JavaScript|05/01/2022 06:12:11 AM|3 ⚠  \|  3 🥢|
 |3|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|3 ⭐|17.71 MB|JavaScript|24/08/2021 09:29:25 AM|1 ⚠  \|  0 🥢|
-|4|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|18.07 MB|Python|08/01/2022 11:38:48 AM|0 ⚠  \|  0 🥢|
+|4|**[Belikhun](https://github.com/Belikhun/Belikhun)**|2 ⭐|18.08 MB|Python|08/01/2022 11:46:42 AM|0 ⚠  \|  0 🥢|
 |5|**[corona-tracker-extension](https://github.com/Belikhun/corona-tracker-extension)**|2 ⭐|6.73 MB|JavaScript|17/06/2021 12:50:58 PM|0 ⚠  \|  2 🥢|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 08/01/2022 06:46:36 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 08/01/2022 06:54:39 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.5523s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.6464s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
