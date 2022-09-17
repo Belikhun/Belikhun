@@ -19,8 +19,8 @@
 <hr>
 
 <div>
-	<img src="https://img.shields.io/badge/52-STARS-8cecff?style=for-the-badge">
-	<img src="https://img.shields.io/badge/17-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/58-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/19-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/23-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
 </div>
@@ -33,13 +33,13 @@
 |2|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|9 ⭐|11.52 MB|JavaScript|13/09/2022 10:16:09 AM|3 ⚠  \|  4 🥢|
 |3|**[libraries](https://github.com/Belikhun/libraries)**|4 ⭐|14.78 MB|JavaScript|29/04/2022 01:43:50 AM|0 ⚠  \|  1 🥢|
 |4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|4 ⭐|17.71 MB|JavaScript|02/03/2022 11:20:43 AM|1 ⚠  \|  0 🥢|
-|5|**[ctms-plus-middleware](https://github.com/Belikhun/ctms-plus-middleware)**|2 ⭐|0.03 MB|PHP|15/12/2021 11:19:06 AM|0 ⚠  \|  0 🥢|
+|5|**[ctms-plus-middleware-node](https://github.com/Belikhun/ctms-plus-middleware-node)**|3 ⭐|0.06 MB|JavaScript|20/01/2022 04:13:14 AM|0 ⚠  \|  1 🥢|
 
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 17/09/2022 07:38:30 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 17/09/2022 08:17:18 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.7369s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.6558s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
