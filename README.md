@@ -30,7 +30,7 @@
 |#|Name|Stars|Size|Language|Last Update||
 |---|---|---:|---:|:---:|---|--|
 |1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|30 ⭐|25.23 MB|JavaScript|02/11/2022 03:04:33 AM|2 ⚠  \|  12 🥢|
-|2|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|9 ⭐|11.86 MB|HTML|21/09/2022 03:28:33 AM|3 ⚠  \|  5 🥢|
+|2|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|9 ⭐|11.87 MB|HTML|21/09/2022 03:28:33 AM|3 ⚠  \|  5 🥢|
 |3|**[libraries](https://github.com/Belikhun/libraries)**|4 ⭐|14.83 MB|JavaScript|29/04/2022 01:43:50 AM|0 ⚠  \|  1 🥢|
 |4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|4 ⭐|17.71 MB|JavaScript|02/03/2022 11:20:43 AM|1 ⚠  \|  0 🥢|
 |5|**[ctms-plus-middleware-node](https://github.com/Belikhun/ctms-plus-middleware-node)**|3 ⭐|0.06 MB|JavaScript|20/01/2022 04:13:14 AM|0 ⚠  \|  1 🥢|
@@ -39,7 +39,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 11/11/2022 01:22:55 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 11/11/2022 01:49:04 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.9096s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.9816s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
