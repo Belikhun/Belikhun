@@ -1,4 +1,4 @@
-<img src="header.svg" width="100%" />
+<img src="header-v2.svg" width="100%" />
 
 <!-- &nbsp;
 <div>
