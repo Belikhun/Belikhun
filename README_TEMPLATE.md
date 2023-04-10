@@ -30,6 +30,6 @@
 
 <span style="clear: both">
 	<span align="left">⏰ <b>UPDATED:</b> {{TIME}}</span>
-	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
 	<span align="right">⚗ <b>GENERATED:</b> {{RUNTIME}}s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
