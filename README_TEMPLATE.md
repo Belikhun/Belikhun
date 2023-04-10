@@ -1,6 +1,6 @@
 <img src="header.svg" width="100%" />
 
-&nbsp;
+<!-- &nbsp;
 <div>
 	<a href="https://github.com/Belikhun/themis-web-interface">
 		<img style="width: 46%" src="assets/img/twi.svg" />
@@ -14,9 +14,7 @@
 	<a href="https://ctmsplus.netlify.com">
 		<img style="width: 46%" src="assets/img/ctms.svg" />
 	</a>
-</div>
-
-<hr>
+</div> -->
 
 <div>
 	<img src="https://img.shields.io/badge/{{STARS}}-STARS-8cecff?style=for-the-badge">
