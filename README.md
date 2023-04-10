@@ -1,21 +1,5 @@
 <img src="header.svg" width="100%" />
 
-<!-- &nbsp;
-<div>
-	<a href="https://github.com/Belikhun/themis-web-interface">
-		<img style="width: 46%" src="assets/img/twi.svg" />
-	</a>
-	<a href="https://github.com/Belikhun/dealHunterSuiteArchive">
-		<img style="width: 46%" align="right" src="assets/img/dhs.svg" />
-	</a>
-</div>
-&nbsp;
-<div align="middle">
-	<a href="https://ctmsplus.netlify.com">
-		<img style="width: 46%" src="assets/img/ctms.svg" />
-	</a>
-</div> -->
-
 <div>
 	<img src="https://img.shields.io/badge/66-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/22-REPOS-f2e174?style=for-the-badge">
@@ -23,21 +7,19 @@
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
 </div>
 
-<h4>🥇 Top Starred Repos:</h4>
+<hr>
 
-|#|Name|Stars|Size|Language|Last Update||
-|---|---|---:|---:|:---:|---|--|
-|1|**[themis-web-interface](https://github.com/Belikhun/themis-web-interface)**|31 ⭐|25.24 MB|JavaScript|06/12/2022 09:06:00 AM|2 ⚠  \|  11 🥢|
-|2|**[ctms-plus](https://github.com/Belikhun/ctms-plus)**|10 ⭐|11.93 MB|HTML|10/01/2023 09:23:54 AM|3 ⚠  \|  5 🥢|
-|3|**[libraries](https://github.com/Belikhun/libraries)**|5 ⭐|15.0 MB|JavaScript|27/03/2023 03:19:01 PM|0 ⚠  \|  1 🥢|
-|4|**[thi-trac-nghiem](https://github.com/Belikhun/thi-trac-nghiem)**|4 ⭐|17.71 MB|JavaScript|02/03/2022 11:20:43 AM|1 ⚠  \|  0 🥢|
-|5|**[corona-tracker-extension](https://github.com/Belikhun/corona-tracker-extension)**|3 ⭐|6.73 MB|JavaScript|12/06/2022 07:06:38 PM|0 ⚠  \|  2 🥢|
-
+<img src="ranking-banner.svg" width="100%" />
+<a href="https://github.com/Belikhun/themis-web-interface"><img src="ranking-item-1.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/ctms-plus"><img src="ranking-item-2.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/libraries"><img src="ranking-item-3.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/thi-trac-nghiem"><img src="ranking-item-4.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/corona-tracker-extension"><img src="ranking-item-5.svg" width="100%" /></a>
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 10/04/2023 06:42:38 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 10/04/2023 06:46:48 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 1.0974s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.9491s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>

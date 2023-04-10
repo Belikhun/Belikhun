@@ -203,21 +203,21 @@
 			--amount: 60px;
 			opacity: 0;
 			transform: translateY(var(--amount));
-			animation: fade-up 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s 1 forwards;
+			animation: fade-up 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s 1 forwards;
 		}
 
 		.fade-down {
 			--amount: -60px;
 			opacity: 0;
 			transform: translateY(var(--amount));
-			animation: fade-down 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s 1 forwards;
+			animation: fade-down 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s 1 forwards;
 		}
 
 		.fade-right {
 			--amount: 60px;
 			opacity: 0;
 			transform: translateX(var(--amount));
-			animation: fade-right 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s 1 forwards;
+			animation: fade-right 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s 1 forwards;
 		}
 
 		.small {
@@ -231,7 +231,7 @@
 		.fade-scale {
 			transform: scaleX(0);
 			transform-origin: 54px 0;
-			animation: fade-scale 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.3s 1 forwards;
+			animation: fade-scale 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s 1 forwards;
 		}
 
 		.d-05 {
