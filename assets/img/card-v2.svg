@@ -1,8 +1,10 @@
 <svg id="card-v2" xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
 	<style>
 		#background {
+			visibility: hidden;
 			transform: scaleY(0);
 			transform-origin: center;
+			fill: #fff;
 			animation: background 1s cubic-bezier(0.25, 1, 0.5, 1) 0s 1 forwards;
 		}
 
@@ -32,6 +34,7 @@
 			}
 
 			100% {
+				visibility: visible;
 				transform: scaleY(1);
 			}
 		}
@@ -221,7 +224,7 @@
 		}
 	</style>
 
-	<rect id="background" width="1200" height="400" fill="#fff" />
+	<rect id="background" width="1200" height="400" fill="transparent" />
 
 	<g class="fade-up d-3">
 		<path id="name"
