@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="82"
+	viewBox="0 0 1200 82">
+	<style>
+		#background {
+			visibility: hidden;
+			transform: scaleY(0);
+			transform-origin: center;
+			fill: transparent;
+			animation: background 0.5s cubic-bezier(0.25, 1, 0.5, 1) 1s 1 forwards;
+		}
+
+		#background.item-2 {
+			animation-delay: 1.1s;
+		}
+
+		#background.item-3 {
+			animation-delay: 1.2s;
+		}
+
+		#background.item-4 {
+			animation-delay: 1.3s;
+		}
+
+		#background.item-5 {
+			animation-delay: 1.4s;
+		}
+
+		@keyframes background {
+			0% {
+				fill: #fff;
+				transform: scaleY(0);
+			}
+
+			100% {
+				fill: #fff;
+				transform: scaleY(1);
+				visibility: visible;
+			}
+		}
+
+		#blobs {
+			opacity: 0;
+			animation: show 1s ease-out 1.8s 1 forwards;
+		}
+
+		#blobs > path {
+			--scale: 2;
+			fill: transparent;
+			stroke: #353535;
+			stroke-width: 0.3px;
+			transform: scale(var(--scale));
+			animation: blob-rotate 10s linear 0s infinite forwards;
+				
+		}
+
+		#blobs > path.speed-2 {
+			animation-duration: 15s;
+		}
+
+		#blobs > path.speed-3 {
+			animation-duration: 20s;
+		}
+
+		#blobs > path.speed-4 {
+			animation-duration: 25s;
+		}
+
+		#blobs > path.speed-5 {
+			animation-duration: 30s;
+		}
+
+		#blobs > path.rev {
+			animation-direction: reverse;
+		}
+
+		@keyframes blob-rotate {
+			0% {
+				transform: scale(var(--scale)) rotate(0deg);
+			}
+
+			100% {
+				transform: scale(var(--scale)) rotate(360deg);
+			}
+		}
+
+		@keyframes show {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.fade-up {
+			--amount: 60px;
+			opacity: 0;
+			transform: translateY(var(--amount));
+			animation: fade-up 0.4s cubic-bezier(0.25, 1, 0.5, 1) 1.3s 1 forwards;
+		}
+
+		.fade-down {
+			--amount: -60px;
+			opacity: 0;
+			transform: translateY(var(--amount));
+			animation: fade-down 0.4s cubic-bezier(0.25, 1, 0.5, 1) 1.3s 1 forwards;
+		}
+
+		.fade-right {
+			--amount: 60px;
+			opacity: 0;
+			transform: translateX(var(--amount));
+			animation: fade-right 0.4s cubic-bezier(0.25, 1, 0.5, 1) 1.3s 1 forwards;
+		}
+
+		.small {
+			--amount: 20px;
+		}
+
+		.fade-down.small {
+			--amount: -20px;
+		}
+
+		.fade-scale {
+			transform: scaleX(0);
+			transform-origin: 54px 0;
+			animation: fade-scale 0.4s cubic-bezier(0.25, 1, 0.5, 1) 1.3s 1 forwards;
+		}
+
+		.d-05 {
+			animation-delay: 1.35s;
+		}
+
+		.d-1 {
+			animation-delay: 1.4s;
+		}
+
+		.d-15 {
+			animation-delay: 1.45s;
+		}
+
+		.d-2 {
+			animation-delay: 1.5s;
+		}
+
+		.d-25 {
+			animation-delay: 1.55s;
+		}
+
+		.d-3 {
+			animation-delay: 1.6s;
+		}
+
+		.d-35 {
+			animation-delay: 1.65s;
+		}
+
+		.d-4 {
+			animation-delay: 1.7s;
+		}
+
+		.d-45 {
+			animation-delay: 1.75s;
+		}
+
+		.d-5 {
+			animation-delay: 1.8s;
+		}
+
+		.d-55 {
+			animation-delay: 1.85s;
+		}
+
+		.d-6 {
+			animation-delay: 1.9s;
+		}
+
+		.d-6 {
+			animation-delay: 1.95s;
+		}
+
+		.d-7 {
+			animation-delay: 2s;
+		}
+
+		@keyframes fade-up {
+			0% {
+				opacity: 0;
+				transform: translateY(var(--amount));
+			}
+
+			10% {
+				transform: translateY(var(--amount));
+			}
+
+			30% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fade-down {
+			0% {
+				opacity: 0;
+				transform: translateY(var(--amount));
+			}
+
+			10% {
+				transform: translateY(var(--amount));
+			}
+
+			30% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fade-right {
+			0% {
+				opacity: 0;
+				transform: translateX(var(--amount));
+			}
+
+			10% {
+				transform: translateX(var(--amount));
+			}
+
+			30% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		@keyframes fade-scale {
+			0% {
+				transform: scaleX(0);
+			}
+
+			100% {
+				transform: scaleX(1);
+			}
+		}
+	</style>
+	<defs>
+		<clipPath id="clip-ranking-item">
+			<rect width="1200" height="82" />
+		</clipPath>
+	</defs>
+	<g id="ranking-item" clip-path="url(#clip-ranking-item)">
+		<rect id="background" class="item-{{nth}}" width="1200" height="82" fill="#fff" />
+
+		<g class="fade-right">
+			<text id="_nth_" data-name="#{{nth}}" transform="translate(60 30)" font-size="20"
+				font-family="SegoeUI-Semibold, Segoe UI" font-weight="600" letter-spacing="0.082em">
+				<tspan x="0" y="0">#{{nth}}</tspan>
+			</text>
+		</g>
+
+		<g class="fade-up d-1">
+			<text id="_repo_" data-name="{{repo}}" transform="translate(58 59)" font-size="26"
+				font-family="SegoeUI-Bold, Segoe UI" font-weight="700" letter-spacing="0.082em">
+				<tspan x="0" y="0">{{repo}}</tspan>
+			</text>
+		</g>
+
+		<g class="fade-right d-3">
+			<text id="_stars_" data-name="{{stars}}" transform="translate(1119 35)" font-size="16"
+				font-family="SegoeUI-Semibold, Segoe UI" font-weight="600" letter-spacing="0.082em" text-anchor="end">
+				<tspan>{{stars}}</tspan>
+			</text>
+		</g>
+
+		<g class="fade-right d-35">
+			<path id="Path_39" data-name="Path 39"
+				d="M31.033.424a.754.754,0,0,0-1.356,0L28.165,3.537l-3.38.5a.753.753,0,0,0-.419,1.28l2.452,2.426-.579,3.429a.755.755,0,0,0,1.1.791l3.019-1.612,3.019,1.612a.755.755,0,0,0,1.1-.791L33.9,7.743l2.452-2.426a.753.753,0,0,0-.419-1.28l-3.382-.5Z"
+				transform="translate(1100.185 23.475)" />
+		</g>
+
+		<g class="fade-right d-4">
+			<text id="_lang_" data-name="{{lang}}" transform="translate(1119 60)" font-size="16"
+				font-family="SegoeUI-Semibold, Segoe UI" font-weight="600" letter-spacing="0.082em" text-anchor="end">
+				<tspan>{{lang}}</tspan>
+			</text>
+		</g>
+		
+		<g class="fade-right d-45">
+			<path id="Path_40" data-name="Path 40"
+				d="M7.653-.03A.622.622,0,0,0,6.884.4L4.4,9.1a.622.622,0,1,0,1.2.342L8.08.739A.622.622,0,0,0,7.653-.03ZM9.218,2.3a.622.622,0,0,0,0,.88l1.734,1.736L9.216,6.654a.622.622,0,0,0,.88.88l2.175-2.175a.622.622,0,0,0,0-.88L10.1,2.3a.622.622,0,0,0-.88,0Zm-5.956,0a.622.622,0,0,0-.88,0L.207,4.478a.622.622,0,0,0,0,.88L2.382,7.532a.622.622,0,0,0,.88-.88L1.526,4.918,3.262,3.182a.622.622,0,0,0,0-.88Z"
+				transform="translate(1124.303 50.61)" />
+		</g>
+	</g>
+</svg>

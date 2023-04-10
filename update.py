@@ -102,28 +102,37 @@ def repoLists():
 	sortedList = sorted(REPOS_DATA, key = lambda k: k["stargazers_count"], reverse = True)
 	counter = 0
 
-	html = """\n|#|Name|Stars|Size|Language|Last Update||\n|---|---|---:|---:|:---:|---|--|\n"""
+	html = []
 
 	for item in sortedList:
 		counter += 1
-		# 2021-09-17T07:44:33Z
-		updated = datetime.strptime(item['updated_at'], "%Y-%m-%dT%H:%M:%SZ")
-		cells = [
-			str(counter),
-			f"**[{item['name']}]({item['html_url']})**",
-			f"{item['stargazers_count']} ⭐",
-			f"{round(item['size'] / 1024, 2)} MB",
-			f"{item['language']}",
-			updated.strftime('%d/%m/%Y %I:%M:%S %p'),
-			f"{item['open_issues']} ⚠  \|  {item['forks_count']} 🥢"
-		]
 
-		html += f"""|{'|'.join(cells)}|\n"""
+		placeholders = {
+			"nth": counter,
+			"repo": item["name"],
+			"stars": item["stargazers_count"],
+			"lang": item["language"]
+		}
+		
+		log("INFO", f"Generating Ranking Item #{counter} Image")
+		processFile("assets/img/ranking-item.svg", placeholders, f"ranking-item-{counter}.svg")
+		html.append(f"<a href=\"{item['html_url']}\"><img src=\"ranking-item-{counter}.svg\" width=\"100%\" /></a>")
+
+		# updated = datetime.strptime(item['updated_at'], "%Y-%m-%dT%H:%M:%SZ")
+		# cells = [
+		# 	str(counter),
+		# 	f"**[{item['name']}]({item['html_url']})**",
+		# 	f"{item['stargazers_count']} ⭐",
+		# 	f"{round(item['size'] / 1024, 2)} MB",
+		# 	f"{item['language']}",
+		# 	updated.strftime('%d/%m/%Y %I:%M:%S %p'),
+		# 	f"{item['open_issues']} ⚠  \|  {item['forks_count']} 🥢"
+		# ]
 
 		if (counter >= 5):
 			break
 
-	return html
+	return "\n".join(html)
 
 def contributionsCount():
 	counter = 0
@@ -147,6 +156,23 @@ def runTime():
 
 ##? ============= MAIN CODE =============
 
+def processFile(input, placeholders, output):
+	logStatus(f"Opening {input}", 0)
+	with open(input, "r", encoding="utf8") as templateFile:
+		template = templateFile.read()
+		logStatus(f"Opening {input}", 1, True)
+
+		for key in placeholders:
+			logStatus(f"Processing Placeholder: {key}", 0)
+			value = placeholders[key]
+			template = template.replace("{{" + key + "}}", str(value))
+			logStatus(f"Processing Placeholder: {key}", 1, True)
+
+		logStatus(f"Writing {output}", 0)
+		with open(output, "w", encoding="utf8") as file:
+			file.write(template)
+			logStatus(f"Writing {output}", 1, True)
+
 PLACEHOLDERS = {
 	"STARS": starsCount(),
 	"REPOS": repoCount(),
@@ -157,25 +183,11 @@ PLACEHOLDERS = {
 	"COMMITS": contributionsCount()
 }
 
-def processFile(input, output):
-	logStatus(f"Opening {input}", 0)
-	with open(input, "r", encoding="utf8") as templateFile:
-		template = templateFile.read()
-		logStatus(f"Opening {input}", 1, True)
-
-		for key in PLACEHOLDERS:
-			logStatus(f"Processing Placeholder: {key}", 0)
-			value = PLACEHOLDERS[key]
-			template = template.replace("{{" + key + "}}", str(value))
-			logStatus(f"Processing Placeholder: {key}", 1, True)
-
-		logStatus(f"Writing {output}", 0)
-		with open(output, "w", encoding="utf8") as file:
-			file.write(template)
-			logStatus(f"Writing {output}", 1, True)
-
 log("INFO", "Generating README File")
-processFile("README_TEMPLATE.md", "README.md")
+processFile("README_TEMPLATE.md", PLACEHOLDERS, "README.md")
 
 log("INFO", "Generating Header Image")
-processFile("assets/img/card-v2.svg", "header.svg")
+processFile("assets/img/card-v2.svg", PLACEHOLDERS, "header.svg")
+
+log("INFO", "Generating Ranking Banner Image")
+processFile("assets/img/ranking-banner.svg", { "date": updateTime() }, "ranking-banner.svg")
