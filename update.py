@@ -178,4 +178,4 @@ log("INFO", "Generating README File")
 processFile("README_TEMPLATE.md", "README.md")
 
 log("INFO", "Generating Header Image")
-processFile("assets/img/card-v2.svg", "header-v2.svg")
+processFile("assets/img/card-v2.svg", "header.svg")
