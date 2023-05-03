@@ -1,8 +1,8 @@
 <img src="header.svg" width="100%" />
 
 <div>
-	<img src="https://img.shields.io/badge/65-STARS-8cecff?style=for-the-badge">
-	<img src="https://img.shields.io/badge/21-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/66-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/22-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/27-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
 </div>
@@ -19,7 +19,7 @@
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 03/05/2023 06:16:41 PM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 03/05/2023 06:24:53 PM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.8514s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.8779s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
