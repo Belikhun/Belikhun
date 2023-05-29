@@ -1,7 +1,7 @@
 <img src="header.svg" width="100%" />
 
 <div>
-	<img src="https://img.shields.io/badge/67-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/68-STARS-8cecff?style=for-the-badge">
 	<img src="https://img.shields.io/badge/23-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/29-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
@@ -14,12 +14,12 @@
 <a href="https://github.com/Belikhun/ctms-plus"><img src="ranking-item-2.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/libraries"><img src="ranking-item-3.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/thi-trac-nghiem"><img src="ranking-item-4.svg" width="100%" /></a>
-<a href="https://github.com/Belikhun/corona-tracker-extension"><img src="ranking-item-5.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/Belikhun"><img src="ranking-item-5.svg" width="100%" /></a>
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 29/05/2023 08:55:32 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 29/05/2023 09:34:07 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.8533s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.8308s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
