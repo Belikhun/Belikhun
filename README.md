@@ -1,8 +1,8 @@
 <img src="header.svg" width="100%" />
 
 <div>
-	<img src="https://img.shields.io/badge/64-STARS-8cecff?style=for-the-badge">
-	<img src="https://img.shields.io/badge/24-REPOS-f2e174?style=for-the-badge">
+	<img src="https://img.shields.io/badge/70-STARS-8cecff?style=for-the-badge">
+	<img src="https://img.shields.io/badge/26-REPOS-f2e174?style=for-the-badge">
 	<img src="https://img.shields.io/badge/32-FOLLOWERS-ff9eb6?style=for-the-badge">
 	<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&countColor=%23ff85c8"></a>
 </div>
@@ -14,12 +14,12 @@
 <a href="https://github.com/Belikhun/ctms-plus"><img src="ranking-item-2.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/libraries"><img src="ranking-item-3.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/thi-trac-nghiem"><img src="ranking-item-4.svg" width="100%" /></a>
-<a href="https://github.com/Belikhun/Belikhun"><img src="ranking-item-5.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/corona-tracker-extension"><img src="ranking-item-5.svg" width="100%" /></a>
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 21/01/2024 02:09:09 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 21/01/2024 02:17:32 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.8194s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 0.9672s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
