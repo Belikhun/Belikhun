@@ -14,12 +14,12 @@
 <a href="https://github.com/Belikhun/ctms-plus"><img src="ranking-item-2.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/libraries"><img src="ranking-item-3.svg" width="100%" /></a>
 <a href="https://github.com/Belikhun/thi-trac-nghiem"><img src="ranking-item-4.svg" width="100%" /></a>
-<a href="https://github.com/Belikhun/discord-chatgpt"><img src="ranking-item-5.svg" width="100%" /></a>
+<a href="https://github.com/Belikhun/corona-tracker-extension"><img src="ranking-item-5.svg" width="100%" /></a>
 
 <hr>
 
 <span style="clear: both">
-	<span align="left">⏰ <b>UPDATED:</b> 13/05/2025 01:58:35 AM (GMT+7)</span>
+	<span align="left">⏰ <b>UPDATED:</b> 13/05/2025 02:17:36 AM (GMT+7)</span>
 	<span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
-	<span align="right">⚗ <b>GENERATED:</b> 0.8902s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
+	<span align="right">⚗ <b>GENERATED:</b> 1.0923s /w <a href="https://github.com/Belikhun/Belikhun/actions" target="_blank">Github Actions</a></span>
 </span>
