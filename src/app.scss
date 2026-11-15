@@ -13,7 +13,9 @@
 	--line: #37304f;
 	--sky: linear-gradient(165deg, #1c2a5c, #3d2c70 58%, #6a3b78);
 	--band: #4a3d86;
-	--stage: #2a2038;
+	--stage: #3a2347;
+	--accent-text: #c9bbec;
+	--card-edge: #5a4f7c;
 	--wordmark: #d9d2f2;
 	color-scheme: dark;
 }
@@ -22,11 +24,13 @@
 	--bg: #f7f5fc;
 	--surface: #ffffff;
 	--ink: #2a2440;
-	--soft: #8d86a8;
+	--soft: #6f6890;
 	--line: #e2dcf1;
 	--sky: linear-gradient(165deg, #a9d4ec, #b9a7d9 58%, #ecbcd6);
 	--band: #8f7bd0;
 	--stage: #ecbcd6;
+	--accent-text: #6a55bf;
+	--card-edge: #e2dcf1;
 	--wordmark: #ffffff;
 
 	--blue: #a9d4ec;
@@ -42,6 +46,12 @@
 
 	--radius-card: 2rem;
 	--hairline: 0.1rem;
+
+	// one family of curves for everything that moves on its own: a long settle
+	// for things arriving, a quick snap for things answering the pointer
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-snap: cubic-bezier(0.2, 0, 0, 1);
+	--fast: 0.18s;
 	color-scheme: light;
 }
 

@@ -108,6 +108,13 @@
 		margin-top: 9rem;
 		transform: rotateX(56deg) rotateZ(-38deg);
 		transform-style: preserve-3d;
+
+		@include below($bp-medium) {
+			width: min(40%, 12rem);
+			margin-top: 13rem;
+			margin-bottom: 2rem;
+			font-size: 0.75rem;
+		}
 	}
 
 	.plate {
@@ -124,9 +131,15 @@
 		transform: translateZ(calc(var(--level) * 4.5rem + var(--lift)));
 		box-shadow: 0 0 0 var(--hairline) rgba(246, 93, 111, 0.35), -0.5rem 0.75rem 1.5rem rgba(140, 30, 50, 0.28);
 
+		@include below($bp-medium) {
+			padding: 0.5rem 0.75rem;
+			white-space: nowrap;
+			transform: translateZ(calc(var(--level) * 3rem + var(--lift)));
+		}
+
 		strong {
 			font-family: var(--display);
-			font-size: 1.25rem;
+			font-size: 1.25em;
 			font-weight: 800;
 			line-height: 1;
 		}
@@ -134,6 +147,10 @@
 		span {
 			@include label;
 			color: $pink;
+
+			@include below($bp-medium) {
+				display: none;
+			}
 		}
 
 		&:last-child {

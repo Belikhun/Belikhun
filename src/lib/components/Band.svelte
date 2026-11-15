@@ -45,6 +45,11 @@
 		height: 100vh;
 		min-height: 32rem;
 		overflow: hidden;
+
+		@include below($bp-medium) {
+			height: 55vh;
+			min-height: 22rem;
+		}
 	}
 
 	.band,

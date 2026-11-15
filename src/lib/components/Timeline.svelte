@@ -158,12 +158,14 @@
 		@include stage {
 			@include display;
 			position: absolute;
-			left: 3vw;
+			// the gutter, less the glyph's side bearing: the ink sits on the same edge as the heading
+			left: calc(clamp(1rem, 5vw, 5rem) - 0.045em);
 			bottom: 3rem;
 			display: block;
-			font-size: clamp(12rem, 26vw, 28rem);
-			color: transparent;
-			-webkit-text-stroke: 0.125rem var(--lav);
+			font-size: clamp(10rem, 21vw, 23rem);
+			color: var(--bg);
+			-webkit-text-stroke: 0.25rem var(--lav);
+			paint-order: stroke fill;
 			animation: roll 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 		}
 	}
@@ -190,7 +192,7 @@
 			gap: 3rem;
 			width: max-content;
 			margin: 0;
-			padding-inline: 14vw 30vw;
+			padding-inline: 14vw;
 			border: none;
 		}
 	}
@@ -265,9 +267,31 @@
 		}
 	}
 
+	// stacked, each stop hangs off the line by a dot and leads with its year in display type
 	.when {
-		@include label;
-		color: var(--purple);
+		@include display;
+		color: var(--accent-text);
+		font-size: 1.75rem;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 1.75rem;
+			left: -2.125rem;
+			width: 1rem;
+			height: 1rem;
+			border: 0.25rem solid var(--bg);
+			border-radius: 50%;
+			background: var(--purple);
+		}
+
+		@include stage {
+			@include label;
+
+			&::before {
+				display: none;
+			}
+		}
 	}
 
 	.ruler {

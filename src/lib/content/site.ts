@@ -46,6 +46,12 @@ export interface Stop {
 /** Which visual a work card shows beside its text. */
 export type WorkKind = 'luna' | 'harbor' | 'vloom' | 'clover' | 'arena' | 'blink' | 'home' | 'themis' | 'ctms';
 
+/** A place a work card points to: its source, or the running thing itself. */
+export interface WorkLink {
+	text: string;
+	href: string;
+}
+
 /** One card in the selected work stack. */
 export interface Work {
 	kind: WorkKind;
@@ -54,7 +60,9 @@ export interface Work {
 	years: string;
 	body: string;
 	role: string;
-	link?: string;
+	links?: WorkLink[];
+	/** A shorter name for tight places, where the full one would be cut */
+	short?: string;
 }
 
 /** One row of the "everything else" list. */
@@ -81,6 +89,22 @@ export function picture(path: keyof typeof media, alt: string): Picture {
 export const EMAIL = 'belikhun02@gmail.com';
 
 export const GITHUB = 'https://github.com/Belikhun';
+
+/** The public PGP key, as served from `static/`, and the long id it is known by. */
+export const GPG_KEY_FILE = '/belikhun.asc';
+export const GPG_KEY_ID = '456F 3B28 3B50 78A9';
+
+/** A video on my YouTube channel: its id there, and the name of its compressed copy under static/video. */
+export interface Reel {
+	id: string;
+	file: string;
+	title: string;
+}
+
+export const REELS: Reel[] = [
+	{ id: 'UYmp129xLUo', file: 'manhunt', title: 'luna event · manhunt 2026 reveal' },
+	{ id: 'CNmbDobFEv0', file: 'spring-cleanup', title: 'luna event · spring cleanup 2026 reveal' }
+];
 
 export const MARQUEE: Phrase[] = [
 	{ text: 'fullstack web engineer', emoji: { code: '1f4bb', char: '💻' } },
@@ -172,7 +196,11 @@ export const WORKS: Work[] = [
 		years: '2026',
 		body: 'a Minecraft network for friends. i wrote the console that runs its servers and the 72 plugins they share.',
 		role: 'sole author · console + plugins',
-		link: 'https://github.com/Belikhun/luna-console'
+		links: [
+			{ text: 'public page', href: 'https://mc.belikhun.dev' },
+			{ text: 'console', href: 'https://console.mc.belikhun.dev' },
+			{ text: 'source', href: 'https://github.com/Belikhun/luna-console' }
+		]
 	},
 	{
 		kind: 'harbor',
@@ -180,7 +208,8 @@ export const WORKS: Work[] = [
 		context: 'personal',
 		years: '2026',
 		body: 'my own hosting platform: codespaces, deploys, domains, a firewall and an ai agent called Mèo Béo. this site runs on it.',
-		role: 'sole author'
+		role: 'sole author',
+		links: [{ text: 'console', href: 'https://harbor.belikhun.dev' }]
 	},
 	{
 		kind: 'vloom',
@@ -213,7 +242,7 @@ export const WORKS: Work[] = [
 		years: '2022 → 2023',
 		body: 'my own PHP framework with no dependencies: routing, database, caching and sessions.',
 		role: 'sole author',
-		link: 'https://github.com/Belikhun/blink'
+		links: [{ text: 'source', href: 'https://github.com/Belikhun/blink' }]
 	},
 	{
 		kind: 'home',
@@ -222,16 +251,21 @@ export const WORKS: Work[] = [
 		years: '2024',
 		body: 'ESP32 devices on MicroPython, a Bun server that runs them, a phone app, and an assistant called Bụt that works the house when you tell it how you feel.',
 		role: 'sole author',
-		link: 'https://github.com/Belikhun/iot-smart-server'
+		links: [
+			{ text: 'server', href: 'https://github.com/Belikhun/iot-smart-server' },
+			{ text: 'device', href: 'https://github.com/Belikhun/iot-smart-device' },
+			{ text: 'app', href: 'https://github.com/Belikhun/iot-smart-app' }
+		]
 	},
 	{
 		kind: 'themis',
 		name: 'Themis Web Interface',
+		short: 'Themis',
 		context: 'personal',
 		years: '2018 → 2023',
 		body: 'contest grading on the web: submit code, watch the ranking move. 36 stars and a provincial prize.',
 		role: 'author · 994 commits',
-		link: 'https://github.com/Belikhun/themis-web-interface'
+		links: [{ text: 'source', href: 'https://github.com/Belikhun/themis-web-interface' }]
 	},
 	{
 		kind: 'ctms',
@@ -240,7 +274,7 @@ export const WORKS: Work[] = [
 		years: '2021 → 2023',
 		body: 'an unofficial, third-party app for my university\'s student portal. not affiliated with the university.',
 		role: 'founder · lead developer',
-		link: 'https://github.com/Belikhun/ctms-plus'
+		links: [{ text: 'source', href: 'https://github.com/Belikhun/ctms-plus' }]
 	}
 ];
 

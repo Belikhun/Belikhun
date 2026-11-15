@@ -145,6 +145,17 @@
 		grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
 		align-items: center;
 		gap: 5%;
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+			align-content: center;
+
+			h4,
+			.field,
+			.buttons {
+				display: none;
+			}
+		}
 		height: 100%;
 		min-height: 20rem;
 		padding: 6%;
@@ -175,6 +186,11 @@
 		display: grid;
 		min-width: 0;
 		font-size: clamp(0.5rem, 2.1cqw, 1.25rem);
+
+		// on a phone only the navigation and the week are kept, one above the other, at a size that reads
+		@include below($bp-narrow) {
+			font-size: 4cqw;
+		}
 		line-height: 1.3;
 	}
 

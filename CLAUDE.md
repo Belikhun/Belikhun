@@ -9,15 +9,24 @@ It is built to a static `build/` folder and hosted on Harbor.
 - `src/lib/content/site.ts`: every word on the page. `media.json` beside it is generated.
 - `src/lib/components/`: one component per scene, in page order: Loader, Nav, Hero, About, Timeline,
   Band, Work, Rows, OffHours, Contact. `work/` holds the visual of each selected-work card.
+- `static/belikhun.asc`: Belikhun's public PGP key. `KeyRain.svelte` streams its characters down
+  the ending's card, and the footer links to the file.
 - `static/counters/`: the pp, unstable rate, rank, user card and dan counters copied unchanged from
   github.com/Belikhun/osu-counters (commit 1968383) and shown in off-hours through iframes. Only
   `common/socket.js` is ours: it replaces tosu's socket helper with a made-up play and passes the
   site's colours as the counters' settings. `data/` holds saved copies of the osu! profile and
   mania-tracker answers the user card and dan counter would fetch. Update by copying the files again, never by editing them.
+- Off-hours also plays the two videos of youtube.com/@Belikhun (`REELS` in `site.ts`) muted, on a
+  loop and without controls, from compressed copies in `static/video/` (720p, 30 fps, no sound: AV1
+  first, H.264 as the fallback, a still frame as the poster). They mount only once the section is
+  reached and only where motion is allowed. Re-encode from the original exports with ffmpeg:
+  `-an -vf scale=-2:720,fps=30`, then `libsvtav1 -preset 5 -crf 38` and `libx264 -preset slow -crf 27`.
 - `static/emoji/`: Noto Animated Emoji (Google, CC BY 4.0) as Lottie files, played by `Emoji.svelte`
   with lottie-web's light build. Belikhun asked for no credit line on the page; the credit the licence
   asks for is in `static/emoji/LICENSE.txt`, which ships with the site.
-- `src/lib/motion/`: GSAP setup, the media queries the scenes share, smooth scrolling.
+- `src/lib/motion/`: GSAP setup, the media queries the scenes share, smooth scrolling, and the
+  `reveal` action that wipes an element in when it scrolls into view. CSS transitions use the
+  `--ease-out`, `--ease-snap` and `--fast` tokens from `app.scss`, never one-off curves.
 - `src/lib/avatar/rig.ts`: the avatar's Live2D-style rig, a WebGL mesh per layer bent by a few
   parameters. `Avatar.svelte` animates it; the flat picture stays where motion is reduced.
 - `src/app.scss`: design tokens (day and night). `src/lib/styles/_shared.scss`: mixins, injected

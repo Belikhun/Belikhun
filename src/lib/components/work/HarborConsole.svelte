@@ -3,8 +3,10 @@
      prohibited without written permission. See LICENSE at the repository root. -->
 
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import { picture } from '#lib/content/site.ts';
-	import { gsap, type Span } from '#lib/motion/gsap.ts';
+	import { gsap, STACKED_MOTION, type Span } from '#lib/motion/gsap.ts';
 
 	/** Real captures of the harbor console, in the order they are dealt. */
 	const SCREENS = [
@@ -47,6 +49,21 @@
 				.to(tabs[index - 1]!, { '--lit': 0, duration: 0.02 }, start);
 		});
 	}
+
+	onMount(() => {
+		const media = gsap.matchMedia();
+
+		// stacked, there is no scrubbed deck to deal the screens: the desk turns with the page instead
+		media.add(STACKED_MOTION, () => {
+			const scope = gsap.utils.selector(root!);
+
+			gsap.timeline({ scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: true } })
+				.fromTo(scope('.desk'), { rotationY: -16, rotationX: 10 }, { rotationY: 4, rotationX: 0, ease: 'none' }, 0)
+				.fromTo(scope('.screen'), { y: (index: number) => `${index * 1.5}rem` }, { y: (index: number) => `${index * -1.5}rem`, ease: 'none' }, 0);
+		});
+
+		return () => media.revert();
+	});
 </script>
 
 <div class="harbor" bind:this={root}>
@@ -77,6 +94,7 @@
 	.harbor {
 		position: relative;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: auto 1fr auto;
 		gap: 1.25rem;
 		height: 100%;
@@ -91,8 +109,15 @@
 
 	.tabs {
 		display: flex;
-		flex-wrap: wrap;
 		gap: 0.5rem;
+		overflow: hidden;
+		white-space: nowrap;
+
+		@include below($bp-narrow) {
+			.tab:nth-child(n + 3) {
+				display: none;
+			}
+		}
 	}
 
 	.tab {
@@ -138,6 +163,14 @@
 	.caption {
 		@include label;
 		position: relative;
+		justify-self: start;
+		padding: 0.25rem 0.75rem;
+		border-radius: 1rem;
+		background: rgba(11, 18, 32, 0.82);
+		max-width: 100%;
 		color: $muted;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 </style>

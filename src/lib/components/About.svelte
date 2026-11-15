@@ -70,8 +70,8 @@
 					timeline
 						.to(numerals, { yPercent: -110, duration: 0.08, ease: 'power2.in' }, index + SWAP_AT - 0.08)
 						.fromTo(numerals, { yPercent: 110 }, { yPercent: 0, duration: 0.1, ease: 'power3.out', immediateRender: false }, index + SWAP_AT)
-						.to(chapter, { autoAlpha: 0, y: '-1.5rem', duration: 0.1, ease: 'power1.in' }, index + SWAP_AT)
-						.fromTo(next, { autoAlpha: 0, y: '1.5rem' }, { autoAlpha: 1, y: 0, duration: 0.1, ease: 'power1.out' }, index + SWAP_AT + 0.04);
+						.to(chapter, { autoAlpha: 0, y: '-1.5rem', duration: 0.06, ease: 'power1.in' }, index + SWAP_AT - 0.06)
+						.fromTo(next, { autoAlpha: 0, y: '1.5rem' }, { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power1.out' }, index + SWAP_AT);
 				});
 
 				timeline.to({}, { duration: 0.15 });
@@ -90,7 +90,7 @@
 		</div>
 
 		<header class="head">
-			<h2>who is belikhun?</h2>
+			<h2>who is me?</h2>
 			<span class="count">{pad(active + 1)} / {pad(CHAPTERS.length)}</span>
 		</header>
 
@@ -104,7 +104,10 @@
 			{#each CHAPTERS as chapter, index (chapter.label)}
 				<article class="chapter">
 					<span class="step">{pad(index + 1)} · {chapter.label}</span>
-					<h3>{chapter.title} <Emoji code={chapter.emoji.code} char={chapter.emoji.char} /></h3>
+					<h3>
+						{chapter.title.split(' ').slice(0, -1).join(' ')}
+						<span class="keep">{chapter.title.split(' ').at(-1)}&nbsp;<Emoji code={chapter.emoji.code} char={chapter.emoji.char} /></span>
+					</h3>
 					<p class="body">{chapter.body}</p>
 					<ul class="tags">
 						{#each chapter.tags as tag (tag)}
@@ -135,7 +138,7 @@
 		margin-inline: auto;
 
 		@include stage {
-			grid-template-columns: 26% 20% 1fr;
+			grid-template-columns: 30% max-content 1fr;
 			grid-template-rows: auto auto;
 			column-gap: 3rem;
 			row-gap: 3rem;
@@ -163,9 +166,13 @@
 	.numeral {
 		@include display;
 		display: block;
+		// pulled left by the glyph's side bearing, so the ink and not the box sits on the gutter
+		margin-left: -0.045em;
 		font-size: 84cqw;
-		color: transparent;
-		-webkit-text-stroke: 0.125rem var(--lav);
+		// filled with the page and painted over the stroke, which hides the font's inner contours
+		color: var(--bg);
+		-webkit-text-stroke: 0.25rem var(--lav);
+		paint-order: stroke fill;
 
 		&.read {
 			position: absolute;
@@ -173,6 +180,7 @@
 			left: 0;
 			background: linear-gradient(200deg, var(--blue), var(--lav) 50%, var(--pink));
 			background-clip: text;
+			color: transparent;
 			-webkit-text-stroke: 0;
 			clip-path: inset(calc((1 - var(--read)) * 100%) 0 0 0);
 		}
@@ -211,6 +219,8 @@
 			display: grid;
 			align-content: start;
 			gap: 1.5rem;
+			font-size: 0.875rem;
+			white-space: nowrap;
 			padding-left: 1.5rem;
 			border-left: 0.125rem solid var(--line);
 		}
@@ -218,7 +228,7 @@
 		li {
 			position: relative;
 			color: var(--soft);
-			opacity: 0.5;
+			opacity: 0.75;
 			transition: opacity 0.3s, color 0.3s;
 
 			&::before {
@@ -258,7 +268,7 @@
 	.chapter {
 		display: grid;
 		gap: 1rem;
-		max-width: 40rem;
+		max-width: 46rem;
 
 		@include stage {
 			// every chapter in the same cell, so they can cross-fade in place
@@ -267,15 +277,20 @@
 
 		h3 {
 			@include display;
-			font-size: 2rem;
+			font-size: clamp(2rem, 3vw, 3rem);
 			letter-spacing: -0.01em;
 			line-height: 1.1;
 		}
 	}
 
+	// the last word and its emoji break onto a new line together, never apart
+	.keep {
+		white-space: nowrap;
+	}
+
 	.step {
 		@include label;
-		color: var(--purple);
+		color: var(--accent-text);
 
 		@include stage {
 			display: none;
@@ -283,7 +298,7 @@
 	}
 
 	.body {
-		font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+		font-size: clamp(1.25rem, 2vw, 2rem);
 		line-height: 1.55;
 	}
 

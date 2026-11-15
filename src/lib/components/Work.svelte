@@ -7,6 +7,7 @@
 
 	import { picture, WORKS, type WorkKind } from '#lib/content/site.ts';
 	import { DESKTOP_MOTION, gsap, type Span } from '#lib/motion/gsap.ts';
+	import { scrollToPosition } from '#lib/motion/stage.ts';
 
 	import ArenaGame from './work/ArenaGame.svelte';
 	import BlinkRequest from './work/BlinkRequest.svelte';
@@ -25,6 +26,9 @@
 	/** How much scroll each card gets, as a share of the viewport height. */
 	const SCROLL_PER_CARD = 66;
 
+	/** Where in a card's unit of scroll the next card starts to slide over it; before that the finished visual rests. */
+	const HANDOVER_AT = 0.65;
+
 	/** The mark shown beside a card's name; `round` clips a square picture to a disc. */
 	const ICONS: Partial<Record<WorkKind, { src: string; round?: boolean }>> = {
 		luna: { src: picture('luna/icon.webp', '').src, round: true },
@@ -37,6 +41,8 @@
 
 	let root = $state<HTMLElement>();
 	let visuals = $state<(Visual | undefined)[]>([]);
+	let active = $state(0);
+	let jump = $state<(index: number) => void>();
 
 	function pad(value: number): string {
 		return String(value).padStart(2, '0');
@@ -49,7 +55,27 @@
 			media.add(DESKTOP_MOTION, () => {
 				const cards = gsap.utils.toArray<HTMLElement>('.card');
 
+				const length = cards.length - 0.25;
+				const fills = gsap.utils.toArray<HTMLElement>('.segment i');
+
+				// each card's share of the timeline: from halfway through its slide in to halfway through the next one's
+				const shares = cards.map((_, index) => ({
+					from: Math.max(index - 0.175, 0),
+					to: index === cards.length - 1 ? length : index + 0.825
+				}));
+
 				const timeline = gsap.timeline({
+					onUpdate: () => {
+						const time = timeline.time();
+
+						active = Math.min(cards.length - 1, Math.floor(time + 0.175));
+
+						fills.forEach((fill, index) => {
+							const share = shares[index]!;
+
+							gsap.set(fill, { scaleX: gsap.utils.clamp(0, 1, (time - share.from) / (share.to - share.from)) });
+						});
+					},
 					scrollTrigger: {
 						trigger: root,
 						pin: '.pin',
@@ -59,10 +85,8 @@
 					}
 				});
 
-				const length = cards.length - 0.25;
-
-				// Each card owns one unit: it shows its visual over the first half,
-				// and the next card slides over it during the second. It is on screen
+				// Each card owns one unit: it shows its visual over the first half, rests
+				// finished for a moment, and the next card slides over it at the end. It is on screen
 				// for longer than that, from sliding in until the next card has covered
 				// it, and its visual keeps something moving for that whole stretch.
 				cards.forEach((card, index) => {
@@ -75,12 +99,24 @@
 					}
 
 					timeline
-						.fromTo(next, { yPercent: 115 }, { yPercent: 0, duration: 0.5, ease: 'power2.out' }, index + 0.5)
-						.to(card, { scale: 0.94, yPercent: -3, duration: 0.5, ease: 'none' }, index + 0.5)
+						.fromTo(next, { yPercent: 115 }, { yPercent: 0, duration: 1 - HANDOVER_AT, ease: 'power2.out' }, index + HANDOVER_AT)
+						.to(card, { scale: 0.94, yPercent: -3, duration: 1 - HANDOVER_AT, ease: 'none' }, index + HANDOVER_AT)
+						// the covered card fades towards the stage behind it, so it takes the stage's colour in either theme
+						.fromTo(card, { opacity: 1 }, { opacity: 0.55, duration: 1 - HANDOVER_AT, ease: 'none', immediateRender: false }, index + HANDOVER_AT)
 						.set(card, { autoAlpha: 0 }, index + 1.5);
 				});
 
 				timeline.to({}, { duration: 0.25 }, length - 0.25);
+
+				jump = (index) => {
+					const trigger = timeline.scrollTrigger!;
+
+					scrollToPosition(trigger.start + ((index + 0.3) / timeline.duration()) * (trigger.end - trigger.start));
+				};
+
+				return () => {
+					jump = undefined;
+				};
 			});
 		}, root);
 
@@ -102,8 +138,12 @@
 					</h3>
 					<p class="body">{work.body}</p>
 					<p class="role">{work.role}</p>
-					{#if work.link}
-						<a class="link" href={work.link} target="_blank" rel="noreferrer">source ↗</a>
+					{#if work.links}
+						<p class="links">
+							{#each work.links as link (link.href)}
+								<a class="link" href={link.href} target="_blank" rel="noreferrer">{link.text} ↗</a>
+							{/each}
+						</p>
 					{/if}
 				</div>
 
@@ -130,12 +170,24 @@
 				</div>
 			</article>
 		{/each}
+
+		<nav class="rail" aria-label="selected work">
+			{#each WORKS as work, index (work.name)}
+				<button class="segment" class:active={index === active} type="button" onclick={() => jump?.(index)}>
+					<span class="bar"><i></i></span>
+					<span class="name">{pad(index + 1)} <span class="title">{work.short ?? work.name}</span></span>
+				</button>
+			{/each}
+		</nav>
 	</div>
 </section>
 
 <style lang="scss">
+	// the stage ends on rounded corners, so the next scene does not meet it on a flat seam
 	.work {
+		border-radius: 0 0 2.5rem 2.5rem;
 		background: var(--stage);
+		overflow: clip;
 	}
 
 	.pin {
@@ -162,12 +214,86 @@
 
 		@include stage {
 			position: absolute;
-			inset: 5.5rem clamp(1rem, 5vw, 5rem) 2.5rem;
+			inset: 5.5rem clamp(1rem, 5vw, 5rem) 4.25rem;
 			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 			gap: 3rem;
 			padding: 3rem;
 			transform-origin: 50% 0%;
-			box-shadow: 0 -1rem 3rem rgba(42, 36, 64, 0.12);
+			box-shadow: 0 0 0 var(--hairline) var(--card-edge), 0 -1rem 3rem rgba(42, 36, 64, 0.16);
+		}
+	}
+
+	// one segment per card along the bottom of the deck: it fills as the card is read, and a click goes to it
+	.rail {
+		display: none;
+
+		@include stage {
+			// a strip of the stage itself, so cards sliding in pass behind it
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 1;
+			display: flex;
+			gap: 0.75rem;
+			padding: 2.5rem clamp(1rem, 5vw, 5rem) 1rem;
+			background: linear-gradient(transparent, var(--stage) 1.75rem);
+			pointer-events: none;
+		}
+	}
+
+	.segment {
+		@include bare-button;
+		display: grid;
+		flex: 1 1 0;
+		gap: 0.375rem;
+		min-width: 0;
+		color: var(--ink);
+		text-align: left;
+		pointer-events: auto;
+		opacity: 0.45;
+		transition: flex-grow 0.6s var(--ease-out), opacity var(--fast) var(--ease-snap);
+
+		&:hover {
+			opacity: 0.8;
+		}
+
+		&.active {
+			flex-grow: 3;
+			opacity: 1;
+		}
+	}
+
+	.bar {
+		display: block;
+		height: 0.25rem;
+		border-radius: 1rem;
+		background: color-mix(in srgb, var(--ink) 18%, transparent);
+		overflow: hidden;
+
+		i {
+			display: block;
+			height: 100%;
+			border-radius: inherit;
+			background: var(--ink);
+			transform: scaleX(0);
+			transform-origin: 0 50%;
+		}
+	}
+
+	.name {
+		@include label;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	// where the segments are too narrow for names, only the card being read keeps its name
+	.title {
+		@media (max-width: 100rem) {
+			.segment:not(.active) & {
+				display: none;
+			}
 		}
 	}
 
@@ -177,6 +303,18 @@
 		justify-items: start;
 		gap: 1.25rem;
 		min-width: 0;
+
+		// the same frame on every card: the meta line along the top, the links along the
+		// bottom, and the title block centred in what is left between them
+		@include stage {
+			grid-template-rows: auto 1fr auto auto 1fr;
+			align-content: stretch;
+
+			h3,
+			.links {
+				align-self: end;
+			}
+		}
 	}
 
 	.meta {
@@ -187,7 +325,7 @@
 	h3 {
 		@include display;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		gap: 1rem;
 		font-size: clamp(3rem, 6vw, 6rem);
 
@@ -198,8 +336,8 @@
 
 	.icon {
 		flex: none;
-		width: 1em;
-		height: 1em;
+		width: 0.9em;
+		height: 0.9em;
 		object-fit: contain;
 
 		&.round {
@@ -215,16 +353,29 @@
 
 	.role {
 		@include label;
-		color: var(--purple);
+		color: var(--accent-text);
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
 	}
 
 	.link {
-		padding: 0.5rem 1.25rem;
+		padding: 0.5rem 1rem;
+		white-space: nowrap;
 		border-radius: 2rem;
 		background: var(--ink);
 		color: var(--bg);
 		font-size: 0.875rem;
 		font-weight: 500;
+		transition: background-color var(--fast) var(--ease-snap), translate var(--fast) var(--ease-snap);
+
+		&:hover {
+			background: var(--purple);
+			translate: 0 -0.125rem;
+		}
 	}
 
 	.visual {

@@ -16,8 +16,8 @@
 	const SHARDS = [
 		{ left: 12, top: 30, size: 2.5, turn: 24, depth: 2.4, tone: 'pink' },
 		{ left: 22, top: 66, size: 1.5, turn: -18, depth: 1.2, tone: 'blue' },
-		{ left: 31, top: 16, size: 1.25, turn: 40, depth: 0.8, tone: 'paper' },
-		{ left: 68, top: 22, size: 2, turn: -30, depth: 1.8, tone: 'paper' },
+		{ left: 31, top: 72, size: 1.25, turn: 40, depth: 0.8, tone: 'purple' },
+		{ left: 70, top: 70, size: 2, turn: -30, depth: 1.8, tone: 'blue' },
 		{ left: 79, top: 58, size: 3, turn: 14, depth: 2.8, tone: 'pink' },
 		{ left: 88, top: 28, size: 1.5, turn: 60, depth: 1.4, tone: 'purple' },
 		{ left: 60, top: 78, size: 1.25, turn: -50, depth: 1, tone: 'blue' }
@@ -30,6 +30,9 @@
 
 	/** Seconds for one copy to pass. */
 	const MARQUEE_PACE = 14;
+
+	/** The furthest the marquee leans while the page is scrolled fast, in degrees. */
+	const MARQUEE_LEAN = 14;
 
 	let root = $state<HTMLElement>();
 
@@ -75,6 +78,7 @@
 					ease: 'none',
 					repeat: -1
 				});
+				const lean = gsap.quickTo('.track', 'skewX', { duration: 0.5, ease: 'power3.out' });
 				let settle: gsap.core.Tween | undefined;
 
 				ScrollTrigger.create({
@@ -83,7 +87,10 @@
 					onUpdate: (self) => {
 						settle?.kill();
 						loop.timeScale(1 + Math.min(Math.abs(self.getVelocity()) / 400, 6));
-						settle = gsap.to(loop, { timeScale: 1, duration: 1.2, ease: 'power2.out' });
+						settle = gsap.to(loop, { timeScale: 1, duration: 1.2, ease: 'power2.out', onStart: () => lean(0) });
+
+						// the words lean into the scroll, like a flag in the wind of it
+						lean(gsap.utils.clamp(-MARQUEE_LEAN, MARQUEE_LEAN, self.getVelocity() / -250));
 					}
 				});
 			});
@@ -150,14 +157,12 @@
 	<div class="marquee" aria-label={MARQUEE.map((phrase) => phrase.text).join(', ')}>
 		<div class="track" aria-hidden="true">
 			{#each MARQUEE_COPIES as copy (copy)}
-				{#each MARQUEE as phrase (phrase.text)}
-					<span>
-						{phrase.text}
-						{#if phrase.emoji}
-							<Emoji code={phrase.emoji.code} char={phrase.emoji.char} />
-						{/if}
-					</span>
-					<span class="clip">✕</span>
+				{#each MARQUEE as phrase, index (phrase.text)}
+					<span class="phrase" class:outlined={index % 2 === 1}>{phrase.text}</span>
+					{#if phrase.emoji}
+						<span class="badge" class:blue={index % 2 === 1}><Emoji code={phrase.emoji.code} char={phrase.emoji.char} /></span>
+					{/if}
+					<svg class="star" viewBox="0 0 100 100"><path d="M50 0C54 34 66 46 100 50C66 54 54 66 50 100C46 66 34 54 0 50C34 46 46 34 50 0Z" /></svg>
 				{/each}
 			{/each}
 		</div>
@@ -270,25 +275,68 @@
 	.marquee {
 		flex: none;
 		margin: 0.75rem -0.75rem 0;
-		padding: 1rem 0;
-		background: var(--ink);
-		color: var(--bg);
+		padding: 0.75rem 0;
+		background: var(--night);
+		color: var(--paper);
 		overflow: hidden;
 	}
 
 	.track {
 		display: flex;
+		align-items: center;
 		width: max-content;
 		white-space: nowrap;
-		font-size: 1.25rem;
 
 		// a margin, not a gap: both copies must be exactly the same width for the loop to be seamless
-		span {
-			margin-right: 2rem;
+		> * {
+			flex: none;
+			margin-right: clamp(1rem, 2vw, 2rem);
 		}
+	}
 
-		.clip {
-			color: var(--lav);
+	// the phrases take turns: one solid, the next drawn in outline
+	.phrase {
+		@include display;
+		font-size: clamp(2.25rem, 4.6vw, 4.5rem);
+		line-height: 1.2;
+
+		&.outlined {
+			// filled with the band's own colour and painted over the stroke: the font's
+			// overlapping contours would otherwise show as lines inside the letters
+			color: var(--night);
+			-webkit-text-stroke: 0.2rem var(--lav);
+			paint-order: stroke fill;
+		}
+	}
+
+	.badge {
+		display: grid;
+		place-items: center;
+		padding: 0.25rem 1.25rem;
+		border-radius: 3rem;
+		background: var(--pink);
+		font-size: clamp(1.5rem, 3vw, 3rem);
+		line-height: 1;
+		rotate: -6deg;
+
+		&.blue {
+			background: var(--blue);
+			rotate: 6deg;
+		}
+	}
+
+	.star {
+		width: clamp(1.25rem, 2.4vw, 2.5rem);
+		fill: var(--lav);
+
+		@include motion {
+			animation: turn 6s linear infinite;
+		}
+	}
+
+	@keyframes turn {
+		to {
+			rotate: 360deg;
 		}
 	}
 </style>

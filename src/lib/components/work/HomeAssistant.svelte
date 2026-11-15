@@ -262,11 +262,22 @@
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 		align-items: center;
 		gap: 5%;
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+
+			padding-block: 8%;
+
+			.board {
+				display: none;
+			}
+		}
 		height: 100%;
 		min-height: 20rem;
 		padding: 6%;
 		border-radius: 1.5rem;
-		background: var(--pink);
+		// a deeper pink than the stage behind the card, so the panel reads as a panel
+		background: linear-gradient(160deg, #f4cfe2, #e3a2c6);
 		color: $text;
 		overflow: hidden;
 		container-type: inline-size;
@@ -276,6 +287,11 @@
 	.devices,
 	.chat {
 		font-size: clamp(0.5rem, 2.1cqw, 1.25rem);
+
+		// on a phone the two halves stack, at a size that reads
+		@include below($bp-narrow) {
+			font-size: 4cqw;
+		}
 		line-height: 1.35;
 	}
 
@@ -602,6 +618,8 @@
 	}
 
 	.message {
+		min-width: 0;
+		overflow-wrap: anywhere;
 		width: fit-content;
 		max-width: 92%;
 		padding: 0.6em 1em;

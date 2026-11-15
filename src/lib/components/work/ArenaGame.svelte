@@ -123,6 +123,7 @@
 	.arena {
 		position: relative;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		align-content: center;
 		gap: 1rem;
 		height: 100%;
@@ -185,6 +186,10 @@
 		gap: 0.5rem;
 		padding: 1.25rem 5.5rem 1.25rem 1.5rem;
 		border-radius: 1rem;
+
+		@include below($bp-narrow) {
+			padding: 1rem 3.75rem 1rem 1rem;
+		}
 		background: #ffffff;
 		color: $charcoal;
 	}
@@ -210,6 +215,13 @@
 		place-items: center;
 		width: 3.5rem;
 		height: 3.5rem;
+
+		@include below($bp-narrow) {
+			right: 0.75rem;
+			width: 2.5rem;
+			height: 2.5rem;
+			font-size: 0.875rem;
+		}
 		margin-top: -1.75rem;
 		border-radius: 50%;
 		background:

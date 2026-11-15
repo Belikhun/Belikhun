@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	import { picture } from '#lib/content/site.ts';
-	import { gsap, POINTER_MOTION, type Span } from '#lib/motion/gsap.ts';
+	import { gsap, POINTER_MOTION, STACKED_MOTION, type Span } from '#lib/motion/gsap.ts';
 
 	type Layer = 'infrastructure' | 'console' | 'servers' | 'game client';
 
@@ -69,6 +69,16 @@
 
 	onMount(() => {
 		const media = gsap.matchMedia();
+
+		// stacked, there is no scrubbed deck to fly the camera: the wall drifts with the page instead
+		media.add(STACKED_MOTION, () => {
+			const scope = gsap.utils.selector(root!);
+
+			gsap.timeline({ scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: true } })
+				.fromTo(scope('.wall'), { yPercent: -2 }, { yPercent: -30, ease: 'none' }, 0)
+				.fromTo(scope('.column:nth-child(odd)'), { y: '-2rem' }, { y: '2rem', ease: 'none' }, 0)
+				.fromTo(scope('.column:nth-child(even)'), { y: '2rem' }, { y: '-2rem', ease: 'none' }, 0);
+		});
 
 		media.add(POINTER_MOTION, () => {
 			const camera = root!.querySelector('.camera');
@@ -181,11 +191,18 @@
 		flex-wrap: wrap;
 		gap: 0.5rem;
 
+		@include below($bp-narrow) {
+			li:nth-child(n + 3) {
+				display: none;
+			}
+		}
+
 		li {
 			--lit: 0;
 			padding: 0.375rem 0.75rem;
 			border-radius: 1rem;
-			background: color-mix(in srgb, var(--lav) calc(var(--lit) * 100%), rgba(255, 255, 255, 0.14));
+			background: color-mix(in srgb, var(--lav) calc(var(--lit) * 100%), rgba(31, 27, 46, 0.78));
+			backdrop-filter: blur(0.5rem);
 			color: color-mix(in srgb, var(--night) calc(var(--lit) * 100%), var(--paper));
 		}
 	}

@@ -111,8 +111,9 @@
 				},
 				judging
 			)
-			.from(mine!, { y: '3em', duration: 0.1, ease: 'power2.inOut' }, judging + 0.04)
-			.from(theirs!, { y: '-3em', duration: 0.1, ease: 'power2.inOut' }, judging + 0.04)
+			// a quick trade of places: scrubbed slowly, the two rows would sit on top of each other
+			.from(mine!, { y: '3em', duration: 0.03, ease: 'power2.inOut' }, judging + 0.06)
+			.from(theirs!, { y: '-3em', duration: 0.03, ease: 'power2.inOut' }, judging + 0.06)
 			.from(scope('.log.new'), { x: '2em', autoAlpha: 0, duration: 0.06, ease: 'power2.out' }, judging);
 
 		judged = false;
@@ -220,6 +221,11 @@
 		grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
 		align-items: center;
 		gap: 4%;
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+			align-content: center;
+		}
 		height: 100%;
 		min-height: 20rem;
 		padding: 6%;
@@ -236,7 +242,19 @@
 		gap: 1.4em;
 		min-width: 0;
 		font-size: clamp(0.5rem, 2.1cqw, 1.25rem);
+
+		// on a phone only the clock and the ranking are kept, one above the other, at a size that reads
+		@include below($bp-narrow) {
+			font-size: 4.2cqw;
+		}
 		line-height: 1.3;
+	}
+
+	.submit,
+	.logs {
+		@include below($bp-narrow) {
+			display: none;
+		}
 	}
 
 	.panel {
@@ -390,6 +408,16 @@
 		> span {
 			display: grid;
 			place-items: center;
+		}
+
+		// on a phone the ranking keeps the first two problems only
+		@include below($bp-narrow) {
+			grid-template-columns: 2.2em minmax(0, 1fr) 3.8em repeat(2, 3.4em);
+			padding-right: 0.8em;
+
+			> :nth-child(n + 6) {
+				display: none;
+			}
 		}
 
 		&.heading {

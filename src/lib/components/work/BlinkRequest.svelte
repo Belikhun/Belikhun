@@ -65,7 +65,7 @@
 	</ol>
 
 	<div class="answer">
-		<p class="status"><b>GET</b> /user/42 <span>200 ok · 3 ms</span></p>
+		<p class="status"><b>GET</b> /user/42 <span>200 ok · 3&nbsp;ms</span></p>
 		<p class="json">{'{ "id": 42, "name": "belikhun" }'}</p>
 	</div>
 
@@ -82,6 +82,7 @@
 	.blink {
 		position: relative;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		align-content: center;
 		gap: 1rem;
 		height: 100%;
@@ -147,7 +148,9 @@
 	.line {
 		display: block;
 		clip-path: inset(0 0 0 0);
-		white-space: pre;
+		// lines wrap where the window is too narrow for them, as an editor with word wrap would show them
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
 		tab-size: 2;
 	}
 
@@ -178,6 +181,10 @@
 		justify-content: space-between;
 		gap: 0.375rem;
 		padding-bottom: 1rem;
+
+		@include below($bp-narrow) {
+			justify-content: flex-start;
+		}
 	}
 
 	.hop {

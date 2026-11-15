@@ -16,6 +16,9 @@ export const MOTION = '(prefers-reduced-motion: no-preference)';
 /** Where the pinned scenes run; must match the `stage` mixin in _shared.scss. */
 export const DESKTOP_MOTION = `(min-width: 64rem) and ${MOTION}`;
 
+/** Where the pinned scenes are laid out as plain stacks, for visitors who still want motion. */
+export const STACKED_MOTION = `(width < 64rem) and ${MOTION}`;
+
 /** Motion that follows a mouse, never a finger. */
 export const POINTER_MOTION = `(pointer: fine) and ${MOTION}`;
 

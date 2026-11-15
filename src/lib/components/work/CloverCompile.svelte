@@ -99,6 +99,7 @@
 	.clover {
 		position: relative;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: auto 1fr auto;
 		gap: 1.25rem;
 		height: 100%;
@@ -180,7 +181,9 @@
 	.line {
 		display: block;
 		clip-path: inset(0 0 0 0);
-		white-space: pre;
+		// lines wrap where the window is too narrow for them, as an editor with word wrap would show them
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
 		tab-size: 2;
 	}
 
@@ -219,6 +222,7 @@
 		color: #ffffff;
 		font-weight: 500;
 		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
 	}
 
 	.doubled {

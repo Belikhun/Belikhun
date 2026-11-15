@@ -5,11 +5,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { EMAIL, GITHUB } from '#lib/content/site.ts';
+	import { EMAIL, GITHUB, GPG_KEY_FILE, GPG_KEY_ID } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION, SplitText } from '#lib/motion/gsap.ts';
 
 	import Charm from './Charm.svelte';
 	import Emoji from './Emoji.svelte';
+	import KeyRain from './KeyRain.svelte';
 
 	const COPIED_FOR_MS = 1800;
 	const BURST = [0, 1, 2, 3, 4, 5];
@@ -148,6 +149,9 @@
 			media.add(MOTION, () => {
 				const split = SplitText.create('.words', { type: 'chars', mask: 'chars' });
 
+				// a mask is only as tall as the line, which is shorter than the letters: make room below for the y
+				gsap.set(split.masks, { paddingBottom: '0.2em', marginBottom: '-0.2em' });
+
 				gsap.fromTo(
 					'.card',
 					{ scale: 0.8, borderRadius: '5rem' },
@@ -205,6 +209,8 @@
 
 <section class="hi" id="hi" bind:this={root}>
 	<div class="card">
+		<KeyRain />
+
 		<h2 class="words">say hi</h2>
 
 		{#each [{ side: 'left', string: 150 }, { side: 'right', string: 100 }] as charm (charm.side)}
@@ -248,7 +254,7 @@
 					<i style:--order={scallop}></i>
 				{/each}
 			</div>
-			<p>© 2026 belikhun · served by harbor</p>
+			<p>© 2026 belikhun · served by harbor · <a class="key" href={GPG_KEY_FILE} download>pgp {GPG_KEY_ID}</a></p>
 		</footer>
 	</div>
 </section>
@@ -269,6 +275,8 @@
 		border-radius: 2rem;
 		background: var(--sky);
 		overflow: hidden;
+		// the key rain sits behind everything else in the card, but in front of its sky
+		isolation: isolate;
 	}
 
 	.words {
@@ -320,6 +328,10 @@
 	}
 
 	.wave {
+		@include below($bp-narrow) {
+			display: none !important;
+		}
+
 		display: grid;
 		place-items: center;
 		padding: 0.5rem 0.875rem;
@@ -332,7 +344,7 @@
 	.mail button {
 		@include bare-button;
 		position: relative;
-		color: var(--purple);
+		color: var(--accent-text);
 		font-weight: 600;
 	}
 
@@ -440,7 +452,12 @@
 		width: 100%;
 		padding: 1.5rem 1rem 1rem;
 		background: var(--bg);
+		text-align: center;
 		color: var(--soft);
+	}
+
+	.key {
+		white-space: nowrap;
 	}
 
 	// the lace border from the illustration: a row of scallops along the top of the footer, rolling like a wave

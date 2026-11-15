@@ -10,7 +10,8 @@ $bp-medium: 64rem;
 
 /// Collapse-to-narrow media query: `@include below($bp-medium) { … }`.
 @mixin below($width) {
-	@media (max-width: $width) {
+	// exclusive, so a window exactly at the breakpoint gets the wide rules only
+	@media (width < #{$width}) {
 		@content;
 	}
 }

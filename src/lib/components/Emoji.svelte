@@ -112,6 +112,11 @@
 			height: 1.1em;
 			vertical-align: -0.2em;
 
+			// some animations swing a little past their own box
+			:global(svg) {
+				overflow: visible;
+			}
+
 			.char {
 				display: none;
 			}

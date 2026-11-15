@@ -7,6 +7,7 @@ import Lenis from 'lenis';
 import { gsap, MOTION, ScrollTrigger } from './gsap';
 
 let release: () => void = () => {};
+let smooth: Lenis | undefined;
 
 const gate = new Promise<void>((resolve) => {
 	release = resolve;
@@ -23,6 +24,21 @@ export function releaseIntro(): void {
 }
 
 /**
+ * Scrolls the page to a position, gliding there where scrolling is smoothed.
+ *
+ * @param top the scroll position to reach, in pixels
+ */
+export function scrollToPosition(top: number): void {
+	if (smooth) {
+		smooth.scrollTo(top);
+
+		return;
+	}
+
+	window.scrollTo({ top });
+}
+
+/**
  * Smooths wheel scrolling and keeps ScrollTrigger in step with it. Touch
  * devices and reduced-motion visitors keep native scrolling.
  *
@@ -35,6 +51,8 @@ export function startSmoothScroll(): () => void {
 
 	const lenis = new Lenis({ anchors: true, autoRaf: false });
 
+	smooth = lenis;
+
 	const tick = (time: number): void => {
 		lenis.raf(time * 1000);
 	};
@@ -46,5 +64,6 @@ export function startSmoothScroll(): () => void {
 	return () => {
 		gsap.ticker.remove(tick);
 		lenis.destroy();
+		smooth = undefined;
 	};
 }

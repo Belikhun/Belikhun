@@ -34,7 +34,7 @@
 	}
 
 	.string {
-		stroke: var(--night);
+		stroke: var(--ink);
 		stroke-width: 1;
 	}
 

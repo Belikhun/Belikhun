@@ -5,8 +5,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { picture } from '#lib/content/site.ts';
+	import { picture, REELS } from '#lib/content/site.ts';
 	import { DESKTOP_MOTION, gsap, MOTION, ScrollTrigger } from '#lib/motion/gsap.ts';
+	import { parallax, reveal } from '#lib/motion/reveal.ts';
 
 	import Emoji from './Emoji.svelte';
 
@@ -59,11 +60,11 @@
 
 			media.add(MOTION, () => {
 				gsap.from('.tile', {
-					scale: 0.9,
-					autoAlpha: 0,
-					duration: 0.7,
-					ease: 'power3.out',
-					stagger: 0.06,
+					clipPath: 'inset(100% 0 0 0 round 1.5rem)',
+					y: '4rem',
+					duration: 1.1,
+					ease: 'expo.out',
+					stagger: 0.07,
 					scrollTrigger: { trigger: '.wall', start: 'top 85%' }
 				});
 
@@ -128,9 +129,25 @@
 
 <section class="off" id="off-hours" bind:this={root}>
 	<header>
-		<h2>off-hours <Emoji code="1f47e" char="👾" /></h2>
+		<h2 use:reveal>off-hours <Emoji code="1f47e" char="👾" /></h2>
 		<p>when i'm not shipping i'm clicking circles and writing the counters that sit around them, making noise in FL Studio, cutting videos, or running a Minecraft network for friends.</p>
 	</header>
+
+	<!-- my two event reveal videos, playing muted on a loop once the section is reached; a still frame until then -->
+	<div class="reels">
+		{#each REELS as reel (reel.id)}
+			<a class="reel" href="https://www.youtube.com/watch?v={reel.id}" target="_blank" rel="noreferrer" use:reveal>
+				<img src="/video/{reel.file}.jpg" width="1280" height="720" alt="" loading="lazy" />
+				{#if live}
+					<video autoplay muted loop playsinline preload="metadata" poster="/video/{reel.file}.jpg" aria-label={reel.title}>
+						<source src="/video/{reel.file}.av1.mp4" type="video/mp4; codecs=av01.0.05M.10" />
+						<source src="/video/{reel.file}.h264.mp4" type="video/mp4; codecs=avc1.640020" />
+					</video>
+				{/if}
+				<span class="caption">{reel.title} ↗</span>
+			</a>
+		{/each}
+	</div>
 
 	<div class="wall">
 		<div class="column">
@@ -162,7 +179,7 @@
 				<figcaption>FL Studio <Emoji code="1f3b6" char="🎶" /></figcaption>
 			</figure>
 			<figure class="tile picture">
-				<img src={LANTERN.src} width={LANTERN.width} height={LANTERN.height} alt={LANTERN.alt} loading="lazy" />
+				<img src={LANTERN.src} width={LANTERN.width} height={LANTERN.height} alt={LANTERN.alt} loading="lazy" use:parallax />
 				<figcaption>luna</figcaption>
 			</figure>
 		</div>
@@ -228,20 +245,87 @@
 		}
 	}
 
+	.reels {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.5rem;
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+
+	.reel {
+		position: relative;
+		display: grid;
+		align-content: end;
+		justify-items: start;
+		aspect-ratio: 16 / 9;
+		padding: 1.25rem;
+		border-radius: 1.5rem;
+		background: var(--night);
+		overflow: hidden;
+
+		img,
+		video {
+			@include fill;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.caption {
+			@include label;
+			position: relative;
+			padding: 0.375rem 0.875rem;
+			border-radius: 1rem;
+			background: var(--bg);
+			color: var(--ink);
+			transition: background-color var(--fast) var(--ease-snap);
+		}
+
+		&:hover .caption {
+			background: var(--pink);
+			color: var(--night);
+		}
+	}
+
 	.wall {
 		display: grid;
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-		align-items: start;
 		gap: 1.5rem;
 
 		@include below($bp-medium) {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 
+	// the tops are staggered; the last tile of each column stretches so the bottoms meet
 	.column {
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		gap: 1.5rem;
+
+		> :last-child {
+			flex: 1;
+		}
+
+		// the picture fills its tile whatever its size; the others centre what they show
+		> :last-child:not(.picture) {
+			grid-template-rows: 1fr auto;
+
+			> :first-child {
+				align-self: center;
+			}
+		}
+
+		@include below($bp-narrow) {
+			margin-top: 0 !important;
+		}
 
 		&:nth-child(2) {
 			margin-top: 4rem;
@@ -328,7 +412,7 @@
 
 			ul {
 				display: grid;
-				gap: 0.5rem;
+				gap: 0.875rem;
 				margin-bottom: 0.5rem;
 			}
 
@@ -336,8 +420,10 @@
 				display: flex;
 				align-items: center;
 				gap: 0.625rem;
+				min-width: 0;
 				font-family: var(--mono);
-				font-size: 0.875rem;
+				font-size: clamp(0.75rem, 1.05vw, 1rem);
+				white-space: nowrap;
 			}
 		}
 	}
@@ -351,14 +437,14 @@
 			display: grid;
 			place-items: center;
 			flex: 1;
-			max-width: 4.5rem;
+			max-width: 7rem;
 			aspect-ratio: 1;
-			border-radius: 1rem;
+			border-radius: 1.25rem;
 			background: var(--pink);
 			box-shadow: 0 0.375rem 0 var(--purple);
 			color: var(--night);
 			font-family: var(--mono);
-			font-size: 1.5rem;
+			font-size: 2.25rem;
 			font-weight: 500;
 
 			&:last-child {
@@ -376,6 +462,8 @@
 
 		// the counter keeps the pixel size it was designed at; the frame scales it
 		iframe {
+			// a frame under the pointer would take the wheel for itself and stop the page from scrolling
+			pointer-events: none;
 			position: absolute;
 			top: 0;
 			left: 0;

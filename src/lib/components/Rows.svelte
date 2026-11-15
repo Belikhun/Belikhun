@@ -7,6 +7,7 @@
 
 	import { CLIENT_WORK, CLIENTS, ROWS, type Row } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION } from '#lib/motion/gsap.ts';
+	import { reveal } from '#lib/motion/reveal.ts';
 
 	import Emoji from './Emoji.svelte';
 
@@ -75,7 +76,7 @@
 </script>
 
 <section class="rest" bind:this={root}>
-	<h2>everything else <Emoji code="1f4e6" char="📦" /></h2>
+	<h2 use:reveal>everything <span class="keep">else&nbsp;<Emoji code="1f4e6" char="📦" /></span></h2>
 
 	<article class="client">
 		<p class="meta">{CLIENT_WORK.context}</p>
@@ -104,7 +105,7 @@
 		{/each}
 	</ul>
 
-	<div class="clients">
+	<div class="clients" use:reveal>
 		<p>worked for</p>
 		<ul>
 			{#each CLIENTS as client (client)}
@@ -113,11 +114,9 @@
 		</ul>
 	</div>
 
-	<div class="preview" class:shown={hovered} aria-hidden="true">
+	<div class="preview" class:shown={hovered?.preview} aria-hidden="true">
 		{#if hovered?.preview}
 			<img src={hovered.preview.src} width={hovered.preview.width} height={hovered.preview.height} alt="" />
-		{:else if hovered}
-			<span>{hovered.name}</span>
 		{/if}
 	</div>
 </section>
@@ -137,12 +136,17 @@
 		font-size: clamp(2.5rem, 6vw, 6rem);
 	}
 
+	.keep {
+		white-space: nowrap;
+	}
+
 	.client {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
+		// the same columns as the rows below, so the two read as one table
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 4rem 1.5rem;
 		align-items: center;
-		gap: 0.5rem 2rem;
-		padding: 1.5rem 2rem;
+		gap: 0.5rem 1rem;
+		padding: 1.5rem 1rem;
 		border: var(--hairline) solid var(--line);
 		border-radius: 1.5rem;
 		background: var(--surface);
@@ -158,14 +162,24 @@
 			font-size: clamp(2rem, 4vw, 3.5rem);
 		}
 
+		.body {
+			grid-column: 2 / -1;
+		}
+
 		.role {
 			@include label;
-			color: var(--purple);
+			grid-column: 2 / -1;
+			color: var(--accent-text);
 		}
 
 		@include below($bp-medium) {
 			grid-template-columns: minmax(0, 1fr);
 			padding: 1.5rem;
+
+			.body,
+			.role {
+				grid-column: 1 / -1;
+			}
 		}
 	}
 
@@ -178,7 +192,7 @@
 		gap: 1rem;
 		padding: 1.25rem 1rem;
 		overflow: hidden;
-		transition: background-color 0.25s, padding-left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+		transition: background-color var(--fast) var(--ease-snap), padding-left 0.5s var(--ease-out), opacity var(--fast) var(--ease-snap);
 
 		&::after {
 			content: '';
@@ -192,8 +206,20 @@
 			transform-origin: 0 50%;
 		}
 
-		&:hover {
+		// the row under the pointer stands out because the others step back
+		@media (pointer: fine) {
+			.list:has(a:hover) &:not(:hover) {
+				opacity: 0.4;
+			}
+		}
+
+		&:not(a):hover {
+			background: color-mix(in srgb, var(--ink) 5%, transparent);
+		}
+
+		&:is(a):hover {
 			padding-left: 2rem;
+			border-radius: 0.75rem;
 			background: var(--blue);
 			color: var(--night);
 
@@ -242,6 +268,14 @@
 			padding: 0.5rem 1.25rem;
 			border: var(--hairline) solid var(--line);
 			border-radius: 2rem;
+			transition: background-color var(--fast) var(--ease-snap), border-color var(--fast) var(--ease-snap), translate var(--fast) var(--ease-snap);
+
+			&:hover {
+				border-color: var(--lav);
+				background: var(--lav);
+				color: var(--night);
+				translate: 0 -0.125rem;
+			}
 		}
 	}
 
@@ -276,17 +310,6 @@
 			width: 100%;
 			height: 10rem;
 			object-fit: cover;
-		}
-
-		span {
-			@include display;
-			display: grid;
-			place-items: center;
-			height: 10rem;
-			padding: 1rem;
-			font-size: 1.75rem;
-			line-height: 1;
-			text-align: center;
 		}
 	}
 </style>
