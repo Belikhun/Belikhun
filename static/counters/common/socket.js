@@ -1,6 +1,5 @@
-// Copyright (c) 2026 Belikhun. All rights reserved.
-// Proprietary software: use, copying, modification and distribution are
-// prohibited without written permission. See LICENSE at the repository root.
+// Copyright (c) 2026 Belikhun. Licensed under the MIT License.
+// See LICENSE at the repository root.
 
 // Stands in for tosu's socket.js. The counters beside this file are the real
 // ones from github.com/Belikhun/osu-counters, unchanged; they ask this class for

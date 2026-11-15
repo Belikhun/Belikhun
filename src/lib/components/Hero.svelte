@@ -1,11 +1,10 @@
-<!-- Copyright (c) 2026 Belikhun. All rights reserved.
-     Proprietary software: use, copying, modification and distribution are
-     prohibited without written permission. See LICENSE at the repository root. -->
+<!-- Copyright (c) 2026 Belikhun. Licensed under the MIT License.
+     See LICENSE at the repository root. -->
 
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { MARQUEE } from '#lib/content/site.ts';
+	import { MARQUEE, STOPS } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION, ScrollTrigger, SplitText } from '#lib/motion/gsap.ts';
 	import { lastPointer, type Point } from '#lib/motion/pointer.ts';
 	import { introReady } from '#lib/motion/stage.ts';
@@ -35,9 +34,15 @@
 	/** The furthest the marquee leans while the page is scrolled fast, in degrees. */
 	const MARQUEE_LEAN = 14;
 
+	/** Counted from the first stop of the timeline. The page is built ahead of time, so the count is taken again in the browser. */
+	const since = (): number => new Date().getFullYear() - STOPS[0]!.year;
+
 	let root = $state<HTMLElement>();
+	let years = $state(since());
 
 	onMount(() => {
+		years = since();
+
 		const context = gsap.context(() => {
 			const media = gsap.matchMedia();
 
@@ -176,7 +181,7 @@
 			</div>
 		</div>
 
-		<p class="chip years"><strong>9 yrs</strong> of building things <Emoji code="1f680" char="🚀" /></p>
+		<p class="chip years"><strong>{years} yrs</strong> of building things <Emoji code="1f680" char="🚀" /></p>
 		<a class="chip scroll" href="#about">scroll ↓</a>
 	</div>
 

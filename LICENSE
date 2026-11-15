@@ -1,28 +1,21 @@
+MIT License
+
 Copyright (c) 2026 Belikhun
 
-All rights reserved.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This source code is published to provide transparency. Publication does not
-place this software in the public domain and does not make it open source.
-
-No permission is granted to any person to use, copy, modify, merge,
-publish, distribute, sublicense, create derivative works of, or sell
-copies of this software or any portion of it, in any form or by any means,
-without the prior written permission of the copyright holder.
-
-Viewing this source, and the on-platform forking mechanics that GitHub's
-Terms of Service afford to public repositories hosted there, are permitted.
-Nothing further is.
-
-Third-party components retain their own licenses and are not subject to
-this notice. This includes every dependency resolved at build time (GSAP,
-Lenis, SvelteKit, the Fontsource font packages), each of which is governed
-by the terms it was licensed under.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.

@@ -35,6 +35,9 @@ It is built to a static `build/` folder and hosted on Harbor.
 - `docs/assets/avatar/`: the avatar's layered PSD, split by See-through
   (`D:\Tools\see-through`), and the original it came from. `scripts/avatar.py` paints the
   original back onto the layers and packs them into `static/img/avatar/atlas.webp`.
+- `.github/banner.svg`: the README's banner, the hero redrawn as one animated SVG by
+  `scripts/banner.py`. GitHub shows it through an `<img>`, so it embeds its font and the avatar's
+  layers and moves with CSS animations only; rerun the script when the hero or the avatar changes.
 - `docs/01-research-brief.md` and `docs/02-storyboard.html`: the research and the storyboard the
   site was built from. Not committed: they hold private notes.
 
@@ -83,5 +86,6 @@ bun run check      # svelte-check
 bun run build      # static site → build/
 bun run preview    # serve build/ on :8501
 bun run assets     # regenerate static/img and media.json from docs/assets (needs Python + Pillow)
+bun run banner     # redraw .github/banner.svg from the hero (needs Python + Pillow)
 bun run avatar     # repack the avatar atlas from the PSD (runs in See-through's Python environment)
 ```
