@@ -1,0 +1,73 @@
+// Copyright (c) 2026 Belikhun. All rights reserved.
+// Proprietary software: use, copying, modification and distribution are
+// prohibited without written permission. See LICENSE at the repository root.
+
+// Auto-injected into every `<style lang="scss">` block and into app.scss by
+// vite.config.ts, so no component needs an @use line. Emits no CSS on its own.
+
+$bp-narrow: 40rem;
+$bp-medium: 64rem;
+
+/// Collapse-to-narrow media query: `@include below($bp-medium) { … }`.
+@mixin below($width) {
+	@media (max-width: $width) {
+		@content;
+	}
+}
+
+/// Styles for visitors who have not asked for reduced motion.
+@mixin motion {
+	@media (prefers-reduced-motion: no-preference) {
+		@content;
+	}
+}
+
+/// The pinned, scroll-driven layouts; must match DESKTOP_MOTION in motion/gsap.ts.
+@mixin stage {
+	@media (min-width: $bp-medium) and (prefers-reduced-motion: no-preference) {
+		@content;
+	}
+}
+
+/// Fill the nearest positioned ancestor.
+@mixin fill {
+	position: absolute;
+	inset: 0;
+}
+
+/// Small mono text: counters, years, tags.
+@mixin label {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+}
+
+/// The big display words.
+@mixin display {
+	font-family: var(--display);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 0.9;
+}
+
+/// The keyboard focus ring.
+@mixin focus-ring {
+	outline: 0.125rem solid var(--purple);
+	outline-offset: 0.25rem;
+}
+
+/// Reset the browser chrome on a `<button>` used as a bare interactive target.
+@mixin bare-button {
+	background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+
+/// The page's side gutter.
+@mixin gutter {
+	padding-inline: clamp(1rem, 5vw, 5rem);
+}

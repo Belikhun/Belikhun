@@ -1,0 +1,126 @@
+// Copyright (c) 2026 Belikhun. All rights reserved.
+// Proprietary software: use, copying, modification and distribution are
+// prohibited without written permission. See LICENSE at the repository root.
+
+// Design tokens. The palette is sampled from the avatar; the night values keep
+// the same pastels as accents over a deep indigo ground.
+
+@mixin night {
+	--bg: #15121f;
+	--surface: #1f1b2e;
+	--ink: #ece8f7;
+	--soft: #a39cbd;
+	--line: #37304f;
+	--sky: linear-gradient(165deg, #1c2a5c, #3d2c70 58%, #6a3b78);
+	--band: #4a3d86;
+	--stage: #2a2038;
+	--wordmark: #d9d2f2;
+	color-scheme: dark;
+}
+
+:root {
+	--bg: #f7f5fc;
+	--surface: #ffffff;
+	--ink: #2a2440;
+	--soft: #8d86a8;
+	--line: #e2dcf1;
+	--sky: linear-gradient(165deg, #a9d4ec, #b9a7d9 58%, #ecbcd6);
+	--band: #8f7bd0;
+	--stage: #ecbcd6;
+	--wordmark: #ffffff;
+
+	--blue: #a9d4ec;
+	--lav: #b9a7d9;
+	--pink: #ecbcd6;
+	--purple: #8f7bd0;
+	--night: #2a2440;
+	--paper: #ffffff;
+
+	--display: 'Bricolage Grotesque Variable', 'Lexend Variable', system-ui, sans-serif;
+	--body: 'Lexend Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+	--radius-card: 2rem;
+	--hairline: 0.1rem;
+	color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		@include night;
+	}
+}
+
+:root[data-theme='dark'] {
+	@include night;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	// the whole layout is in rem, so it grows with wide screens: 16px up to 1440px wide, 24px at 2560px
+	font-size: clamp(100%, 0.357rem + 0.714vw, 175%);
+	-webkit-text-size-adjust: 100%;
+
+	&.is-loading {
+		overflow: hidden;
+	}
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--body);
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 1.6;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
+	margin: 0;
+}
+
+ol,
+ul {
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+
+	&:focus-visible {
+		@include focus-ring;
+	}
+}
+
+button:focus-visible {
+	@include focus-ring;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+// Lenis sets these classes on <html>
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+	overflow: clip;
+}

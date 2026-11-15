@@ -1,0 +1,94 @@
+{
+	"avatar.webp": [
+		708,
+		1200
+	],
+	"luna/icon.webp": [
+		256,
+		256
+	],
+	"luna/wall/instances.webp": [
+		900,
+		309
+	],
+	"luna/wall/machine-health.webp": [
+		900,
+		426
+	],
+	"luna/wall/monitoring.webp": [
+		900,
+		394
+	],
+	"luna/wall/instance-console.webp": [
+		900,
+		491
+	],
+	"luna/wall/terminal.webp": [
+		900,
+		333
+	],
+	"luna/wall/plugins.webp": [
+		900,
+		468
+	],
+	"luna/wall/machines.webp": [
+		900,
+		207
+	],
+	"luna/wall/proxy.webp": [
+		900,
+		446
+	],
+	"luna/wall/world.webp": [
+		900,
+		426
+	],
+	"luna/wall/boat-racing.webp": [
+		900,
+		324
+	],
+	"luna/wall/console-banner.webp": [
+		900,
+		294
+	],
+	"luna/wall/create-banner.webp": [
+		900,
+		294
+	],
+	"luna/wall/lantern.webp": [
+		900,
+		506
+	],
+	"harbor/meo-beo.webp": [
+		512,
+		512
+	],
+	"themis/light.webp": [
+		1400,
+		788
+	],
+	"themis/dark.webp": [
+		1400,
+		788
+	],
+	"themis/overview.webp": [
+		1305,
+		632
+	],
+	"ctms/schedule.webp": [
+		1200,
+		672
+	],
+	"ctms/phone-schedule.webp": [
+		500,
+		831
+	],
+	"ctms/phone-register.webp": [
+		500,
+		831
+	],
+	"rows/deal-hunter-suite.webp": [
+		402,
+		689
+	]
+}

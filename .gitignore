@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# output
+/build
+.svelte-kit
+
+*.log
+
+# dotenv
+.env
+.env.*
+
+# caches
+.cache
+*.tsbuildinfo
+
+.idea
+.DS_Store
+
+# planning notes; they hold private details
+/docs/01-research-brief.md
+/docs/02-storyboard.html
