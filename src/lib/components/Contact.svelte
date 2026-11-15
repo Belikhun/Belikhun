@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 
 	import { EMAIL, EMAIL_SECONDARY, GITHUB, GPG_KEY_FILE, GPG_KEY_ID, SOCIALS } from '#lib/content/site.ts';
-	import { gsap, MOTION, POINTER_MOTION, SplitText } from '#lib/motion/gsap.ts';
+	import { gsap, MOTION, POINTER_MOTION, ScrollTrigger, SplitText } from '#lib/motion/gsap.ts';
 
 	import Charm, { type Face } from './Charm.svelte';
 	import Emoji from './Emoji.svelte';
@@ -14,12 +14,20 @@
 	const COPIED_FOR_MS = 1800;
 	const BURST = [0, 1, 2, 3, 4, 5];
 
-	/** The cursors that put the ending together, named after what each one carries. */
+	/** The cursors that build the ending, named after the job each one does. */
 	const HANDS = [
 		{ name: 'layout', tone: 'pink' },
-		{ name: 'mail', tone: 'blue' },
-		{ name: 'github', tone: 'paper' }
+		{ name: 'type', tone: 'blue' },
+		{ name: 'mail', tone: 'paper' },
+		{ name: 'links', tone: 'lav' },
+		{ name: 'lace', tone: 'purple' }
 	];
+
+	/** What a cursor looks like while it works: pointing, dragging out a box, or typing. */
+	type Shape = 'arrow' | 'cross' | 'beam';
+
+	/** Seconds between two letters, for the big words, for a button and for the small print. */
+	const PACE = { words: 0.12, button: 0.035, print: 0.012 };
 
 	/** The two charms that drop into the card, each with its own string, face and side. */
 	const CHARMS: { side: string; string: number; face: Face; flip: boolean }[] = [
@@ -38,83 +46,268 @@
 
 	let root = $state<HTMLElement>();
 	let copied = $state(false);
-	let badge = $state('');
 
 	/** Where a part sits inside the card, in the card's own unscaled pixels. */
-	function boxOf(card: HTMLElement, selector: string): Box {
+	function boxOf(card: HTMLElement, part: Element): Box {
 		const frame = card.getBoundingClientRect();
-		const part = card.querySelector(selector)!.getBoundingClientRect();
+		const place = part.getBoundingClientRect();
 		const scale = frame.width / card.offsetWidth;
 
 		return {
-			left: (part.left - frame.left) / scale,
-			top: (part.top - frame.top) / scale,
-			width: part.width / scale,
-			height: part.height / scale
+			left: (place.left - frame.left) / scale,
+			top: (place.top - frame.top) / scale,
+			width: place.width / scale,
+			height: place.height / scale
 		};
 	}
 
+	/** One cursor: the outline it drags, the label on that outline, and its own queue of steps. */
+	interface Worker {
+		hand: HTMLElement;
+		ghost: HTMLElement;
+		badge: HTMLElement;
+		line: gsap.core.Timeline;
+	}
+
 	/**
-	 * Three cursors assemble the ending and leave: one measures the words, the
-	 * other two carry the buttons up into place.
+	 * Five cursors build the ending the way it would be laid out in a design
+	 * tool, then leave: boxes are dragged out and measured, words are typed
+	 * letter by letter, a button is copied into the next, the charms are pulled
+	 * down on their strings and the lace is laid along the footer. Every part
+	 * was hidden by the caller; nothing shows until a cursor has made it.
 	 */
 	function assemble(card: HTMLElement): gsap.core.Timeline {
-		const [layout, mail, github] = gsap.utils.toArray<HTMLElement>('.hand', card);
-		const ghost = card.querySelector('.ghost')!;
-		const buttons = [card.querySelector('.mail')!, card.querySelector('.github')!];
+		const find = (selector: string): HTMLElement[] => gsap.utils.toArray<HTMLElement>(selector, card);
+		const one = (selector: string): HTMLElement => card.querySelector<HTMLElement>(selector)!;
+		const lettersOf = (part: Element): HTMLElement[] => gsap.utils.toArray<HTMLElement>('.glyph', part);
+		const ghosts = find('.ghost');
 
-		gsap.set(buttons, { y: 0 });
+		const workers = find('.hand').map((hand, index): Worker => ({
+			hand,
+			ghost: ghosts[index]!,
+			badge: ghosts[index]!.querySelector('span')!,
+			line: gsap.timeline()
+		}));
 
-		const words = boxOf(card, '.words');
-		const pills = [boxOf(card, '.mail'), boxOf(card, '.github')];
-		const drop = card.offsetHeight;
-		const timeline = gsap.timeline();
+		const [layout, typist, mail, links, lace] = workers as [Worker, Worker, Worker, Worker, Worker];
+		const width = card.offsetWidth;
+		const height = card.offsetHeight;
 
-		[mail!, github!].forEach((hand, index) => {
-			const pill = pills[index]!;
-			const rise = drop - pill.top + 40;
-			const hold = { x: pill.left + pill.width * 0.7, y: pill.top + pill.height * 0.5 };
-			const away = hold.x + (index === 0 ? -1 : 1) * card.offsetWidth * 0.6;
+		const shape = (worker: Worker, look: Shape): void => {
+			worker.line.set(worker.hand, { attr: { 'data-shape': look } });
+		};
 
-			timeline.add(
-				gsap.timeline()
-					.set(hand, { x: hold.x, y: hold.y + rise, autoAlpha: 1 })
-					.fromTo(buttons[index]!, { y: rise }, { y: 0, duration: 1, ease: 'power3.out' })
-					.to(hand, { y: hold.y, duration: 1, ease: 'power3.out' }, '<')
-					.to(hand, { x: away, y: drop + 60, duration: 0.8, ease: 'power2.in' }, '>0.15')
-					.set(hand, { autoAlpha: 0 }),
-				0.9 + index * 0.18
-			);
-		});
+		/** Holds a worker until `seconds` into the build, when it is not there yet. */
+		const wait = (worker: Worker, seconds: number): void => {
+			const spare = seconds - worker.line.duration();
 
-		timeline.add(
-			gsap.timeline()
-				.set(layout!, { x: -60, y: words.top, autoAlpha: 1 })
-				.to(layout!, { x: words.left, y: words.top, duration: 0.6, ease: 'power2.inOut' })
-				.set(ghost, { x: words.left, y: words.top, width: 0, height: 0, autoAlpha: 1 })
-				.to(layout!, { x: words.left + words.width, y: words.top + words.height, duration: 0.9, ease: 'power1.inOut' })
+			if (spare > 0) {
+				worker.line.to({}, { duration: spare });
+			}
+		};
+
+		const enter = (worker: Worker, x: number, y: number): void => {
+			shape(worker, 'arrow');
+			worker.line.set(worker.hand, { x, y, autoAlpha: 1 });
+		};
+
+		const leave = (worker: Worker, x: number, y: number): void => {
+			shape(worker, 'arrow');
+			worker.line
+				.to(worker.hand, { x, y, duration: 0.7, ease: 'power2.in' }, '>0.1')
+				.set(worker.hand, { autoAlpha: 0 });
+		};
+
+		/** Drags a box out over a part, corner to corner, with its size on a label; the part then appears in it. */
+		const draw = (worker: Worker, part: Element, seconds: number, appears = true): void => {
+			const box = boxOf(card, part);
+
+			shape(worker, 'cross');
+			worker.line
+				.to(worker.hand, { x: box.left, y: box.top, duration: 0.4, ease: 'power2.inOut' })
+				.set(worker.ghost, {
+					x: box.left,
+					y: box.top,
+					width: 0,
+					height: 0,
+					autoAlpha: 1,
+					borderRadius: getComputedStyle(part).borderRadius
+				})
+				.to(worker.hand, { x: box.left + box.width, y: box.top + box.height, duration: seconds, ease: 'power1.inOut' })
 				.to(
-					ghost,
+					worker.ghost,
 					{
-						width: words.width,
-						height: words.height,
-						duration: 0.9,
+						width: box.width,
+						height: box.height,
+						duration: seconds,
 						ease: 'power1.inOut',
 						onUpdate: () => {
-							const size = ghost.getBoundingClientRect();
-
-							badge = `${Math.round(size.width)} × ${Math.round(size.height)}`;
+							worker.badge.textContent = `${Math.round(Number(gsap.getProperty(worker.ghost, 'width')))} × ${Math.round(Number(gsap.getProperty(worker.ghost, 'height')))}`;
 						}
 					},
 					'<'
-				)
-				.to(ghost, { autoAlpha: 0, duration: 0.3 }, '>0.4')
-				.to(layout!, { x: card.offsetWidth + 60, y: words.top, duration: 0.8, ease: 'power2.in' }, '<')
-				.set(layout!, { autoAlpha: 0 }),
-			0.2
-		);
+				);
 
-		return timeline;
+			if (appears) {
+				worker.line.to(part, { autoAlpha: 1, duration: 0.3 });
+			}
+
+			worker.line.to(worker.ghost, { autoAlpha: 0, duration: 0.3 }, appears ? '<' : '>0.15');
+		};
+
+		/** Types a part's letters one at a time, the cursor a text beam just past the last one. */
+		const type = (worker: Worker, part: Element, pace: number): void => {
+			const letters = lettersOf(part);
+
+			if (letters.length === 0) {
+				return;
+			}
+
+			const first = boxOf(card, letters[0]!);
+
+			shape(worker, 'beam');
+			worker.line.to(worker.hand, { x: first.left, y: first.top + first.height / 2, duration: 0.35, ease: 'power2.inOut' });
+
+			for (const letter of letters) {
+				const box = boxOf(card, letter);
+
+				worker.line
+					.set(worker.hand, { x: box.left + box.width, y: box.top + box.height / 2 }, `>${pace}`)
+					.set(letter, { autoAlpha: 1 }, '<');
+			}
+		};
+
+		/** Picks one finished part up and drags a copy of its outline to where the next part goes. */
+		const copy = (worker: Worker, source: Element, part: Element): void => {
+			const from = boxOf(card, source);
+			const to = boxOf(card, part);
+
+			shape(worker, 'arrow');
+			worker.line
+				.to(worker.hand, { x: from.left + from.width / 2, y: from.top + from.height / 2, duration: 0.35, ease: 'power2.inOut' })
+				.set(worker.ghost, {
+					x: from.left,
+					y: from.top,
+					width: from.width,
+					height: from.height,
+					autoAlpha: 1,
+					borderRadius: getComputedStyle(source).borderRadius
+				})
+				.call(() => {
+					worker.badge.textContent = 'copy';
+				})
+				.to(worker.hand, { x: to.left + to.width / 2, y: to.top + to.height / 2, duration: 0.45, ease: 'power2.inOut' })
+				.to(worker.ghost, { x: to.left, y: to.top, width: to.width, height: to.height, duration: 0.45, ease: 'power2.inOut' }, '<')
+				.to(part, { autoAlpha: 1, duration: 0.25 })
+				.to(worker.ghost, { autoAlpha: 0, duration: 0.25 }, '<');
+		};
+
+		const words = one('.words');
+		const footer = one('footer');
+		const guide = one('.guide');
+		const actions = boxOf(card, one('.actions'));
+
+		// layout: a guide for the buttons to sit on, the box the words are typed into, then the footer
+		enter(layout, width * 0.3, -30);
+		layout.line
+			.set(guide, { y: 0, autoAlpha: 1 })
+			.to(layout.hand, { y: actions.top, duration: 0.6, ease: 'power2.out' })
+			.to(guide, { y: actions.top, duration: 0.6, ease: 'power2.out' }, '<');
+		draw(layout, words, 0.8, false);
+
+		const wordsBoxed = layout.line.duration();
+
+		draw(layout, footer, 0.7);
+
+		const footerBuilt = layout.line.duration();
+
+		leave(layout, width + 60, height * 0.5);
+
+		// type: the words, then the small print once there is a footer to hold it
+		wait(typist, wordsBoxed - 0.6);
+		enter(typist, -40, height * 0.4);
+		type(typist, words, PACE.words);
+		wait(typist, footerBuilt);
+
+		for (const line of find('footer p')) {
+			type(typist, line, PACE.print);
+		}
+
+		leave(typist, -60, height * 0.9);
+
+		// mail: the wave, then the address in its button
+		wait(mail, 0.7);
+		enter(mail, width * 0.45, height + 30);
+
+		// the wave is not shown on a narrow screen
+		if (one('.wave').offsetParent) {
+			draw(mail, one('.wave'), 0.3);
+		}
+
+		draw(mail, one('.mail'), 0.6);
+		type(mail, one('.mail a'), PACE.button);
+		mail.line.to(one('.mail button'), { autoAlpha: 1, duration: 0.3 });
+		leave(mail, -60, height * 0.7);
+
+		// links: one button drawn and typed, the rest copied from it and retyped
+		wait(links, 1);
+		enter(links, width * 0.6, height + 30);
+		draw(links, one('.github'), 0.5);
+		type(links, one('.github'), PACE.button);
+
+		for (const social of find('.social')) {
+			copy(links, one('.github'), social);
+			type(links, social, PACE.button);
+		}
+
+		leave(links, width + 60, height * 0.8);
+
+		// lace: pulls each charm down on its string, then lays the lace along the footer
+		wait(lace, 0.4);
+
+		for (const drop of find('.drop')) {
+			const x = drop.offsetLeft + drop.offsetWidth / 2;
+
+			shape(lace, 'arrow');
+			lace.line
+				.set(lace.hand, { x, y: -30, autoAlpha: 1 })
+				.to(lace.hand, { y: drop.offsetHeight * 0.8, duration: 0.8, ease: 'back.out(1.6)' })
+				.to(drop, { yPercent: 0, duration: 0.8, ease: 'back.out(1.6)' }, '<')
+				.to(lace.hand, { y: -30, duration: 0.4, ease: 'power2.in' }, '>0.1');
+		}
+
+		wait(lace, footerBuilt);
+
+		const edge = boxOf(card, one('.lace'));
+		const sweep = 1.2;
+
+		lace.line
+			.set(lace.hand, { x: -30, y: edge.top + edge.height / 2 })
+			.to(lace.hand, { x: width + 30, duration: sweep, ease: 'none' })
+			.to(
+				find('.lace i'),
+				{
+					'--grow': 1,
+					duration: 0.45,
+					ease: 'back.out(2)',
+					// each scallop pops up as the cursor passes over it
+					stagger: (_index: number, scallop: Element) => {
+						const box = boxOf(card, scallop);
+
+						return gsap.utils.clamp(0, 1, (box.left + box.width / 2) / width) * sweep;
+					}
+				},
+				'<'
+			)
+			.set(lace.hand, { autoAlpha: 0 });
+
+		const build = gsap.timeline();
+
+		for (const worker of workers) {
+			build.add(worker.line, 0);
+		}
+
+		return build.to(guide, { autoAlpha: 0, duration: 0.4 }, '>-0.4');
 	}
 
 	async function copyEmail(): Promise<void> {
@@ -152,10 +345,11 @@
 			const media = gsap.matchMedia();
 
 			media.add(MOTION, () => {
-				const split = SplitText.create('.words', { type: 'chars', mask: 'chars' });
-
-				// a mask is only as tall as the line, which is shorter than the letters: make room below for the y
-				gsap.set(split.masks, { paddingBottom: '0.2em', marginBottom: '-0.2em' });
+				// Everything a cursor will type is split into letters. The small print keeps its own
+				// accessibility tree: its links would be hidden from a screen reader otherwise.
+				// (a button is a flex row, so its letters are split inside one child, where its gap cannot fall between them)
+				SplitText.create(['.words', '.mail a', '.typed'], { type: 'chars', charsClass: 'glyph' });
+				SplitText.create('footer p', { type: 'chars', charsClass: 'glyph', aria: 'none' });
 
 				gsap.fromTo(
 					'.card',
@@ -168,16 +362,21 @@
 					}
 				);
 
-				gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 45%' } })
-					.from(split.chars, { yPercent: 115, duration: 0.9, stagger: 0.05, ease: 'power4.out' })
-					.from('.drop', { yPercent: -110, duration: 1.1, stagger: 0.15, ease: 'bounce.out' }, 0.2)
-					// the cursors carry the first two buttons up; the rest follow on their own once those have landed
-					.from('.social', { y: '4rem', autoAlpha: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 2.3)
-					.add(() => {
-						assemble(root!.querySelector('.card')!);
-					}, 0);
+				// nothing in the card is there until a cursor has drawn, typed, copied or pulled it into place
+				gsap.set(['.glyph', '.wave', '.mail', '.mail button', '.github', '.social', 'footer'], { autoAlpha: 0 });
+				// through a variable, not a transform: GSAP would fold the scallops' own `translate` into its
+				// transform and the wave's keyframes would then push them that much further down
+				gsap.set('.lace i', { '--grow': 0 });
+				gsap.set('.drop', { yPercent: -110 });
 
-				gsap.set(['.mail', '.github'], { y: '100vh' });
+				ScrollTrigger.create({
+					trigger: root,
+					start: 'top 45%',
+					once: true,
+					onEnter: () => {
+						assemble(root!.querySelector('.card')!);
+					}
+				});
 
 				gsap.utils.toArray<HTMLElement>('.swing').forEach((charm, index) => {
 					gsap.fromTo(
@@ -230,11 +429,17 @@
 			</div>
 		{/each}
 
-		<div class="ghost" aria-hidden="true"><span>{badge}</span></div>
+		<div class="guide" aria-hidden="true"></div>
 
 		{#each HANDS as hand (hand.name)}
-			<div class="hand {hand.tone}" aria-hidden="true">
-				<svg viewBox="0 0 18 23"><path d="M2 2 2 18 6.8 13.6 10.4 21.4 13 20.2 9.5 12.6 16 12.6Z" /></svg>
+			<div class="ghost" aria-hidden="true"><span></span></div>
+		{/each}
+
+		{#each HANDS as hand (hand.name)}
+			<div class="hand {hand.tone}" data-shape="arrow" aria-hidden="true">
+				<svg class="arrow" viewBox="0 0 18 23"><path d="M2 2 2 18 6.8 13.6 10.4 21.4 13 20.2 9.5 12.6 16 12.6Z" /></svg>
+				<svg class="cross" viewBox="0 0 18 18"><path d="M9 1V17M1 9H17" /></svg>
+				<svg class="beam" viewBox="0 0 10 22"><path d="M1 1H9M5 1V21M1 21H9" /></svg>
 				<span>{hand.name}</span>
 			</div>
 		{/each}
@@ -252,9 +457,9 @@
 					</span>
 				</button>
 			</p>
-			<a class="github" href={GITHUB} target="_blank" rel="noreferrer">github ↗</a>
+			<a class="github" href={GITHUB} target="_blank" rel="noreferrer"><span class="typed">github ↗</span></a>
 			{#each SOCIALS as social (social.name)}
-				<a class="social" href={social.href} target="_blank" rel="noreferrer">{social.name} ↗</a>
+				<a class="social" href={social.href} target="_blank" rel="noreferrer"><span class="typed">{social.name} ↗</span></a>
 			{/each}
 		</div>
 
@@ -383,6 +588,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+		z-index: 2;
 		border: 0.125rem dashed var(--purple);
 		border-radius: 0.25rem;
 		background: color-mix(in srgb, var(--purple) 12%, transparent);
@@ -403,29 +609,74 @@
 		}
 	}
 
-	.hand {
+	// the line the buttons are set on while the ending is built
+	.guide {
 		position: absolute;
 		top: 0;
 		left: 0;
+		right: 0;
 		z-index: 2;
-		display: flex;
-		align-items: flex-start;
+		height: 0.1rem;
+		background: var(--pink);
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	.hand {
+		--tone: var(--pink);
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 3;
 		visibility: hidden;
 		pointer-events: none;
 
+		// one of the three is shown at a time; the box and text cursors sit centred on the point they work at
 		svg {
-			width: 1.25rem;
-			fill: var(--pink);
+			display: none;
 			stroke: var(--night);
-			stroke-width: 1.2;
 			stroke-linejoin: round;
+			stroke-linecap: round;
+		}
+
+		.arrow {
+			width: 1.25rem;
+			fill: var(--tone);
+			stroke-width: 1.2;
+		}
+
+		.cross,
+		.beam {
+			position: absolute;
+			top: 0;
+			left: 0;
+			fill: none;
+			stroke-width: 2;
+			translate: -50% -50%;
+		}
+
+		.cross {
+			width: 1.25rem;
+		}
+
+		.beam {
+			width: 0.625rem;
+		}
+
+		// the shape is set by script, which the compiler cannot see
+		&:global([data-shape='arrow']) .arrow,
+		&:global([data-shape='cross']) .cross,
+		&:global([data-shape='beam']) .beam {
+			display: block;
 		}
 
 		span {
-			margin: 1rem 0 0 0.125rem;
+			position: absolute;
+			top: 1rem;
+			left: 0.75rem;
 			padding: 0.125rem 0.625rem;
 			border-radius: 0.75rem;
-			background: var(--pink);
+			background: var(--tone);
 			color: var(--night);
 			font-size: 0.75rem;
 			font-weight: 500;
@@ -433,22 +684,22 @@
 		}
 
 		&.blue {
-			svg {
-				fill: var(--blue);
-			}
-
-			span {
-				background: var(--blue);
-			}
+			--tone: var(--blue);
 		}
 
 		&.paper {
-			svg {
-				fill: var(--paper);
-			}
+			--tone: var(--paper);
+		}
+
+		&.lav {
+			--tone: var(--lav);
+		}
+
+		&.purple {
+			--tone: var(--purple);
 
 			span {
-				background: var(--paper);
+				color: var(--paper);
 			}
 		}
 	}
@@ -491,6 +742,8 @@
 			border-radius: 50%;
 			background: var(--bg);
 			translate: 0 20%;
+			// 0 until a cursor lays the lace, where the ending is built by cursors
+			scale: var(--grow, 1);
 
 			@include motion {
 				animation: swell 3.6s ease-in-out infinite;

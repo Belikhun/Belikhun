@@ -119,13 +119,17 @@
 				gather.kill();
 				giveUp.kill();
 
+				// This runs after the context's own function has returned, so a bare selector would search
+				// the whole page: the ending's charms have a string and a doll too, and were dropped with it.
+				const own = gsap.utils.selector(root!);
+
 				gsap.timeline({ delay: SETTLE_SECONDS, onStart: () => swing.kill() })
 					.addLabel('drop')
-					.to('.string', { scaleY: 0, transformOrigin: '50% 0%', duration: 0.25, ease: 'power2.in' })
-					.to('.doll', { y: '120vh', rotation: 50, transformOrigin: '50% 50%', duration: 0.7, ease: 'power2.in' }, '<')
-					.to('.letter', { yPercent: -180, opacity: 0, stagger: 0.03, duration: 0.45, ease: 'power2.in' }, '<0.05')
-					.to('.meter i', { scaleY: 0, duration: 0.3, stagger: { each: 0.008, from: 'center' }, ease: 'power2.in' }, '<')
-					.to('.percent', { opacity: 0, duration: 0.2 }, '<')
+					.to(own('.string'), { scaleY: 0, transformOrigin: '50% 0%', duration: 0.25, ease: 'power2.in' })
+					.to(own('.doll'), { y: '120vh', rotation: 50, transformOrigin: '50% 50%', duration: 0.7, ease: 'power2.in' }, '<')
+					.to(own('.letter'), { yPercent: -180, opacity: 0, stagger: 0.03, duration: 0.45, ease: 'power2.in' }, '<0.05')
+					.to(own('.meter i'), { scaleY: 0, duration: 0.3, stagger: { each: 0.008, from: 'center' }, ease: 'power2.in' }, '<')
+					.to(own('.percent'), { opacity: 0, duration: 0.2 }, '<')
 					// the curtain lifts only once the doll has fallen out of the window; lifting sooner carries it back up mid-fall
 					.to(root!, { yPercent: -100, duration: 0.8, ease: 'expo.inOut' }, 'drop+=0.6')
 					// the hero waits until the curtain is about halfway up; any sooner and its entrance plays unseen

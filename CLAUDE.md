@@ -62,9 +62,12 @@ These follow harbor and luna-console; read `~/harbor/docs/style.md` on maylocnuo
   whatever a scene passed to `holdLoader` (`motion/stage.ts`) have loaded, so no picture uses
   `loading="lazy"` and anything fetched by script must be held for.
 - **The avatar appears in the hero only.**
-- **The cursors** that assemble the ending (`Contact.svelte`) do a job once and leave; they never
-  idle or orbit. The idea is Joel Califa's Swarm, which is unlicensed: never copy its code or
-  cursor art, and do not credit it on the page.
+- **The cursors** build the whole ending (`Contact.svelte`), footer included, the way it would be
+  laid out in a design tool: boxes dragged out and measured, words typed letter by letter, a button
+  copied into the next, the charms pulled down, the lace laid along the footer. Nothing in the card
+  shows until a cursor has made it, and each cursor does its job once and leaves; they never idle
+  or orbit. The idea is Joel Califa's Swarm (and DhvanilPatel/swarm-cursors, which adapts it); both
+  are unlicensed: never copy their code or cursor art, and do not credit them on the page.
 - **Work cards**: Harbor shows real captures of harbor.belikhun.dev (hide rows that belong to
   other people's sites before capturing). Themis Web Interface, Deal Hunter Suite and CTMS+ are minimal redrawn
   mockups: a few pieces that resemble the real interface, in the site's colours, with no real
