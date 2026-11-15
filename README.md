@@ -5,3 +5,4 @@
 <a href="https://github.com/Belikhun?tab=repositories&sort=stargazers"><img src="https://raw.githubusercontent.com/Belikhun/Belikhun/stats/top-3.svg" width="100%" alt="my most starred repository, number 3" /></a>
 <a href="https://github.com/Belikhun?tab=repositories&sort=stargazers"><img src="https://raw.githubusercontent.com/Belikhun/Belikhun/stats/top-4.svg" width="100%" alt="my most starred repository, number 4" /></a>
 <a href="https://github.com/Belikhun?tab=repositories&sort=stargazers"><img src="https://raw.githubusercontent.com/Belikhun/Belikhun/stats/top-5.svg" width="100%" alt="my most starred repository, number 5" /></a>
+<a href="https://www.visitorbadge.io/status?path=Belikhun/Belikhun"><img src="https://api.visitorbadge.io/api/visitors?path=Belikhun%2FBelikhun&labelColor=%232a2440&countColor=%238f7bd0" alt="visitors" /></a>
