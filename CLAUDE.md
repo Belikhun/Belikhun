@@ -78,6 +78,18 @@ These follow harbor and luna-console; read `~/harbor/docs/style.md` on maylocnuo
 - **Commits**: one line, a leading emoji, then a plain lower-case sentence saying what changed.
   No body, no co-author or tool attribution, and only when Belikhun asks for one.
 
+## Deployment
+
+The repository is github.com/Belikhun/Belikhun, so `README.md` is also the profile page: pictures
+only (the banner, then the numbers `scripts/stats.py` draws hourly onto the `stats` branch).
+
+A push to `main` runs `.github/workflows/deploy.yml`: check, build, then a POST to the webhook of
+the site's harbor instance (`HARBOR_WEBHOOK_URL` variable, `HARBOR_WEBHOOK_TOKEN` secret). harbor
+runs `.harbor/pipeline.yml`, whose one step deploys the `Dockerfile`. harbor never pulls: its
+workspace is the clone it made when the instance was created, so the `Dockerfile` fetches `main`
+from GitHub itself and serves `build/` with `deploy/nginx.conf`. A change to the `Dockerfile` or to
+`.harbor/pipeline.yml` therefore only takes effect once harbor's workspace has it too.
+
 ## Commands
 
 ```

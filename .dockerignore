@@ -1,0 +1,7 @@
+# only matters for a local build (SOURCE=.); harbor's build fetches the source from GitHub
+.git
+node_modules
+build
+.svelte-kit
+docs
+*.log

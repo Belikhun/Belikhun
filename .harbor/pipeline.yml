@@ -1,0 +1,10 @@
+# harbor's pipeline for the site's instance. The checks and the trial build run
+# on GitHub (.github/workflows/deploy.yml), which then calls harbor's webhook;
+# all that is left here is the deploy, which builds the Dockerfile.
+name: Deploy
+
+jobs:
+  deploy:
+    name: Deploy
+    steps:
+      - uses: deploy

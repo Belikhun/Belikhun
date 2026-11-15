@@ -1,0 +1,55 @@
+# Copyright (c) 2026 Belikhun. Licensed under the MIT License.
+# See LICENSE at the repository root.
+
+# Checks and builds the site on every push to main and, when both pass, asks
+# harbor to deploy it. harbor then builds the Dockerfile, which fetches main
+# from GitHub, and swaps the new container in only once it answers.
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - README.md
+      - CLAUDE.md
+      - LICENSE
+      - .github/banner.svg
+      - .github/workflows/stats.yml
+      - scripts/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - run: bun run check
+
+      - run: bun run build
+
+      - name: ask harbor to deploy
+        env:
+          HARBOR_WEBHOOK_URL: ${{ vars.HARBOR_WEBHOOK_URL }}
+          HARBOR_WEBHOOK_TOKEN: ${{ secrets.HARBOR_WEBHOOK_TOKEN }}
+        run: |
+          if [ -z "$HARBOR_WEBHOOK_URL" ] || [ -z "$HARBOR_WEBHOOK_TOKEN" ]; then
+            echo "::notice::HARBOR_WEBHOOK_URL or HARBOR_WEBHOOK_TOKEN is not set; nothing was deployed"
+            exit 0
+          fi
+
+          curl --fail --silent --show-error --max-time 30 --request POST \
+            --header "X-Harbor-Token: $HARBOR_WEBHOOK_TOKEN" "$HARBOR_WEBHOOK_URL"
