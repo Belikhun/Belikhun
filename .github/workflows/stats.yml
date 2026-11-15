@@ -37,7 +37,8 @@ jobs:
 
       - name: draw the pictures
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # the personal token also counts private repositories, as the old readme did
+          GITHUB_TOKEN: ${{ secrets.SECRET_TOKEN || secrets.GITHUB_TOKEN }}
         run: python scripts/stats.py out
 
       - name: publish them on the stats branch
