@@ -15,8 +15,21 @@ export interface Picture {
 	alt: string;
 }
 
+/** An animated emoji: its file under static/emoji and the character it stands for. */
+export interface EmojiMark {
+	code: string;
+	char: string;
+}
+
+/** One phrase of the hero marquee, with the emoji that follows it. */
+export interface Phrase {
+	text: string;
+	emoji?: EmojiMark;
+}
+
 /** One chapter of the "who is belikhun" scene. */
 export interface Chapter {
+	emoji: EmojiMark;
 	label: string;
 	title: string;
 	body: string;
@@ -31,7 +44,7 @@ export interface Stop {
 }
 
 /** Which visual a work card shows beside its text. */
-export type WorkKind = 'luna' | 'harbor' | 'vloom' | 'clover' | 'arena' | 'manulife' | 'blink' | 'themis' | 'ctms';
+export type WorkKind = 'luna' | 'harbor' | 'vloom' | 'clover' | 'arena' | 'blink' | 'home' | 'themis' | 'ctms';
 
 /** One card in the selected work stack. */
 export interface Work {
@@ -69,26 +82,32 @@ export const EMAIL = 'belikhun02@gmail.com';
 
 export const GITHUB = 'https://github.com/Belikhun';
 
-export const MARQUEE: string[] = ['fullstack web engineer', 'builds free software with ❤', 'Việt Nam'];
+export const MARQUEE: Phrase[] = [
+	{ text: 'fullstack web engineer', emoji: { code: '1f4bb', char: '💻' } },
+	{ text: 'builds free software with', emoji: { code: '2764_fe0f', char: '❤' } }
+];
 
 export const CHAPTERS: Chapter[] = [
 	{
+		emoji: { code: '1f393', char: '🎓' },
 		label: 'started at 14',
 		title: 'a Pascal program',
 		body: 'i started at 14 with a Pascal program that ranked my school\'s classes, so the teachers could stop doing it by hand. it won a provincial prize, and i never stopped building.',
 		tags: ['Pascal', '2017', 'school']
 	},
 	{
+		emoji: { code: '1f4a1', char: '💡' },
 		label: 'builds platforms',
 		title: 'frameworks first',
 		body: 'at Videa EdTech i wrote the core of Vloom, a framework that turns Moodle into an app platform. then a frontend framework and a live quiz for 20,000 players on top of it.',
 		tags: ['Vloom', 'Clover', 'Vloom Arena']
 	},
 	{
+		emoji: { code: '2693', char: '⚓' },
 		label: 'owns the whole thing',
 		title: 'down to the servers',
-		body: 'i like owning the whole thing: the framework, the servers it runs on, the load test that breaks it and the docs that explain it. this site is served by Harbor, a platform i wrote myself.',
-		tags: ['Harbor', 'Luna', 'infrastructure']
+		body: 'i like owning the whole thing: the framework, the servers it runs on, the load test that breaks it and the docs that explain it. this site is served by harbor, a platform i wrote myself.',
+		tags: ['harbor', 'luna', 'infrastructure']
 	}
 ];
 
@@ -141,14 +160,14 @@ export const STOPS: Stop[] = [
 	{
 		year: 2026,
 		title: 'Manulife',
-		lines: ['Clover · Vloom Arena', 'Vloom App Platform', 'Harbor · Luna']
+		lines: ['Clover · Vloom Arena', 'Vloom App Platform', 'harbor · luna']
 	}
 ];
 
 export const WORKS: Work[] = [
 	{
 		kind: 'luna',
-		name: 'Luna',
+		name: 'luna',
 		context: 'personal',
 		years: '2026',
 		body: 'a Minecraft network for friends. i wrote the console that runs its servers and the 72 plugins they share.',
@@ -157,7 +176,7 @@ export const WORKS: Work[] = [
 	},
 	{
 		kind: 'harbor',
-		name: 'Harbor',
+		name: 'harbor',
 		context: 'personal',
 		years: '2026',
 		body: 'my own hosting platform: codespaces, deploys, domains, a firewall and an ai agent called Mèo Béo. this site runs on it.',
@@ -188,14 +207,6 @@ export const WORKS: Work[] = [
 		role: 'sole author'
 	},
 	{
-		kind: 'manulife',
-		name: 'Manulife',
-		context: 'Videa EdTech',
-		years: '2026',
-		body: 'the learning platform that trains Manulife Vietnam\'s agents.',
-		role: 'core developer'
-	},
-	{
 		kind: 'blink',
 		name: 'blink',
 		context: 'personal',
@@ -203,6 +214,15 @@ export const WORKS: Work[] = [
 		body: 'my own PHP framework with no dependencies: routing, database, caching and sessions.',
 		role: 'sole author',
 		link: 'https://github.com/Belikhun/blink'
+	},
+	{
+		kind: 'home',
+		name: 'smart home',
+		context: 'graduation thesis',
+		years: '2024',
+		body: 'ESP32 devices on MicroPython, a Bun server that runs them, a phone app, and an assistant called Bụt that works the house when you tell it how you feel.',
+		role: 'sole author',
+		link: 'https://github.com/Belikhun/iot-smart-server'
 	},
 	{
 		kind: 'themis',
@@ -224,6 +244,14 @@ export const WORKS: Work[] = [
 	}
 ];
 
+/** The client project shown as a plain card above the list. */
+export const CLIENT_WORK = {
+	name: 'Manulife',
+	context: 'Videa EdTech · 2026',
+	body: 'the learning platform that trains Manulife Vietnam\'s agents: onboarding paths, exams and certificates, team dashboards.',
+	role: 'core developer'
+};
+
 export const ROWS: Row[] = [
 	{ name: 'Vloom App Platform', what: 'flutter apps + ai assistant', year: 2026 },
 	{ name: 'libraries', what: 'ui kit', year: 2022, link: 'https://github.com/Belikhun/libraries' },
@@ -235,7 +263,6 @@ export const ROWS: Row[] = [
 		year: 2019,
 		preview: picture('rows/deal-hunter-suite.webp', 'Deal Hunter Suite splash screen')
 	},
-	{ name: 'smart home thesis', what: 'iot + ai assistant', year: 2024, link: 'https://github.com/Belikhun/iot-smart-server' },
 	{ name: 'thi-trac-nghiem', what: 'exam system', year: 2020, link: 'https://github.com/Belikhun/thi-trac-nghiem' },
 	{ name: 'covid tracker', what: 'chrome extension', year: 2020, link: 'https://github.com/Belikhun/corona-tracker-extension' },
 	{ name: 'BoatRacing', what: 'Minecraft plugin', year: 2025 },

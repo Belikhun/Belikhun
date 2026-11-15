@@ -5,8 +5,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { CLIENTS, ROWS, type Row } from '#lib/content/site.ts';
+	import { CLIENT_WORK, CLIENTS, ROWS, type Row } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION } from '#lib/motion/gsap.ts';
+
+	import Emoji from './Emoji.svelte';
 
 	let root = $state<HTMLElement>();
 	let hovered = $state<Row>();
@@ -24,6 +26,14 @@
 			const media = gsap.matchMedia();
 
 			media.add(MOTION, () => {
+				gsap.from('.client', {
+					y: '2rem',
+					autoAlpha: 0,
+					duration: 0.7,
+					ease: 'power3.out',
+					scrollTrigger: { trigger: '.client', start: 'top 85%' }
+				});
+
 				gsap.from('.row', {
 					'--drawn': 0,
 					duration: 0.9,
@@ -65,7 +75,14 @@
 </script>
 
 <section class="rest" bind:this={root}>
-	<h2>everything else</h2>
+	<h2>everything else <Emoji code="1f4e6" char="📦" /></h2>
+
+	<article class="client">
+		<p class="meta">{CLIENT_WORK.context}</p>
+		<h3>{CLIENT_WORK.name}</h3>
+		<p class="body">{CLIENT_WORK.body}</p>
+		<p class="role">{CLIENT_WORK.role}</p>
+	</article>
 
 	<ul class="list" onpointerover={hover} onpointerleave={() => (hovered = undefined)}>
 		{#each ROWS as row, index (row.name)}
@@ -118,6 +135,38 @@
 	h2 {
 		@include display;
 		font-size: clamp(2.5rem, 6vw, 6rem);
+	}
+
+	.client {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
+		align-items: center;
+		gap: 0.5rem 2rem;
+		padding: 1.5rem 2rem;
+		border: var(--hairline) solid var(--line);
+		border-radius: 1.5rem;
+		background: var(--surface);
+
+		.meta {
+			@include label;
+			grid-column: 1 / -1;
+			color: var(--soft);
+		}
+
+		h3 {
+			@include display;
+			font-size: clamp(2rem, 4vw, 3.5rem);
+		}
+
+		.role {
+			@include label;
+			color: var(--purple);
+		}
+
+		@include below($bp-medium) {
+			grid-template-columns: minmax(0, 1fr);
+			padding: 1.5rem;
+		}
 	}
 
 	.row {

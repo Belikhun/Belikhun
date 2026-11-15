@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><title>CTMS+</title>
+	<circle cx="128" cy="128" r="128" fill="#45a7ea"/>
+	<path d="M150 104a46 46 0 1 0 0 62" fill="none" stroke="#fff" stroke-width="34" stroke-linecap="round"/>
+	<path d="M192 58v40M172 78h40" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+</svg>

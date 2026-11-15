@@ -5,51 +5,35 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { picture, WORKS } from '#lib/content/site.ts';
-	import { DESKTOP_MOTION, gsap } from '#lib/motion/gsap.ts';
+	import { picture, WORKS, type WorkKind } from '#lib/content/site.ts';
+	import { DESKTOP_MOTION, gsap, type Span } from '#lib/motion/gsap.ts';
 
-	import ArenaCrowd from './work/ArenaCrowd.svelte';
-	import CloverBuild from './work/CloverBuild.svelte';
-	import CodeSample from './work/CodeSample.svelte';
-	import FeatureList from './work/FeatureList.svelte';
-	import HarborRoute from './work/HarborRoute.svelte';
+	import ArenaGame from './work/ArenaGame.svelte';
+	import BlinkRequest from './work/BlinkRequest.svelte';
+	import CloverCompile from './work/CloverCompile.svelte';
+	import CtmsMock from './work/CtmsMock.svelte';
+	import HarborConsole from './work/HarborConsole.svelte';
+	import HomeAssistant from './work/HomeAssistant.svelte';
 	import LunaWall from './work/LunaWall.svelte';
-	import Shots from './work/Shots.svelte';
-	import VloomLayers from './work/VloomLayers.svelte';
+	import ThemisMock from './work/ThemisMock.svelte';
+	import VloomStack from './work/VloomStack.svelte';
 
 	interface Visual {
-		animate(timeline: gsap.core.Timeline, at: number): void;
+		animate(timeline: gsap.core.Timeline, at: number, shown: Span): void;
 	}
 
 	/** How much scroll each card gets, as a share of the viewport height. */
 	const SCROLL_PER_CARD = 66;
 
-	const LUNA_ICON = picture('luna/icon.webp', '');
-
-	const MANULIFE_FEATURES = ['agent onboarding paths', 'exams and certificates', 'team dashboards'];
-
-	const BLINK_LINES = [
-		'// routes/web.php',
-		'use Blink\\Http\\Router;',
-		'',
-		'Router::GET("/", fn () => "hello");',
-		'',
-		'Router::GET("/user/{id}", function (int $id) {',
-		'	return App\\Model\\User::getByID($id, Blink\\Model::MUST_EXIST);',
-		'});'
-	];
-
-	const THEMIS_SHOTS = [
-		picture('themis/light.webp', 'the contest ranking in the day theme'),
-		picture('themis/dark.webp', 'the contest ranking in the night theme'),
-		picture('themis/overview.webp', 'submitting a solution with the timer running')
-	];
-
-	const CTMS_SHOTS = [
-		picture('ctms/schedule.webp', 'the class schedule on desktop'),
-		picture('ctms/phone-schedule.webp', 'the class schedule on a phone'),
-		picture('ctms/phone-register.webp', 'class registration on a phone')
-	];
+	/** The mark shown beside a card's name; `round` clips a square picture to a disc. */
+	const ICONS: Partial<Record<WorkKind, { src: string; round?: boolean }>> = {
+		luna: { src: picture('luna/icon.webp', '').src, round: true },
+		harbor: { src: '/img/harbor/harbor-mark.svg' },
+		vloom: { src: '/img/vloom/vloom-symbol.svg' },
+		clover: { src: '/img/clover/clover-symbol.svg' },
+		themis: { src: '/img/themis/themis-mark.svg' },
+		ctms: { src: '/img/ctms/ctms-mark.svg' }
+	};
 
 	let root = $state<HTMLElement>();
 	let visuals = $state<(Visual | undefined)[]>([]);
@@ -75,10 +59,14 @@
 					}
 				});
 
+				const length = cards.length - 0.25;
+
 				// Each card owns one unit: it shows its visual over the first half,
-				// and the next card slides over it during the second.
+				// and the next card slides over it during the second. It is on screen
+				// for longer than that, from sliding in until the next card has covered
+				// it, and its visual keeps something moving for that whole stretch.
 				cards.forEach((card, index) => {
-					visuals[index]?.animate(timeline, index);
+					visuals[index]?.animate(timeline, index, { from: Math.max(index - 0.5, 0), to: Math.min(index + 1.5, length) });
 
 					const next = cards[index + 1];
 
@@ -92,7 +80,7 @@
 						.set(card, { autoAlpha: 0 }, index + 1.5);
 				});
 
-				timeline.to({}, { duration: 0.25 });
+				timeline.to({}, { duration: 0.25 }, length - 0.25);
 			});
 		}, root);
 
@@ -107,8 +95,8 @@
 				<div class="text">
 					<p class="meta">{pad(index + 1)} / {pad(WORKS.length)} · {work.context} · {work.years}</p>
 					<h3 class:long={work.name.length > 12}>
-						{#if work.kind === 'luna'}
-							<img class="icon" src={LUNA_ICON.src} width={LUNA_ICON.width} height={LUNA_ICON.height} alt="" />
+						{#if ICONS[work.kind]}
+							<img class="icon" class:round={ICONS[work.kind]?.round} src={ICONS[work.kind]?.src} width="256" height="256" alt="" />
 						{/if}
 						{work.name}
 					</h3>
@@ -123,21 +111,21 @@
 					{#if work.kind === 'luna'}
 						<LunaWall bind:this={visuals[index]} />
 					{:else if work.kind === 'harbor'}
-						<HarborRoute bind:this={visuals[index]} />
+						<HarborConsole bind:this={visuals[index]} />
 					{:else if work.kind === 'vloom'}
-						<VloomLayers bind:this={visuals[index]} />
+						<VloomStack bind:this={visuals[index]} />
 					{:else if work.kind === 'clover'}
-						<CloverBuild bind:this={visuals[index]} />
+						<CloverCompile bind:this={visuals[index]} />
 					{:else if work.kind === 'arena'}
-						<ArenaCrowd bind:this={visuals[index]} />
-					{:else if work.kind === 'manulife'}
-						<FeatureList bind:this={visuals[index]} title="what it covers" features={MANULIFE_FEATURES} />
+						<ArenaGame bind:this={visuals[index]} />
 					{:else if work.kind === 'blink'}
-						<CodeSample bind:this={visuals[index]} file="a working site" lines={BLINK_LINES} />
+						<BlinkRequest bind:this={visuals[index]} />
+					{:else if work.kind === 'home'}
+						<HomeAssistant bind:this={visuals[index]} />
 					{:else if work.kind === 'themis'}
-						<Shots bind:this={visuals[index]} pictures={THEMIS_SHOTS} />
+						<ThemisMock bind:this={visuals[index]} />
 					{:else if work.kind === 'ctms'}
-						<Shots bind:this={visuals[index]} pictures={CTMS_SHOTS} tone="blue" />
+						<CtmsMock bind:this={visuals[index]} />
 					{/if}
 				</div>
 			</article>
@@ -212,7 +200,11 @@
 		flex: none;
 		width: 1em;
 		height: 1em;
-		border-radius: 50%;
+		object-fit: contain;
+
+		&.round {
+			border-radius: 50%;
+		}
 	}
 
 	.body {

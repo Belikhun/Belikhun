@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400">
+	<defs>
+		<radialGradient id="vloom-radial" cx="0.482" cy="0.5" r="0.591" gradientTransform="translate(0.026) scale(0.947 1)" gradientUnits="objectBoundingBox">
+			<stop offset="0" stop-color="#ffbbc7"/>
+			<stop offset="0.19" stop-color="#feacb9"/>
+			<stop offset="0.56" stop-color="#fa8595"/>
+			<stop offset="0.91" stop-color="#f65b6d"/>
+		</radialGradient>
+		<clipPath id="frame">
+			<rect width="1280" height="400"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#frame)">
+		<rect width="1280" height="400" fill="#2f9e44"/>
+		<g transform="matrix(0.883, -0.469, 0.469, 0.883, -408.791, 57.284)" opacity="0.3"><svg x="0" y="-95" width="1465" height="1465" viewBox="0 0 200 200"><defs>
+		<radialGradient id="banner-clover-g" cx="100" cy="100" r="104" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#d9f7c4"/>
+			<stop offset="0.19" stop-color="#c2eea6"/>
+			<stop offset="0.56" stop-color="#8fd96c"/>
+			<stop offset="0.91" stop-color="#2f9e44"/>
+		</radialGradient>
+		<mask id="banner-clover-m" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">
+			<g fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(45)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(135)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(225)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(315)"/>
+				<path d="M100,134 C100,158 106,176 120,192" stroke-width="12"/>
+			</g>
+			<circle cx="100" cy="100" r="36" fill="#fff"/>
+			<path d="M100.00,74.00 L107.07,92.93 L126.00,100.00 L107.07,107.07 L100.00,126.00 L92.93,107.07 L74.00,100.00 L92.93,92.93 Z" fill="#000" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+		</mask>
+	</defs>
+	<rect width="200" height="200" fill="url(#banner-clover-g)" mask="url(#banner-clover-m)"/></svg></g>
+	</g>
+</svg>

@@ -63,29 +63,25 @@
 		512,
 		512
 	],
-	"themis/light.webp": [
-		1400,
-		788
+	"harbor/instances.webp": [
+		1568,
+		765
 	],
-	"themis/dark.webp": [
-		1400,
-		788
+	"harbor/pipeline.webp": [
+		1568,
+		765
 	],
-	"themis/overview.webp": [
-		1305,
-		632
+	"harbor/codespace.webp": [
+		1568,
+		765
 	],
-	"ctms/schedule.webp": [
-		1200,
-		672
+	"harbor/monitoring.webp": [
+		1568,
+		765
 	],
-	"ctms/phone-schedule.webp": [
-		500,
-		831
-	],
-	"ctms/phone-register.webp": [
-		500,
-		831
+	"harbor/meo-beo-chat.webp": [
+		1568,
+		765
 	],
 	"rows/deal-hunter-suite.webp": [
 		402,

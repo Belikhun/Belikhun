@@ -1,0 +1,174 @@
+{
+	"size": [
+		1280,
+		1280
+	],
+	"atlas": [
+		2048,
+		1075
+	],
+	"layers": [
+		{
+			"name": "back hair",
+			"x": 283,
+			"y": 0,
+			"width": 730,
+			"height": 783,
+			"u": 4,
+			"v": 4
+		},
+		{
+			"name": "footwear",
+			"x": 519,
+			"y": 1082,
+			"width": 146,
+			"height": 189,
+			"u": 252,
+			"v": 791
+		},
+		{
+			"name": "legwear",
+			"x": 589,
+			"y": 639,
+			"width": 217,
+			"height": 513,
+			"u": 1329,
+			"v": 4
+		},
+		{
+			"name": "handwear-l",
+			"x": 603,
+			"y": 308,
+			"width": 201,
+			"height": 400,
+			"u": 1767,
+			"v": 4
+		},
+		{
+			"name": "topwear",
+			"x": 362,
+			"y": 293,
+			"width": 587,
+			"height": 780,
+			"u": 738,
+			"v": 4
+		},
+		{
+			"name": "neck",
+			"x": 521,
+			"y": 240,
+			"width": 59,
+			"height": 93,
+			"u": 593,
+			"v": 791
+		},
+		{
+			"name": "handwear-r",
+			"x": 335,
+			"y": 316,
+			"width": 213,
+			"height": 457,
+			"u": 1550,
+			"v": 4
+		},
+		{
+			"name": "ears",
+			"x": 455,
+			"y": 232,
+			"width": 41,
+			"height": 49,
+			"u": 656,
+			"v": 791
+		},
+		{
+			"name": "face",
+			"x": 453,
+			"y": 117,
+			"width": 187,
+			"height": 181,
+			"u": 402,
+			"v": 791
+		},
+		{
+			"name": "eyebrow-l",
+			"x": 582,
+			"y": 157,
+			"width": 21,
+			"height": 5,
+			"u": 953,
+			"v": 791
+		},
+		{
+			"name": "eyebrow-r",
+			"x": 506,
+			"y": 175,
+			"width": 22,
+			"height": 10,
+			"u": 927,
+			"v": 791
+		},
+		{
+			"name": "eyewhite-r",
+			"x": 501,
+			"y": 213,
+			"width": 46,
+			"height": 36,
+			"u": 701,
+			"v": 791
+		},
+		{
+			"name": "eyewhite-l",
+			"x": 593,
+			"y": 193,
+			"width": 30,
+			"height": 35,
+			"u": 751,
+			"v": 791
+		},
+		{
+			"name": "irides-l",
+			"x": 593,
+			"y": 196,
+			"width": 17,
+			"height": 31,
+			"u": 817,
+			"v": 791
+		},
+		{
+			"name": "irides-r",
+			"x": 510,
+			"y": 215,
+			"width": 28,
+			"height": 32,
+			"u": 785,
+			"v": 791
+		},
+		{
+			"name": "eyelash-l",
+			"x": 594,
+			"y": 186,
+			"width": 30,
+			"height": 17,
+			"u": 893,
+			"v": 791
+		},
+		{
+			"name": "eyelash-r",
+			"x": 495,
+			"y": 208,
+			"width": 51,
+			"height": 30,
+			"u": 838,
+			"v": 791
+		},
+		{
+			"name": "front hair",
+			"x": 420,
+			"y": 40,
+			"width": 244,
+			"height": 280,
+			"u": 4,
+			"v": 791
+		}
+	]
+}

@@ -1,0 +1,148 @@
+/* Copyright (c) 2026 Belikhun. All rights reserved.
+   Proprietary software: use, copying, modification and distribution are
+   prohibited without written permission. See LICENSE at the repository root. */
+
+/* The site's palette laid over the counters. socket.js loads this after the
+   counters' own sheets; nothing in the counters themselves is edited. Each
+   judgement keeps its own colour, so the meaning survives the repaint:
+   best is blue, good lavender, poor pink, a miss rose. */
+
+:root {
+	--site-blue: #a9d4ec;
+	--site-lav: #b9a7d9;
+	--site-pink: #ecbcd6;
+	--site-purple: #a996e6;
+	--site-rose: #f08fb0;
+	--site-paper: #f7f5fc;
+	--site-night: #2a2440;
+	--site-dim: #40385c;
+
+	--osc-color-whitesmoke: var(--site-paper);
+	--osc-color-yellow: var(--site-pink);
+	--osc-color-green: var(--site-lav);
+	--osc-color-blue: var(--site-blue);
+	--osc-color-red: var(--site-rose);
+	--osc-color-pink: var(--site-pink);
+	--osc-color-purple: var(--site-purple);
+}
+
+html,
+body {
+	background: var(--site-night);
+}
+
+/* every counter mounts its panel as a direct child of #app and keeps its colours there */
+#app > * {
+	--color-h200: var(--site-blue) !important;
+	--color-h100: var(--site-lav) !important;
+	--color-h50: var(--site-pink) !important;
+	--color-miss: var(--site-rose) !important;
+	--color-fcpp: var(--site-purple) !important;
+	--color-clear: var(--site-purple) !important;
+	--color-person: var(--site-paper) !important;
+
+	--suffix-down2: var(--site-blue) !important;
+	--suffix-down1: #c3dcf0 !important;
+	--suffix-up1: var(--site-pink) !important;
+	--suffix-up2: var(--site-rose) !important;
+
+	--skill-jack: var(--site-pink) !important;
+	--skill-tech: var(--site-lav) !important;
+	--skill-speed: var(--site-blue) !important;
+	--skill-stamina: var(--site-purple) !important;
+
+	--msd-overall: var(--site-paper) !important;
+	--msd-stream: var(--site-purple) !important;
+	--msd-jumpstream: var(--site-blue) !important;
+	--msd-handstream: var(--site-lav) !important;
+	--msd-stamina: #8f7bd0 !important;
+	--msd-jackspeed: var(--site-pink) !important;
+	--msd-chordjack: var(--site-rose) !important;
+	--msd-technical: #c3dcf0 !important;
+}
+
+/* the user card, and the same card at the foot of the dan counter */
+#app > *,
+#app > * > .bottom {
+	--status-idle: var(--site-dim) !important;
+	--status-playing: #5a4a8a !important;
+	--status-spectating: #5a4a8a !important;
+	--status-editing: #7a4a6e !important;
+}
+
+/* unstable rate: the histogram, the hit ticks above it and the window read-out */
+#app [data-color='blue'] {
+	background-color: var(--site-blue) !important;
+}
+
+#app [data-color='green'] {
+	background-color: var(--site-lav) !important;
+}
+
+#app [data-color='yellow'] {
+	background-color: var(--site-pink) !important;
+}
+
+#app .bl {
+	color: var(--site-blue) !important;
+}
+
+#app .gr {
+	color: var(--site-lav) !important;
+}
+
+#app .ye {
+	color: var(--site-pink) !important;
+}
+
+/* rank and accuracy: the grade letter is text, so it takes a colour, not a fill */
+#app .grade > .value[data-color] {
+	background-color: transparent !important;
+	filter: none;
+}
+
+#app .progBar {
+	background-color: var(--site-dim);
+}
+
+#app .progBar > .bar.blue {
+	background-color: var(--site-blue);
+}
+
+#app .progBar > .bar.green {
+	background-color: var(--site-lav);
+}
+
+#app .progBar > .bar.orange,
+#app .progBar > .bar.yellow {
+	background-color: var(--site-pink);
+}
+
+#app .progBar > .bar.purple {
+	background-color: var(--site-purple);
+}
+
+#app .minAcc {
+	color: var(--site-blue);
+}
+
+#app .currentAcc {
+	color: var(--site-pink);
+}
+
+/* the trend bars: falling is rose, rising is blue */
+#app .delta > .down,
+#app .deltaBar > .left,
+#app .deltaBar::before {
+	background-color: var(--site-rose);
+}
+
+#app .delta > .up,
+#app .deltaBar > .right,
+#app .deltaBar::after {
+	background-color: var(--site-blue);
+}
+
+#app .deltaBar {
+	background-color: var(--site-dim);
+}

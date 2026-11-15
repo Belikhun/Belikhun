@@ -19,4 +19,10 @@ export const DESKTOP_MOTION = `(min-width: 64rem) and ${MOTION}`;
 /** Motion that follows a mouse, never a finger. */
 export const POINTER_MOTION = `(pointer: fine) and ${MOTION}`;
 
+/** A stretch of a scrubbed timeline, in the timeline's own units. */
+export interface Span {
+	from: number;
+	to: number;
+}
+
 export { gsap, ScrollTrigger, SplitText };

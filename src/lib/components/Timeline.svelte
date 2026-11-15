@@ -8,6 +8,8 @@
 	import { STOPS } from '#lib/content/site.ts';
 	import { DESKTOP_MOTION, gsap } from '#lib/motion/gsap.ts';
 
+	import Emoji from './Emoji.svelte';
+
 	const FIRST = STOPS[0]!.year;
 	const LAST = STOPS[STOPS.length - 1]!.year;
 
@@ -66,7 +68,7 @@
 <section class="timeline" id="timeline" bind:this={root}>
 	<div class="pin">
 		<header class="head">
-			<h2>timeline</h2>
+			<h2>timeline <Emoji code="23f0" char="⏰" /></h2>
 			<span class="span">{FIRST} → {LAST}</span>
 		</header>
 

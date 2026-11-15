@@ -1,0 +1,170 @@
+
+/**
+ * Calculate time windows
+ * 
+ * @param	{number}								od 
+ * @param	{"osu" | "mania" | "taiko" | "catch"}	mode 
+ * @param	{string[]}								mods
+ */
+function odToMs(od, mode, mods = []) {
+	switch (mode) {
+		case "osu": {
+			if (mods.includes("EZ")) {
+				od = od / 2;
+			} else if (mods.includes("HR")) {
+				od = Math.min(od * 1.4, 10);
+			}
+
+			return {
+				hit300: 80 - 6 * od,
+				hit100: 140 - 8 * od,
+				hit50: 200 - 10 * od
+			};
+		}
+
+		case "mania": {
+			let windowMultiplier = 1;
+			let hit300g = 16.5;
+
+			if (mods.includes("EZ")) {
+				od = od / 2;
+				hit300g = 22.5;
+			} else if (mods.includes("HR")) {
+				windowMultiplier = 1.4;
+				hit300g = 11.43;
+			}
+
+			return {
+				hit300g,
+				hit300: (64 - 3 * od) / windowMultiplier,
+				hit200: (97 - 3 * od) / windowMultiplier,
+				hit100: (127 - 3 * od) / windowMultiplier,
+				hit50: (151 - 3 * od) / windowMultiplier
+			};
+		}
+
+		case "taiko": {
+			let modOd = od;
+			let altTw = (od >= 5);
+
+			if (mods.includes("EZ")) {
+				modOd = od / 2;
+			} else if (mods.includes("HR")) {
+				modOd = Math.min(od * 1.4, 10);
+				altTw = (modOd >= 5);
+			}
+
+			return {
+				hit300: 50 - 3 * modOd,
+				hit100: (altTw)
+					? 120 - 8 * modOd
+					: 110 - 6 * modOd,
+				hit50: (altTw)
+					? 135 - 8 * modOd
+					: 120 - 5 * modOd
+			}
+		}
+	}
+
+	// Idk what is this...
+	return {
+		hit300: (159 - 12 * od) / 2,
+		hit100: (279 - 16 * od) / 2,
+		hit50: (399 - 20 * od) / 2
+	}
+}
+
+function osuHasHit() {
+	const hits = app.get("play.hits");
+
+	if (!hits)
+		return false;
+
+	for (const value of Object.values(hits)) {
+		if (value > 0)
+			return true;
+	}
+
+	return false;
+}
+
+function getMinAcc() {
+	const hits = app.get("play.hits");
+
+	if (!hits)
+		return 0;
+
+	const {
+		"0": c0,
+		"50": c50,
+		"100": c100,
+		"300": c300,
+		geki,
+		katu
+	} = hits;
+
+	const accuracy = (app.get("play.mode.name") == "mania")
+		? (300 * (geki + c300) + (200 * katu) + (100 * c100) + (50 * c50))
+			/ (300 * getTotalObjects())
+		: (300 * c300 + 100 * c100 + 50 * c50)
+			/ (300 * getTotalObjects());
+
+	if (isNaN(accuracy) || !isFinite(accuracy))
+		return 0;
+
+	return accuracy * 100;
+}
+
+function getTotalObjects() {
+	const objects = app.get("beatmap.stats.objects");
+
+	if (!objects)
+		return 0;
+
+	const { circles, holds, sliders, spinners } = objects;
+	return circles + (holds * 2) + sliders + spinners;
+}
+
+/**
+ * Tier a global rank sits in, used to colour the number.
+ *
+ * Player counts are the estimates from
+ * https://github.com/ppy/osu-web/pull/12483
+ *
+ * @param	{number}								rank
+ * @param	{"osu" | "taiko" | "fruits" | "mania"}	mode
+ * @returns	{string}
+ */
+function rankTier(rank, mode = "osu") {
+	if (rank <= 100)
+		return "lustrous";
+
+	const players = {
+		osu: 2600000,
+		taiko: 340000,
+		fruits: 250000,
+		mania: 870000
+	}[mode] || 2600000;
+
+	const percent = (rank / players) * 100;
+
+	if (percent <= 0.05)
+		return "radiant";
+
+	if (percent <= 0.15)
+		return "rhodium";
+
+	if (percent <= 0.5)
+		return "platinum";
+
+	if (percent <= 1.5)
+		return "gold";
+
+	if (percent <= 5)
+		return "silver";
+
+	if (percent <= 15)
+		return "bronze";
+
+	return "iron";
+}

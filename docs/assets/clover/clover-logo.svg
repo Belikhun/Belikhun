@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 872.5 200"><title>Clover</title>
+	<svg x="0" y="0" width="200" height="200" viewBox="0 0 200 200"><defs>
+		<radialGradient id="clover-full-g" cx="100" cy="100" r="104" gradientUnits="userSpaceOnUse">
+			<stop offset="0" stop-color="#d9f7c4"/>
+			<stop offset="0.19" stop-color="#c2eea6"/>
+			<stop offset="0.56" stop-color="#8fd96c"/>
+			<stop offset="0.91" stop-color="#2f9e44"/>
+		</radialGradient>
+		<mask id="clover-full-m" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200">
+			<g fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(45)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(135)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(225)"/>
+				<path d="M0.00,-28.00 L-41.55,-51.79 A24,24 0 0 1 0.00,-74.66 A24,24 0 0 1 41.55,-51.79 L20.78,-39.90" transform="translate(100 100) rotate(315)"/>
+				<path d="M100,134 C100,158 106,176 120,192" stroke-width="12"/>
+			</g>
+			<circle cx="100" cy="100" r="36" fill="#fff"/>
+			<path d="M100.00,74.00 L107.07,92.93 L126.00,100.00 L107.07,107.07 L100.00,126.00 L92.93,107.07 L74.00,100.00 L92.93,92.93 Z" fill="#000" stroke="#000" stroke-width="7" stroke-linejoin="round"/>
+		</mask>
+	</defs>
+	<rect width="200" height="200" fill="url(#clover-full-g)" mask="url(#clover-full-m)"/></svg>
+	<g transform="translate(240 18.6) scale(1.05)"><g fill="none" stroke="#2f9e44" stroke-width="21.2" stroke-linecap="round"><path d="M78.51,107.33 A38.9,38.9 0 1 1 78.51,55.27"/><circle cx="200.79999999999998" cy="81.3" r="38.9"/><path d="M377.5,81.3 H455.29999999999995 A38.9,38.9 0 1 0 446.20,106.30"/><path d="M490.6,120.65 V81.3 A38.9,38.9 0 0 1 554.50,51.50"/></g>
+	<path fill="#2f9e44" d="M135.79,12V119.29a12,12,0,0,1-12,12h0a12,12,0,0,1-12-12V12a12,12,0,0,1,12-12h0A12,12,0,0,1,135.79,12Z" transform="translate(1.41 0)"/>
+	<path fill="#2f9e44" d="M12.11,32.4h.32a12.09,12.09,0,0,1,10.86,6.78L43.68,80.89a2.84,2.84,0,0,0,5.1,0L69.49,39.13A12.09,12.09,0,0,1,80.32,32.4h0A12.09,12.09,0,0,1,91.14,49.91L52.73,126.73a7.28,7.28,0,0,1-13,0L1.29,49.91A12.1,12.1,0,0,1,12.11,32.4Z" transform="translate(262.40 0)"/>
+	<path fill="#1e7a34" transform="translate(568.50 35.50) rotate(40)" d="M0,10 C-11,2 -14,-12 0,-26 C14,-12 11,2 0,10 Z"/></g>
+</svg>

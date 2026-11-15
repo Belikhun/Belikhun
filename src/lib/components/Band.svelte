@@ -7,6 +7,9 @@
 
 	import { gsap, MOTION } from '#lib/motion/gsap.ts';
 
+	/** How far the ribbon travels each way from the centre, in percent of its own width: one screen, as it is four screens long. */
+	const TRAVEL = 25;
+
 	let root = $state<HTMLElement>();
 
 	onMount(() => {
@@ -14,12 +17,14 @@
 			const media = gsap.matchMedia();
 
 			media.add(MOTION, () => {
+				// The words cross the whole screen on the ribbon: out of sight past the left
+				// edge, centred when the section is, gone past the right edge. The ribbon is
+				// four screens long, so its own ends never come into view.
 				gsap.timeline({
 					scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
 				})
-					.fromTo('.band', { xPercent: 28 }, { xPercent: -8, ease: 'none' }, 0)
-					.fromTo('.words', { xPercent: -30 }, { xPercent: 12, ease: 'none' }, 0)
-					.fromTo('.under', { xPercent: -24 }, { xPercent: 6, ease: 'none' }, 0);
+					.fromTo('.band', { xPercent: -TRAVEL }, { xPercent: TRAVEL, ease: 'none' }, 0)
+					.fromTo('.under', { xPercent: -12 }, { xPercent: 12, ease: 'none' }, 0);
 			});
 		}, root);
 
@@ -50,17 +55,19 @@
 		rotate: -7deg;
 	}
 
+	// long enough that it still spans the screen at both ends of its travel; TRAVEL depends on this width
 	.band {
 		top: 28%;
+		left: -150%;
+		width: 400%;
 		padding: 2rem 0;
-		border-radius: 50% 50% 0 0 / 18% 18% 0 0;
 		background: var(--band);
 	}
 
 	.words {
 		@include display;
-		padding-left: 22%;
-		font-size: clamp(5rem, 17vw, 20rem);
+		font-size: clamp(3.5rem, 13vw, 16rem);
+		text-align: center;
 		color: var(--ink);
 		white-space: nowrap;
 

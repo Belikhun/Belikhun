@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	import { picture } from '#lib/content/site.ts';
-	import { gsap, POINTER_MOTION } from '#lib/motion/gsap.ts';
+	import { gsap, POINTER_MOTION, type Span } from '#lib/motion/gsap.ts';
 
 	type Layer = 'infrastructure' | 'console' | 'servers' | 'game client';
 
@@ -16,14 +16,14 @@
 		machines: { layer: 'infrastructure', picture: picture('luna/wall/machines.webp', 'the machines in the cluster') },
 		health: { layer: 'infrastructure', picture: picture('luna/wall/machine-health.webp', 'health checks for one machine') },
 		proxy: { layer: 'infrastructure', picture: picture('luna/wall/proxy.webp', 'proxy routing') },
-		banner: { layer: 'console', picture: picture('luna/wall/console-banner.webp', 'Luna Console banner') },
+		banner: { layer: 'console', picture: picture('luna/wall/console-banner.webp', 'luna Console banner') },
 		terminal: { layer: 'console', picture: picture('luna/wall/terminal.webp', 'the console\'s terminal') },
 		serial: { layer: 'console', picture: picture('luna/wall/instance-console.webp', 'a live server console') },
 		instances: { layer: 'servers', picture: picture('luna/wall/instances.webp', 'every server on one screen') },
 		monitoring: { layer: 'servers', picture: picture('luna/wall/monitoring.webp', 'server monitoring charts') },
 		plugins: { layer: 'servers', picture: picture('luna/wall/plugins.webp', 'the plugin list') },
 		world: { layer: 'servers', picture: picture('luna/wall/world.webp', 'world backups') },
-		create: { layer: 'servers', picture: picture('luna/wall/create-banner.webp', 'Luna Create banner') },
+		create: { layer: 'servers', picture: picture('luna/wall/create-banner.webp', 'luna Create banner') },
 		racing: { layer: 'game client', picture: picture('luna/wall/boat-racing.webp', 'the boat racing event') },
 		lantern: { layer: 'game client', picture: picture('luna/wall/lantern.webp', 'a lantern over the survival world') }
 	} as const;
@@ -44,15 +44,16 @@
 	 *
 	 * @param timeline the work stack's scrubbed timeline
 	 * @param at where this card's half-unit of scroll starts
+	 * @param shown the stretch of the timeline over which this card is on screen
 	 */
-	export function animate(timeline: gsap.core.Timeline, at: number): void {
+	export function animate(timeline: gsap.core.Timeline, at: number, shown: Span): void {
 		const scope = gsap.utils.selector(root!);
 		const step = 0.5 / LAYERS.length;
 
 		timeline
-			.fromTo(scope('.wall'), { yPercent: -4 }, { yPercent: -30, duration: 0.5, ease: 'none' }, at)
-			.fromTo(scope('.column:nth-child(odd)'), { y: '-3rem' }, { y: '3rem', duration: 0.5, ease: 'none' }, at)
-			.fromTo(scope('.column:nth-child(even)'), { y: '3rem' }, { y: '-3rem', duration: 0.5, ease: 'none' }, at);
+			.fromTo(scope('.wall'), { yPercent: -2 }, { yPercent: -36, duration: shown.to - shown.from, ease: 'none' }, shown.from)
+			.fromTo(scope('.column:nth-child(odd)'), { y: '-4rem' }, { y: '4rem', duration: shown.to - shown.from, ease: 'none' }, shown.from)
+			.fromTo(scope('.column:nth-child(even)'), { y: '4rem' }, { y: '-4rem', duration: shown.to - shown.from, ease: 'none' }, shown.from);
 
 		LAYERS.forEach((layer, index) => {
 			const lit = scope(`[data-layer="${layer}"]`);

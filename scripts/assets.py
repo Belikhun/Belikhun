@@ -6,6 +6,7 @@
 
 import json
 import os
+import shutil
 
 from PIL import Image
 
@@ -32,14 +33,26 @@ PICTURES = {
 	"luna/wall/create-banner.webp": ("luna/luna-create-banner-1593.png", 900, 86),
 	"luna/wall/lantern.webp": ("luna/game/lantern.webp", 900, 82),
 	"harbor/meo-beo.webp": ("harbor/meo-beo.webp", 512, 90),
-	"themis/light.webp": ("themis/light.png", 1400, 82),
-	"themis/dark.webp": ("themis/dark.png", 1400, 82),
-	"themis/overview.webp": ("themis/allin1.png", 1305, 84),
-	"ctms/schedule.webp": ("ctms/screenshot0.png", 1200, 84),
-	"ctms/phone-schedule.webp": ("ctms/screenshot1.png", 500, 84),
-	"ctms/phone-register.webp": ("ctms/screenshot2.png", 500, 84),
+	"harbor/instances.webp": ("harbor/instances.jpg", 1568, 82),
+	"harbor/pipeline.webp": ("harbor/pipeline.jpg", 1568, 82),
+	"harbor/codespace.webp": ("harbor/codespace.jpg", 1568, 82),
+	"harbor/monitoring.webp": ("harbor/monitoring.jpg", 1568, 82),
+	"harbor/meo-beo-chat.webp": ("harbor/meo-beo-chat.jpg", 1568, 82),
 	"rows/deal-hunter-suite.webp": ("rows/deal-hunter-splash.png", 402, 86)
 }
+
+# Vector marks, copied as they are: Vloom and Clover from the Vloom media kit
+# (docs.vloom.vn/vi/media-kit), Harbor from its own console. The CTMS+ and Themis Web Interface marks are redrawn here.
+MARKS = [
+	"vloom/vloom-logo-white.svg",
+	"vloom/vloom-symbol.svg",
+	"vloom/vloom-symbol-white.svg",
+	"clover/clover-symbol.svg",
+	"clover/clover-wordmark-white.svg",
+	"harbor/harbor-mark.svg",
+	"ctms/ctms-mark.svg",
+	"themis/themis-mark.svg"
+]
 
 
 def build() -> None:
@@ -59,11 +72,16 @@ def build() -> None:
 		picture.save(path, "WEBP", quality=quality, method=6)
 		sizes[target] = [picture.width, picture.height]
 
+	for mark in MARKS:
+		path = os.path.join(TARGET, mark)
+		os.makedirs(os.path.dirname(path), exist_ok=True)
+		shutil.copyfile(os.path.join(SOURCE, mark), path)
+
 	with open(MANIFEST, "w", encoding="utf-8", newline="\n") as manifest:
 		json.dump(sizes, manifest, indent="\t")
 		manifest.write("\n")
 
-	print(f"{len(sizes)} pictures")
+	print(f"{len(sizes)} pictures, {len(MARKS)} marks")
 
 
 if __name__ == "__main__":

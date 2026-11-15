@@ -1,0 +1,4 @@
+The animations in this folder are Noto Animated Emoji by Google,
+https://googlefonts.github.io/noto-emoji-animation/
+licensed under CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+They are used unchanged.

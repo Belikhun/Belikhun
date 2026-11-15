@@ -80,8 +80,9 @@
 					.to('.doll', { y: '120vh', rotation: 50, transformOrigin: '50% 50%', duration: 0.7, ease: 'power2.in' }, '<')
 					.to('.letter', { yPercent: -180, opacity: 0, stagger: 0.03, duration: 0.45, ease: 'power2.in' }, '<0.05')
 					.to('.percent', { opacity: 0, duration: 0.2 }, '<')
-					.call(releaseIntro, [], '>-0.15')
-					.to(root!, { yPercent: -100, duration: 0.8, ease: 'expo.inOut' }, '<')
+					.to(root!, { yPercent: -100, duration: 0.8, ease: 'expo.inOut' }, '>-0.15')
+					// the hero waits until the curtain is about halfway up; any sooner and its entrance plays unseen
+					.call(releaseIntro, [], '<0.4')
 					.call(() => {
 						gone = true;
 						markSeen();

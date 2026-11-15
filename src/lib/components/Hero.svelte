@@ -9,6 +9,9 @@
 	import { gsap, MOTION, POINTER_MOTION, ScrollTrigger, SplitText } from '#lib/motion/gsap.ts';
 	import { introReady } from '#lib/motion/stage.ts';
 
+	import Avatar from './Avatar.svelte';
+	import Emoji from './Emoji.svelte';
+
 	/** Shards float at different depths; a larger depth moves further with the pointer. */
 	const SHARDS = [
 		{ left: 12, top: 30, size: 2.5, turn: 24, depth: 2.4, tone: 'pink' },
@@ -22,6 +25,12 @@
 
 	const POINTER_REACH = 1.25;
 
+	/** Enough copies of the phrases that half the track is wider than any screen; must stay even for the loop. */
+	const MARQUEE_COPIES = Array.from({ length: 12 }, (_, index) => index);
+
+	/** Seconds for one copy to pass. */
+	const MARQUEE_PACE = 14;
+
 	let root = $state<HTMLElement>();
 
 	onMount(() => {
@@ -33,13 +42,14 @@
 
 				const intro = gsap.timeline({ paused: true })
 					.from(split.chars, { yPercent: 115, duration: 0.9, stagger: 0.045, ease: 'power4.out' })
-					.from('.avatar', { y: '4rem', autoAlpha: 0, duration: 1, ease: 'power3.out' }, 0.25)
+					.from('.avatar', { y: '8rem', scale: 0.92, autoAlpha: 0, duration: 1.2, ease: 'power3.out' }, 0.25)
+					.from('.marquee', { yPercent: 100, duration: 0.7, ease: 'power3.out' }, 0.4)
 					.from('.shard', { scale: 0, autoAlpha: 0, duration: 0.6, stagger: 0.05, ease: 'back.out(2)' }, 0.5)
 					.from('.chip', { autoAlpha: 0, y: '1rem', duration: 0.5, stagger: 0.1 }, 0.7);
 
 				introReady().then(() => intro.play());
 
-				gsap.to('.avatar img', { y: '-1rem', duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+				gsap.to('.avatar .figure', { y: '-1rem', duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
 
 				gsap.utils.toArray<HTMLElement>('.shard i').forEach((shard, index) => {
 					gsap.to(shard, {
@@ -59,7 +69,12 @@
 					.to('.card', { scale: 0.92, borderRadius: '4rem', ease: 'none' }, 0)
 					.to('.avatar-drift', { yPercent: 8, ease: 'none' }, 0);
 
-				const loop = gsap.to('.track', { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
+				const loop = gsap.to('.track', {
+					xPercent: -50,
+					duration: (MARQUEE_COPIES.length / 2) * MARQUEE_PACE,
+					ease: 'none',
+					repeat: -1
+				});
 				let settle: gsap.core.Tween | undefined;
 
 				ScrollTrigger.create({
@@ -124,19 +139,24 @@
 
 		<div class="avatar-drift">
 			<div class="avatar" data-depth="1">
-				<img src="/img/avatar.webp" width="708" height="1200" alt="belikhun's avatar: a girl with long pale blue twin-tails in a lavender dress" />
+				<Avatar />
 			</div>
 		</div>
 
-		<p class="chip years"><strong>9 yrs</strong> of building things</p>
+		<p class="chip years"><strong>9 yrs</strong> of building things <Emoji code="1f680" char="🚀" /></p>
 		<a class="chip scroll" href="#about">scroll ↓</a>
 	</div>
 
-	<div class="marquee" aria-label={MARQUEE.join(', ')}>
+	<div class="marquee" aria-label={MARQUEE.map((phrase) => phrase.text).join(', ')}>
 		<div class="track" aria-hidden="true">
-			{#each [0, 1] as copy (copy)}
-				{#each MARQUEE as phrase (phrase)}
-					<span>{phrase}</span>
+			{#each MARQUEE_COPIES as copy (copy)}
+				{#each MARQUEE as phrase (phrase.text)}
+					<span>
+						{phrase.text}
+						{#if phrase.emoji}
+							<Emoji code={phrase.emoji.code} char={phrase.emoji.char} />
+						{/if}
+					</span>
 					<span class="clip">✕</span>
 				{/each}
 			{/each}
@@ -194,13 +214,6 @@
 
 	.avatar {
 		height: 100%;
-
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: contain;
-			object-position: 50% 100%;
-		}
 	}
 
 	.shard {

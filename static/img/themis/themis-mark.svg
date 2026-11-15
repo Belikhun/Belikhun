@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><title>Themis Web Interface</title>
+	<circle cx="128" cy="128" r="128" fill="#27bcc4"/>
+	<rect x="84" y="46" width="124" height="140" rx="6" fill="#16323a"/>
+	<rect x="52" y="76" width="130" height="140" rx="6" fill="#22434c"/>
+	<rect x="52" y="76" width="130" height="16" rx="6" fill="#0f262c"/>
+	<g fill="none" stroke-width="7" stroke-linecap="round">
+		<path d="M68 112h22M68 164h22" stroke="#e5484d"/>
+		<path d="M80 130h30M80 182h30" stroke="#f76b15"/>
+		<path d="M100 112h44M120 130h44M68 147h54M100 164h34M120 182h40M68 199h40" stroke="#fff"/>
+	</g>
+</svg>
