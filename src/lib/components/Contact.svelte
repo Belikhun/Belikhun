@@ -26,8 +26,15 @@
 	/** What a cursor looks like while it works: pointing, dragging out a box, or typing. */
 	type Shape = 'arrow' | 'cross' | 'beam';
 
+	/**
+	 * How long the cursors take, as multiples of the seconds their steps are written in: getting
+	 * from one job to the next is unhurried, the drawing and typing itself a little brisker.
+	 */
+	const TRAVEL = 2.2;
+	const WORK = 1.35;
+
 	/** Seconds between two letters, for the big words, for a button and for the small print. */
-	const PACE = { words: 0.12, button: 0.035, print: 0.012 };
+	const PACE = { words: 0.12 * WORK, button: 0.035 * WORK, print: 0.012 * WORK };
 
 	/** The two charms that drop into the card, each with its own string, face and side. */
 	const CHARMS: { side: string; string: number; face: Face; flip: boolean }[] = [
@@ -114,7 +121,7 @@
 		const leave = (worker: Worker, x: number, y: number): void => {
 			shape(worker, 'arrow');
 			worker.line
-				.to(worker.hand, { x, y, duration: 0.7, ease: 'power2.in' }, '>0.1')
+				.to(worker.hand, { x, y, duration: 0.7 * TRAVEL, ease: 'power2.in' }, '>0.1')
 				.set(worker.hand, { autoAlpha: 0 });
 		};
 
@@ -124,7 +131,7 @@
 
 			shape(worker, 'cross');
 			worker.line
-				.to(worker.hand, { x: box.left, y: box.top, duration: 0.4, ease: 'power2.inOut' })
+				.to(worker.hand, { x: box.left, y: box.top, duration: 0.4 * TRAVEL, ease: 'power2.inOut' })
 				.set(worker.ghost, {
 					x: box.left,
 					y: box.top,
@@ -133,13 +140,13 @@
 					autoAlpha: 1,
 					borderRadius: getComputedStyle(part).borderRadius
 				})
-				.to(worker.hand, { x: box.left + box.width, y: box.top + box.height, duration: seconds, ease: 'power1.inOut' })
+				.to(worker.hand, { x: box.left + box.width, y: box.top + box.height, duration: seconds * WORK, ease: 'power1.inOut' })
 				.to(
 					worker.ghost,
 					{
 						width: box.width,
 						height: box.height,
-						duration: seconds,
+						duration: seconds * WORK,
 						ease: 'power1.inOut',
 						onUpdate: () => {
 							worker.badge.textContent = `${Math.round(Number(gsap.getProperty(worker.ghost, 'width')))} × ${Math.round(Number(gsap.getProperty(worker.ghost, 'height')))}`;
@@ -166,7 +173,7 @@
 			const first = boxOf(card, letters[0]!);
 
 			shape(worker, 'beam');
-			worker.line.to(worker.hand, { x: first.left, y: first.top + first.height / 2, duration: 0.35, ease: 'power2.inOut' });
+			worker.line.to(worker.hand, { x: first.left, y: first.top + first.height / 2, duration: 0.35 * TRAVEL, ease: 'power2.inOut' });
 
 			for (const letter of letters) {
 				const box = boxOf(card, letter);
@@ -184,7 +191,7 @@
 
 			shape(worker, 'arrow');
 			worker.line
-				.to(worker.hand, { x: from.left + from.width / 2, y: from.top + from.height / 2, duration: 0.35, ease: 'power2.inOut' })
+				.to(worker.hand, { x: from.left + from.width / 2, y: from.top + from.height / 2, duration: 0.35 * TRAVEL, ease: 'power2.inOut' })
 				.set(worker.ghost, {
 					x: from.left,
 					y: from.top,
@@ -196,8 +203,8 @@
 				.call(() => {
 					worker.badge.textContent = 'copy';
 				})
-				.to(worker.hand, { x: to.left + to.width / 2, y: to.top + to.height / 2, duration: 0.45, ease: 'power2.inOut' })
-				.to(worker.ghost, { x: to.left, y: to.top, width: to.width, height: to.height, duration: 0.45, ease: 'power2.inOut' }, '<')
+				.to(worker.hand, { x: to.left + to.width / 2, y: to.top + to.height / 2, duration: 0.45 * WORK, ease: 'power2.inOut' })
+				.to(worker.ghost, { x: to.left, y: to.top, width: to.width, height: to.height, duration: 0.45 * WORK, ease: 'power2.inOut' }, '<')
 				.to(part, { autoAlpha: 1, duration: 0.25 })
 				.to(worker.ghost, { autoAlpha: 0, duration: 0.25 }, '<');
 		};
@@ -211,8 +218,8 @@
 		enter(layout, width * 0.3, -30);
 		layout.line
 			.set(guide, { y: 0, autoAlpha: 1 })
-			.to(layout.hand, { y: actions.top, duration: 0.6, ease: 'power2.out' })
-			.to(guide, { y: actions.top, duration: 0.6, ease: 'power2.out' }, '<');
+			.to(layout.hand, { y: actions.top, duration: 0.6 * WORK, ease: 'power2.out' })
+			.to(guide, { y: actions.top, duration: 0.6 * WORK, ease: 'power2.out' }, '<');
 		draw(layout, words, 0.8, false);
 
 		const wordsBoxed = layout.line.duration();
@@ -224,7 +231,7 @@
 		leave(layout, width + 60, height * 0.5);
 
 		// type: the words, then the small print once there is a footer to hold it
-		wait(typist, wordsBoxed - 0.6);
+		wait(typist, wordsBoxed - 0.6 * TRAVEL);
 		enter(typist, -40, height * 0.4);
 		type(typist, words, PACE.words);
 		wait(typist, footerBuilt);
@@ -236,7 +243,7 @@
 		leave(typist, -60, height * 0.9);
 
 		// mail: the wave, then the address in its button
-		wait(mail, 0.7);
+		wait(mail, 0.7 * WORK);
 		enter(mail, width * 0.45, height + 30);
 
 		// the wave is not shown on a narrow screen
@@ -250,7 +257,7 @@
 		leave(mail, -60, height * 0.7);
 
 		// links: one button drawn and typed, the rest copied from it and retyped
-		wait(links, 1);
+		wait(links, WORK);
 		enter(links, width * 0.6, height + 30);
 		draw(links, one('.github'), 0.5);
 		type(links, one('.github'), PACE.button);
@@ -263,7 +270,7 @@
 		leave(links, width + 60, height * 0.8);
 
 		// lace: pulls each charm down on its string, then lays the lace along the footer
-		wait(lace, 0.4);
+		wait(lace, 0.4 * WORK);
 
 		for (const drop of find('.drop')) {
 			const x = drop.offsetLeft + drop.offsetWidth / 2;
@@ -271,15 +278,15 @@
 			shape(lace, 'arrow');
 			lace.line
 				.set(lace.hand, { x, y: -30, autoAlpha: 1 })
-				.to(lace.hand, { y: drop.offsetHeight * 0.8, duration: 0.8, ease: 'back.out(1.6)' })
-				.to(drop, { yPercent: 0, duration: 0.8, ease: 'back.out(1.6)' }, '<')
-				.to(lace.hand, { y: -30, duration: 0.4, ease: 'power2.in' }, '>0.1');
+				.to(lace.hand, { y: drop.offsetHeight * 0.8, duration: 0.8 * WORK, ease: 'back.out(1.6)' })
+				.to(drop, { yPercent: 0, duration: 0.8 * WORK, ease: 'back.out(1.6)' }, '<')
+				.to(lace.hand, { y: -30, duration: 0.4 * TRAVEL, ease: 'power2.in' }, '>0.1');
 		}
 
 		wait(lace, footerBuilt);
 
 		const edge = boxOf(card, one('.lace'));
-		const sweep = 1.2;
+		const sweep = 1.2 * WORK;
 
 		lace.line
 			.set(lace.hand, { x: -30, y: edge.top + edge.height / 2 })

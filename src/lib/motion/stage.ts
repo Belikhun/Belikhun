@@ -3,7 +3,7 @@
 
 import Lenis from 'lenis';
 
-import { gsap, MOTION, ScrollTrigger } from './gsap';
+import { gsap, POINTER_MOTION, ScrollTrigger } from './gsap';
 
 let release: () => void = () => {};
 let smooth: Lenis | undefined;
@@ -64,7 +64,11 @@ export function scrollToPosition(top: number): void {
  * @returns a function that stops the smoothing
  */
 export function startSmoothScroll(): () => void {
-	if (!window.matchMedia(MOTION).matches) {
+	// Only where there is a mouse or trackpad. Lenis leaves a finger's scrolling to the browser
+	// anyway, so a phone gains nothing from it, and with it running a phone could, on some loads,
+	// not be swiped into the ending: each fling was pulled back to the same place in off-hours
+	// (seen on a Pixel 9 Pro XL, Chrome 157; the pull-back comes from no scroll call of ours).
+	if (!window.matchMedia(POINTER_MOTION).matches) {
 		return () => {};
 	}
 
