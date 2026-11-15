@@ -8,6 +8,7 @@
 	import { picture, REELS } from '#lib/content/site.ts';
 	import { DESKTOP_MOTION, gsap, MOTION, ScrollTrigger } from '#lib/motion/gsap.ts';
 	import { parallax, reveal } from '#lib/motion/reveal.ts';
+	import { holdLoader } from '#lib/motion/stage.ts';
 
 	import Emoji from './Emoji.svelte';
 
@@ -41,7 +42,41 @@
 	];
 
 	let root = $state<HTMLElement>();
-	let live = $state(false);
+	/** How long to wait between loading one counter or video and the next, so no two start up in the same moment. */
+	const PRELOAD_GAP_MS = 120;
+
+	const FRAMES: Frame[] = Object.values(COUNTERS);
+
+	/** Every counter, then every video: the order they are loaded in. */
+	const PIECES = FRAMES.length + REELS.length;
+
+	/** How many pieces have been put on the page so far, and how many of those have finished loading. */
+	let loaded = $state(0);
+	let settled = 0;
+	let allSettled: () => void = () => {};
+
+	/** Counts a counter or a video as loaded, whether it loaded or failed. */
+	function settle(): void {
+		settled += 1;
+
+		if (settled >= PIECES) {
+			allSettled();
+		}
+	}
+
+	const videos = new Set<HTMLVideoElement>();
+	let onScreen = false;
+
+	/** Plays a video only while the section is on screen; off screen it stays loaded but paused. */
+	function screened(node: HTMLVideoElement): { destroy(): void } {
+		videos.add(node);
+
+		if (onScreen) {
+			node.play().catch(() => {});
+		}
+
+		return { destroy: () => videos.delete(node) };
+	}
 
 	/** Keeps a counter at the size it was designed for and scales the whole frame down to fit its card. */
 	function fit(node: HTMLElement, frame: Frame): { destroy(): void } {
@@ -83,19 +118,53 @@
 					gsap.fromTo('.online', { opacity: 0.4 }, { opacity: 1, duration: 0.9, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: 0.3 })
 				];
 
-				// the loops only run while the section is on screen, and the counters load the first time it is
+				// The counters and videos are loaded behind the loader, one after another: loading them
+				// all on the first scroll into the section froze the page for a moment.
+				let waiting: ReturnType<typeof setTimeout> | undefined;
+
+				holdLoader(new Promise<void>((resolve) => {
+					allSettled = resolve;
+				}));
+
+				const preload = (): void => {
+					if (loaded >= PIECES) {
+						return;
+					}
+
+					loaded += 1;
+					waiting = setTimeout(preload, PRELOAD_GAP_MS);
+				};
+
+				preload();
+
+				// the loops and the videos only run while the section is on screen
 				ScrollTrigger.create({
 					trigger: root,
 					start: 'top bottom',
 					end: 'bottom top',
 					onToggle: (self) => {
-						live ||= self.isActive;
+						onScreen = self.isActive;
+
+						// whatever has not been loaded by the time the section is reached is loaded now
+						if (self.isActive) {
+							loaded = PIECES;
+						}
 
 						for (const loop of looping) {
 							loop.paused(!self.isActive);
 						}
+
+						for (const video of videos) {
+							if (self.isActive) {
+								video.play().catch(() => {});
+							} else {
+								video.pause();
+							}
+						}
 					}
 				});
+
+				return () => clearTimeout(waiting);
 			});
 
 			media.add(DESKTOP_MOTION, () => {
@@ -121,8 +190,8 @@
 
 {#snippet counter(frame: Frame)}
 	<div class="frame" style:aspect-ratio="{frame.width} / {frame.height}" use:fit={frame}>
-		{#if live}
-			<iframe src={frame.src} title={frame.title} width={frame.width} height={frame.height} loading="lazy"></iframe>
+		{#if loaded > FRAMES.indexOf(frame)}
+			<iframe src={frame.src} title={frame.title} width={frame.width} height={frame.height} onload={settle} onerror={settle}></iframe>
 		{/if}
 	</div>
 {/snippet}
@@ -133,13 +202,13 @@
 		<p>when i'm not shipping i'm clicking circles and writing the counters that sit around them, making noise in FL Studio, cutting videos, or running a Minecraft network for friends.</p>
 	</header>
 
-	<!-- my two event reveal videos, playing muted on a loop once the section is reached; a still frame until then -->
+	<!-- my two event reveal videos, playing muted on a loop while the section is on screen; a still frame until they are loaded -->
 	<div class="reels">
-		{#each REELS as reel (reel.id)}
+		{#each REELS as reel, index (reel.id)}
 			<a class="reel" href="https://www.youtube.com/watch?v={reel.id}" target="_blank" rel="noreferrer" use:reveal>
-				<img src="/video/{reel.file}.jpg" width="1280" height="720" alt="" loading="lazy" />
-				{#if live}
-					<video autoplay muted loop playsinline preload="metadata" poster="/video/{reel.file}.jpg" aria-label={reel.title}>
+				<img src="/video/{reel.file}.jpg" width="1280" height="720" alt="" />
+				{#if loaded > FRAMES.length + index}
+					<video muted loop playsinline preload="auto" use:screened onloadeddata={settle} onerror={settle} poster="/video/{reel.file}.jpg" aria-label={reel.title}>
 						<source src="/video/{reel.file}.av1.mp4" type="video/mp4; codecs=av01.0.05M.10" />
 						<source src="/video/{reel.file}.h264.mp4" type="video/mp4; codecs=avc1.640020" />
 					</video>
@@ -179,7 +248,7 @@
 				<figcaption>FL Studio <Emoji code="1f3b6" char="🎶" /></figcaption>
 			</figure>
 			<figure class="tile picture">
-				<img src={LANTERN.src} width={LANTERN.width} height={LANTERN.height} alt={LANTERN.alt} loading="lazy" use:parallax />
+				<img src={LANTERN.src} width={LANTERN.width} height={LANTERN.height} alt={LANTERN.alt} use:parallax />
 				<figcaption>luna</figcaption>
 			</figure>
 		</div>
@@ -277,10 +346,14 @@
 		.caption {
 			@include label;
 			position: relative;
+			@include glass;
+			max-width: 100%;
 			padding: 0.375rem 0.875rem;
 			border-radius: 1rem;
-			background: var(--bg);
 			color: var(--ink);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 			transition: background-color var(--fast) var(--ease-snap);
 		}
 
@@ -368,9 +441,9 @@
 
 			figcaption {
 				justify-self: start;
+				@include glass;
 				padding: 0.25rem 0.75rem;
 				border-radius: 1rem;
-				background: var(--bg);
 				color: var(--ink);
 			}
 		}

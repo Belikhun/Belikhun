@@ -197,9 +197,20 @@
 		color: color-mix(in srgb, var(--night) calc(var(--lit) * 100%), var(--paper));
 		font-family: var(--mono);
 		font-size: 0.75rem;
+
+		// where the row gets tight the chips shrink, so the five stay on the one line the spark travels
+		@media (width < 80rem) {
+			padding: 0.25rem 0.5rem;
+			font-size: 0.6875rem;
+		}
 	}
 
 	.rail {
+		// on a phone the chips wrap, and a line under them would lead nowhere
+		@include below($bp-narrow) {
+			display: none;
+		}
+
 		position: absolute;
 		left: 1rem;
 		right: 1rem;

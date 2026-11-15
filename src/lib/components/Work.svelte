@@ -13,6 +13,7 @@
 	import BlinkRequest from './work/BlinkRequest.svelte';
 	import CloverCompile from './work/CloverCompile.svelte';
 	import CtmsMock from './work/CtmsMock.svelte';
+	import DealHunterMock from './work/DealHunterMock.svelte';
 	import HarborConsole from './work/HarborConsole.svelte';
 	import HomeAssistant from './work/HomeAssistant.svelte';
 	import LunaWall from './work/LunaWall.svelte';
@@ -29,6 +30,14 @@
 	/** Where in a card's unit of scroll the next card starts to slide over it; before that the finished visual rests. */
 	const HANDOVER_AT = 0.65;
 
+	/** How a card changes for each place it sits further down the pile: its scale, and its lift in rem. */
+	const PILE_SHRINK = 0.03;
+	const PILE_LIFT = 0.55;
+
+	/** How much light a card loses for each place down the pile, and the least it is left with. */
+	const PILE_DIM = 0.012;
+	const PILE_DIMMEST = 0.94;
+
 	/** The mark shown beside a card's name; `round` clips a square picture to a disc. */
 	const ICONS: Partial<Record<WorkKind, { src: string; round?: boolean }>> = {
 		luna: { src: picture('luna/icon.webp', '').src, round: true },
@@ -36,6 +45,7 @@
 		vloom: { src: '/img/vloom/vloom-symbol.svg' },
 		clover: { src: '/img/clover/clover-symbol.svg' },
 		themis: { src: '/img/themis/themis-mark.svg' },
+		hunter: { src: picture('hunter/icon.webp', '').src },
 		ctms: { src: '/img/ctms/ctms-mark.svg' }
 	};
 
@@ -43,6 +53,11 @@
 	let visuals = $state<(Visual | undefined)[]>([]);
 	let active = $state(0);
 	let jump = $state<(index: number) => void>();
+
+	/** How bright a card is drawn when it lies `depth` places down the pile. */
+	function dimmed(depth: number): number {
+		return Math.max(PILE_DIMMEST, 1 - depth * PILE_DIM);
+	}
 
 	function pad(value: number): string {
 		return String(value).padStart(2, '0');
@@ -86,7 +101,7 @@
 				});
 
 				// Each card owns one unit: it shows its visual over the first half, rests
-				// finished for a moment, and the next card slides over it at the end. It is on screen
+				// finished for a moment, and the next card slides onto the pile at the end. It is on screen
 				// for longer than that, from sliding in until the next card has covered
 				// it, and its visual keeps something moving for that whole stretch.
 				cards.forEach((card, index) => {
@@ -98,12 +113,34 @@
 						return;
 					}
 
-					timeline
-						.fromTo(next, { yPercent: 115 }, { yPercent: 0, duration: 1 - HANDOVER_AT, ease: 'power2.out' }, index + HANDOVER_AT)
-						.to(card, { scale: 0.94, yPercent: -3, duration: 1 - HANDOVER_AT, ease: 'none' }, index + HANDOVER_AT)
-						// the covered card fades towards the stage behind it, so it takes the stage's colour in either theme
-						.fromTo(card, { opacity: 1 }, { opacity: 0.55, duration: 1 - HANDOVER_AT, ease: 'none', immediateRender: false }, index + HANDOVER_AT)
-						.set(card, { autoAlpha: 0 }, index + 1.5);
+					timeline.fromTo(next, { yPercent: 115 }, { yPercent: 0, duration: 1 - HANDOVER_AT, ease: 'power2.out' }, index + HANDOVER_AT);
+
+					// Nothing leaves the pile: as a card lands, every card under it steps one place
+					// further back, a little smaller, a little higher and a little dimmer, so the
+					// top edges of all the cards read so far stay in sight. They stay opaque: seen
+					// through each other, their text and pictures would show as ghosts.
+					for (let under = index; under >= 0; under--) {
+						const depth = index + 1 - under;
+
+						timeline
+							.to(
+								cards[under]!,
+								{
+									scale: 1 - depth * PILE_SHRINK,
+									y: `${depth * -PILE_LIFT}rem`,
+									duration: 1 - HANDOVER_AT,
+									ease: 'none'
+								},
+								index + HANDOVER_AT
+							)
+							// both ends are spelled out: from no filter at all, the dimming would begin at black
+							.fromTo(
+								cards[under]!,
+								{ filter: `brightness(${dimmed(depth - 1)})` },
+								{ filter: `brightness(${dimmed(depth)})`, duration: 1 - HANDOVER_AT, ease: 'none', immediateRender: false },
+								index + HANDOVER_AT
+							);
+					}
 				});
 
 				timeline.to({}, { duration: 0.25 }, length - 0.25);
@@ -164,6 +201,8 @@
 						<HomeAssistant bind:this={visuals[index]} />
 					{:else if work.kind === 'themis'}
 						<ThemisMock bind:this={visuals[index]} />
+					{:else if work.kind === 'hunter'}
+						<DealHunterMock bind:this={visuals[index]} />
 					{:else if work.kind === 'ctms'}
 						<CtmsMock bind:this={visuals[index]} />
 					{/if}
@@ -209,17 +248,24 @@
 		display: grid;
 		gap: 2rem;
 		padding: 1.5rem;
+
+		// on a phone the card's own padding gives way, so the visual gets the width
+		@include below($bp-narrow) {
+			gap: 1.5rem;
+			padding: 1rem;
+		}
 		border-radius: var(--radius-card);
 		background: var(--surface);
 
 		@include stage {
 			position: absolute;
-			inset: 5.5rem clamp(1rem, 5vw, 5rem) 4.25rem;
+			inset: 5.5rem clamp(1rem, 5vw, 5rem) 4.75rem;
 			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 			gap: 3rem;
 			padding: 3rem;
 			transform-origin: 50% 0%;
-			box-shadow: 0 0 0 var(--hairline) var(--card-edge), 0 -1rem 3rem rgba(42, 36, 64, 0.16);
+			// a short, light shadow: a long one would pile up over the cards beneath and turn them grey
+			box-shadow: 0 0 0 var(--hairline) var(--card-edge), 0 -0.25rem 0.75rem rgba(42, 36, 64, 0.07);
 		}
 	}
 
@@ -236,8 +282,9 @@
 			z-index: 1;
 			display: flex;
 			gap: 0.75rem;
-			padding: 2.5rem clamp(1rem, 5vw, 5rem) 1rem;
-			background: linear-gradient(transparent, var(--stage) 1.75rem);
+			// the fade at its top stays in the gap under the resting card, and never reaches the card itself
+			padding: 1.5rem clamp(1rem, 5vw, 5rem) 1rem;
+			background: linear-gradient(transparent, var(--stage) 1rem);
 			pointer-events: none;
 		}
 	}
@@ -359,11 +406,11 @@
 	.links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 0.375rem;
 	}
 
 	.link {
-		padding: 0.5rem 1rem;
+		padding: 0.5rem 0.875rem;
 		white-space: nowrap;
 		border-radius: 2rem;
 		background: var(--ink);

@@ -124,10 +124,8 @@
 
 	.brand,
 	.links {
+		@include glass;
 		border-radius: 2rem;
-		background: color-mix(in srgb, var(--bg) 86%, transparent);
-		backdrop-filter: blur(0.75rem);
-		box-shadow: 0 0 0 var(--hairline) var(--line);
 	}
 
 	.brand {
@@ -192,6 +190,11 @@
 		position: relative;
 		margin-left: 0.5rem;
 		padding: 0.25rem 0.75rem;
+
+		// alone in its pill once the links are hidden, so it sits centred
+		@include below($bp-narrow) {
+			margin-left: 0;
+		}
 		border-radius: 1rem;
 		background: var(--ink);
 		color: var(--bg);

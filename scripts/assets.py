@@ -38,11 +38,12 @@ PICTURES = {
 	"harbor/codespace.webp": ("harbor/codespace.jpg", 1568, 82),
 	"harbor/monitoring.webp": ("harbor/monitoring.jpg", 1568, 82),
 	"harbor/meo-beo-chat.webp": ("harbor/meo-beo-chat.jpg", 1568, 82),
-	"rows/deal-hunter-suite.webp": ("rows/deal-hunter-splash.png", 402, 86)
+	"hunter/icon.webp": ("hunter/icon-site.png", 256, 90)
 }
 
 # Vector marks, copied as they are: Vloom and Clover from the Vloom media kit
 # (docs.vloom.vn/vi/media-kit), Harbor from its own console. The CTMS+ and Themis Web Interface marks are redrawn here.
+# The Deal Hunter Suite logo is the extension's own (hunter/icon.png), recoloured into the site's palette (hunter/icon-site.png).
 MARKS = [
 	"vloom/vloom-logo-white.svg",
 	"vloom/vloom-symbol.svg",

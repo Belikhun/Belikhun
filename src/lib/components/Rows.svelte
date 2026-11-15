@@ -5,23 +5,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { CLIENT_WORK, CLIENTS, ROWS, type Row } from '#lib/content/site.ts';
-	import { gsap, MOTION, POINTER_MOTION } from '#lib/motion/gsap.ts';
+	import { CLIENT_WORK, CLIENTS, ROWS } from '#lib/content/site.ts';
+	import { gsap, MOTION } from '#lib/motion/gsap.ts';
 	import { reveal } from '#lib/motion/reveal.ts';
 
 	import Emoji from './Emoji.svelte';
 
 	let root = $state<HTMLElement>();
-	let hovered = $state<Row>();
-
-	function hover(event: PointerEvent): void {
-		const row = (event.target as HTMLElement).closest<HTMLElement>('[data-row]');
-
-		hovered = row
-			? ROWS[Number(row.dataset.row)]
-			: undefined;
-	}
-
 	onMount(() => {
 		const context = gsap.context(() => {
 			const media = gsap.matchMedia();
@@ -52,23 +42,6 @@
 					scrollTrigger: { trigger: '.list', start: 'top 80%' }
 				});
 			});
-
-			media.add(POINTER_MOTION, () => {
-				const preview = root!.querySelector('.preview');
-				const moveX = gsap.quickTo(preview, 'x', { duration: 0.5, ease: 'power3.out' });
-				const moveY = gsap.quickTo(preview, 'y', { duration: 0.5, ease: 'power3.out' });
-				const tilt = gsap.quickTo(preview, 'rotation', { duration: 0.6, ease: 'power3.out' });
-
-				const follow = (event: PointerEvent): void => {
-					moveX(event.clientX);
-					moveY(event.clientY);
-					tilt(gsap.utils.clamp(-12, 12, event.movementX * 0.6));
-				};
-
-				window.addEventListener('pointermove', follow);
-
-				return () => window.removeEventListener('pointermove', follow);
-			});
 		}, root);
 
 		return () => context.revert();
@@ -85,8 +58,8 @@
 		<p class="role">{CLIENT_WORK.role}</p>
 	</article>
 
-	<ul class="list" onpointerover={hover} onpointerleave={() => (hovered = undefined)}>
-		{#each ROWS as row, index (row.name)}
+	<ul class="list">
+		{#each ROWS as row (row.name)}
 			<li>
 				<svelte:element
 					this={row.link ? 'a' : 'div'}
@@ -94,7 +67,6 @@
 					href={row.link}
 					target={row.link ? '_blank' : undefined}
 					rel={row.link ? 'noreferrer' : undefined}
-					data-row={index}
 				>
 					<span class="name">{row.name}</span>
 					<span class="what">{row.what}</span>
@@ -112,12 +84,6 @@
 				<li>{client}</li>
 			{/each}
 		</ul>
-	</div>
-
-	<div class="preview" class:shown={hovered?.preview} aria-hidden="true">
-		{#if hovered?.preview}
-			<img src={hovered.preview.src} width={hovered.preview.width} height={hovered.preview.height} alt="" />
-		{/if}
 	</div>
 </section>
 
@@ -276,40 +242,6 @@
 				color: var(--night);
 				translate: 0 -0.125rem;
 			}
-		}
-	}
-
-	.preview {
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 20;
-		display: none;
-		width: 16rem;
-		margin: -5rem 0 0 2rem;
-		border-radius: 1rem;
-		background: var(--lav);
-		color: var(--night);
-		overflow: hidden;
-		pointer-events: none;
-		opacity: 0;
-		scale: 0.8;
-		transition: opacity 0.2s, scale 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 1rem 2.5rem rgba(42, 36, 64, 0.24);
-
-		@media (pointer: fine) {
-			display: block;
-		}
-
-		&.shown {
-			opacity: 1;
-			scale: 1;
-		}
-
-		img {
-			width: 100%;
-			height: 10rem;
-			object-fit: cover;
 		}
 	}
 </style>

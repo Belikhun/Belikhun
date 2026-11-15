@@ -7,6 +7,7 @@
 
 	import { MARQUEE } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION, ScrollTrigger, SplitText } from '#lib/motion/gsap.ts';
+	import { lastPointer, type Point } from '#lib/motion/pointer.ts';
 	import { introReady } from '#lib/motion/stage.ts';
 
 	import Avatar from './Avatar.svelte';
@@ -43,11 +44,17 @@
 			media.add(MOTION, () => {
 				const split = SplitText.create('.wordmark', { type: 'chars', mask: 'chars' });
 
+				// The avatar and the shards also follow the pointer. A `from` tween would put back the position
+				// they had when it was made as it starts, dropping what the pointer has given them since; so
+				// they are hidden here and brought in with `to`, which leaves their x and y alone.
+				gsap.set('.avatar', { yPercent: 12, scale: 0.92, autoAlpha: 0 });
+				gsap.set('.shard', { scale: 0, autoAlpha: 0 });
+
 				const intro = gsap.timeline({ paused: true })
 					.from(split.chars, { yPercent: 115, duration: 0.9, stagger: 0.045, ease: 'power4.out' })
-					.from('.avatar', { y: '8rem', scale: 0.92, autoAlpha: 0, duration: 1.2, ease: 'power3.out' }, 0.25)
+					.to('.avatar', { yPercent: 0, scale: 1, autoAlpha: 1, duration: 1.2, ease: 'power3.out' }, 0.25)
 					.from('.marquee', { yPercent: 100, duration: 0.7, ease: 'power3.out' }, 0.4)
-					.from('.shard', { scale: 0, autoAlpha: 0, duration: 0.6, stagger: 0.05, ease: 'back.out(2)' }, 0.5)
+					.to('.shard', { scale: 1, autoAlpha: 1, duration: 0.6, stagger: 0.05, ease: 'back.out(2)' }, 0.5)
 					.from('.chip', { autoAlpha: 0, y: '1rem', duration: 0.5, stagger: 0.1 }, 0.7);
 
 				introReady().then(() => intro.play());
@@ -97,21 +104,40 @@
 
 			media.add(POINTER_MOTION, () => {
 				const layers = gsap.utils.toArray<HTMLElement>('[data-depth]').map((layer) => ({
+					node: layer,
 					depth: Number(layer.dataset.depth),
 					x: gsap.quickTo(layer, 'x', { duration: 0.9, ease: 'power3.out' }),
 					y: gsap.quickTo(layer, 'y', { duration: 0.9, ease: 'power3.out' })
 				}));
 
-				const follow = (event: PointerEvent): void => {
+				const offset = (point: Point): Point => {
 					const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-					const x = (event.clientX / window.innerWidth - 0.5) * POINTER_REACH * rem;
-					const y = (event.clientY / window.innerHeight - 0.5) * POINTER_REACH * rem;
+
+					return {
+						x: (point.x / window.innerWidth - 0.5) * POINTER_REACH * rem,
+						y: (point.y / window.innerHeight - 0.5) * POINTER_REACH * rem
+					};
+				};
+
+				const follow = (event: PointerEvent): void => {
+					const { x, y } = offset({ x: event.clientX, y: event.clientY });
 
 					for (const layer of layers) {
 						layer.x(x * layer.depth);
 						layer.y(y * layer.depth);
 					}
 				};
+
+				// the layers start where the pointer already is, so nothing swings into place while the hero is still arriving
+				const known = lastPointer();
+
+				if (known) {
+					const { x, y } = offset(known);
+
+					for (const layer of layers) {
+						gsap.set(layer.node, { x: x * layer.depth, y: y * layer.depth });
+					}
+				}
 
 				window.addEventListener('pointermove', follow);
 

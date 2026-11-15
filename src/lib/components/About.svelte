@@ -40,7 +40,7 @@
 						active = Math.min(CHAPTERS.length - 1, Math.floor(time + 1 - SWAP_AT));
 						gsap.set(bar, { scaleX: timeline.progress() });
 
-						// the numeral fills from the bottom as its chapter is read, and empties when the next one takes over
+						// the numeral's outline is traced in colour as its chapter is read, and starts over when the next one takes over
 						figure.style.setProperty('--read', String(gsap.utils.clamp(0, 1, (time - active) / SWAP_AT)));
 					},
 					scrollTrigger: {
@@ -50,6 +50,15 @@
 						end: `+=${CHAPTERS.length * 100}%`,
 						scrub: 0.6
 					}
+				});
+
+				// the handoff from the hero: the scene's parts rise into place, one after another, as it scrolls up to its pin
+				gsap.from(['.figure', '.head', '.index', '.chapters'], {
+					y: '10rem',
+					autoAlpha: 0,
+					stagger: 0.12,
+					ease: 'power2.out',
+					scrollTrigger: { trigger: root, start: 'top 90%', end: 'top 10%', scrub: 0.6 }
 				});
 
 				chapters.forEach((chapter, index) => {
@@ -85,8 +94,16 @@
 <section class="about" id="about" bind:this={root}>
 	<div class="pin">
 		<div class="figure" aria-hidden="true">
-			<span class="numeral">{pad(active + 1)}</span>
-			<span class="numeral read">{pad(active + 1)}</span>
+			<!-- drawn as SVG text, so its outline can be traced like a pen stroke; sized in the figure's own units, 100 across -->
+			<svg class="numeral" viewBox="0 0 100 76">
+				<linearGradient id="about-ink" gradientUnits="userSpaceOnUse" x1="0" y1="76" x2="100" y2="0">
+					<stop offset="0" stop-color="var(--pink)" />
+					<stop offset="0.5" stop-color="var(--purple)" />
+					<stop offset="1" stop-color="var(--blue)" />
+				</linearGradient>
+				<text x="-3.8" y="68">{pad(active + 1)}</text>
+				<text class="read" x="-3.8" y="68">{pad(active + 1)}</text>
+			</svg>
 		</div>
 
 		<header class="head">
@@ -103,6 +120,7 @@
 		<div class="chapters">
 			{#each CHAPTERS as chapter, index (chapter.label)}
 				<article class="chapter">
+					<span class="digit" aria-hidden="true">{pad(index + 1)}</span>
 					<span class="step">{pad(index + 1)} · {chapter.label}</span>
 					<h3>
 						{chapter.title.split(' ').slice(0, -1).join(' ')}
@@ -138,7 +156,8 @@
 		margin-inline: auto;
 
 		@include stage {
-			grid-template-columns: 30% max-content 1fr;
+			// the list has a fixed width: sized to its text, it would shift the chapter when the active label turns bold
+			grid-template-columns: 30% 13rem 1fr;
 			grid-template-rows: auto auto;
 			column-gap: 3rem;
 			row-gap: 3rem;
@@ -146,6 +165,9 @@
 			height: 100vh;
 		}
 	}
+
+	// the length of the longest contour of a digit, in the drawing's units: each contour is traced from its own start
+	$outline: 260;
 
 	.figure {
 		--read: 1;
@@ -164,25 +186,29 @@
 
 	// sized off its column, so the two digits never reach the chapter index beside them
 	.numeral {
-		@include display;
 		display: block;
-		// pulled left by the glyph's side bearing, so the ink and not the box sits on the gutter
-		margin-left: -0.045em;
-		font-size: 84cqw;
-		// filled with the page and painted over the stroke, which hides the font's inner contours
-		color: var(--bg);
-		-webkit-text-stroke: 0.25rem var(--lav);
-		paint-order: stroke fill;
+		width: 100%;
+		overflow: visible;
 
-		&.read {
-			position: absolute;
-			top: 0;
-			left: 0;
-			background: linear-gradient(200deg, var(--blue), var(--lav) 50%, var(--pink));
-			background-clip: text;
-			color: transparent;
-			-webkit-text-stroke: 0;
-			clip-path: inset(calc((1 - var(--read)) * 100%) 0 0 0);
+		text {
+			@include display;
+			// in the drawing's units: the figure is 100 across
+			font-size: 84px;
+			// filled with the page and painted over the stroke, which hides the font's inner contours
+			fill: var(--bg);
+			stroke: var(--line);
+			stroke-width: 1.2;
+			stroke-linejoin: round;
+			paint-order: stroke fill;
+		}
+
+		// The same outline in colour over the plain one. One dash as long as a digit's whole outline is
+		// pulled along it as the chapter is read, so the colour is drawn on the way a pen would trace it.
+		.read {
+			stroke: url('#about-ink');
+			stroke-linecap: round;
+			stroke-dasharray: $outline;
+			stroke-dashoffset: calc((1 - var(--read)) * #{$outline});
 		}
 	}
 
@@ -267,12 +293,32 @@
 
 	.chapter {
 		display: grid;
-		gap: 1rem;
+		// a fixed column for the number: the three chapters' text then shares one left edge
+		grid-template-columns: 6.5rem minmax(0, 1fr);
+		column-gap: 1.5rem;
+		row-gap: 1rem;
 		max-width: 46rem;
+
+		> :not(.digit) {
+			grid-column: 2;
+		}
+
+		@include below($bp-narrow) {
+			grid-template-columns: minmax(0, 1fr);
+
+			> :not(.digit) {
+				grid-column: 1;
+			}
+		}
 
 		@include stage {
 			// every chapter in the same cell, so they can cross-fade in place
 			grid-area: 1 / 1;
+			grid-template-columns: minmax(0, 1fr);
+
+			> :not(.digit) {
+				grid-column: 1;
+			}
 		}
 
 		h3 {
@@ -280,6 +326,25 @@
 			font-size: clamp(2rem, 3vw, 3rem);
 			letter-spacing: -0.01em;
 			line-height: 1.1;
+		}
+	}
+
+	// stacked, each chapter carries its own outlined number in the margin
+	.digit {
+		@include display;
+		grid-row: 1 / span 4;
+		color: var(--bg);
+		font-size: 5.5rem;
+		-webkit-text-stroke: 0.2rem var(--lav);
+		paint-order: stroke fill;
+
+		@include below($bp-narrow) {
+			grid-row: auto;
+			font-size: 4rem;
+		}
+
+		@include stage {
+			display: none;
 		}
 	}
 

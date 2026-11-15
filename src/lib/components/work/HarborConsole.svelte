@@ -76,12 +76,12 @@
 	<div class="desk">
 		{#each SCREENS as screen, index (screen.name)}
 			<figure class="screen" style:--order={index}>
-				<img src={screen.shot.src} width={screen.shot.width} height={screen.shot.height} alt={screen.shot.alt} loading="lazy" />
+				<img src={screen.shot.src} width={screen.shot.width} height={screen.shot.height} alt={screen.shot.alt} />
 			</figure>
 		{/each}
 	</div>
 
-	<p class="caption">harbor.belikhun.dev · real screens</p>
+	<p class="caption">harbor.belikhun.dev<span> · real screens</span></p>
 </div>
 
 <style lang="scss">
@@ -169,6 +169,13 @@
 		background: rgba(11, 18, 32, 0.82);
 		max-width: 100%;
 		color: $muted;
+
+		@include below($bp-narrow) {
+			span {
+				display: none;
+			}
+		}
+
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;

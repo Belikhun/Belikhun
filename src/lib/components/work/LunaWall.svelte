@@ -112,7 +112,6 @@
 							height={tile.picture.height}
 							alt={tile.picture.alt}
 							data-layer={tile.layer}
-							loading="lazy"
 						/>
 					{/each}
 				</div>

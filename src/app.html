@@ -5,6 +5,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
 		<script>
+			// the pointer is followed from the very start, so the hero can come in already facing it (see motion/pointer.ts)
+			window.earlyPointer = null;
+
+			window.earlyTrack = (event) => {
+				window.earlyPointer = { x: event.clientX, y: event.clientY };
+			};
+
+			window.addEventListener('pointermove', window.earlyTrack, { passive: true });
+
 			// before first paint, so a saved night theme never flashes the day one
 			try {
 				const theme = localStorage.getItem('belikhun:theme');

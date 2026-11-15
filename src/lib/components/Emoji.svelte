@@ -22,6 +22,7 @@
 	import { onMount } from 'svelte';
 
 	import { MOTION } from '#lib/motion/gsap.ts';
+	import { holdLoader } from '#lib/motion/stage.ts';
 
 	/**
 	 * An emoji that moves: the plain character until its animation has loaded,
@@ -83,19 +84,11 @@
 			// the plain character stays
 		});
 
-		// nothing is downloaded until the emoji is about to scroll into view
-		const near = new IntersectionObserver(([entry]) => {
-			if (entry!.isIntersecting) {
-				near.disconnect();
-				load();
-			}
-		}, { rootMargin: '50%' });
-
-		near.observe(host!);
+		// downloaded behind the loader, so it is already moving when it scrolls into view
+		holdLoader(load());
 
 		return () => {
 			gone = true;
-			near.disconnect();
 			stop?.();
 		};
 	});

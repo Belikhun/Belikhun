@@ -8,6 +8,8 @@
 	import { createRig, SOURCE_BOX, VIEW, type Rig } from '#lib/avatar/rig.ts';
 	import data from '#lib/content/avatar.json';
 	import { gsap, MOTION, ScrollTrigger } from '#lib/motion/gsap.ts';
+	import { lastPointer, type Point } from '#lib/motion/pointer.ts';
+	import { holdLoader } from '#lib/motion/stage.ts';
 
 	/**
 	 * The avatar. A flat picture until the rig is ready, and for good where
@@ -60,13 +62,24 @@
 				.to(rig.pose, { eyeOpen: 1, duration: 0.13, ease: 'power2.out' });
 		};
 
-		const follow = (event: PointerEvent): void => {
+		const face = (point: Point): void => {
 			const box = root!.getBoundingClientRect();
 
 			pointerSeen = true;
-			aim.x = gsap.utils.clamp(-1, 1, (event.clientX - (box.left + box.width / 2)) / (window.innerWidth / 2));
-			aim.y = gsap.utils.clamp(-1, 1, (event.clientY - (box.top + box.height * 0.2)) / (window.innerHeight / 2));
+			aim.x = gsap.utils.clamp(-1, 1, (point.x - (box.left + box.width / 2)) / (window.innerWidth / 2));
+			aim.y = gsap.utils.clamp(-1, 1, (point.y - (box.top + box.height * 0.2)) / (window.innerHeight / 2));
 		};
+
+		const follow = (event: PointerEvent): void => face({ x: event.clientX, y: event.clientY });
+
+		// she starts out already facing the pointer, so she does not turn her head while the hero is arriving
+		const known = lastPointer();
+
+		if (known) {
+			face(known);
+			rig.pose.angleX = rig.pose.lookX = aim.x;
+			rig.pose.angleY = rig.pose.lookY = aim.y;
+		}
 
 		const tick = (seconds: number, deltaMs: number): void => {
 			// with no pointer to follow (touch screens), she looks around slowly by herself
@@ -120,7 +133,7 @@
 		let stop: (() => void) | undefined;
 		let gone = false;
 
-		loadAtlas().then((atlas) => {
+		holdLoader(loadAtlas().then((atlas) => {
 			const rig = gone
 				? undefined
 				: createRig(canvas!, data, atlas);
@@ -134,7 +147,7 @@
 			live = true;
 		}).catch(() => {
 			// the flat picture stays
-		});
+		}));
 
 		return () => {
 			gone = true;

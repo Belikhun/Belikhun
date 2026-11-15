@@ -40,11 +40,13 @@ export interface Chapter {
 export interface Stop {
 	year: number;
 	title: string;
+	/** The emoji in the corner of the year's card */
+	emoji: EmojiMark;
 	lines: string[];
 }
 
 /** Which visual a work card shows beside its text. */
-export type WorkKind = 'luna' | 'harbor' | 'vloom' | 'clover' | 'arena' | 'blink' | 'home' | 'themis' | 'ctms';
+export type WorkKind = 'luna' | 'harbor' | 'vloom' | 'clover' | 'arena' | 'blink' | 'home' | 'themis' | 'hunter' | 'ctms';
 
 /** A place a work card points to: its source, or the running thing itself. */
 export interface WorkLink {
@@ -71,7 +73,6 @@ export interface Row {
 	what: string;
 	year: number;
 	link?: string;
-	preview?: Picture;
 }
 
 /**
@@ -86,9 +87,18 @@ export function picture(path: keyof typeof media, alt: string): Picture {
 	return { src: `/img/${path}`, width, height, alt };
 }
 
-export const EMAIL = 'belikhun02@gmail.com';
+export const EMAIL = 'belikhun@outlook.com';
+
+/** A second address that also reaches me. */
+export const EMAIL_SECONDARY = 'belikhun02@gmail.com';
 
 export const GITHUB = 'https://github.com/Belikhun';
+
+/** The other places to find me, as they are named on the ending's buttons. */
+export const SOCIALS = [
+	{ name: 'discord', handle: 'belikhun', href: 'https://discord.com/users/336373841909776384' },
+	{ name: 'osu!', handle: 'Belikhun', href: 'https://osu.ppy.sh/users/13623459' }
+];
 
 /** The public PGP key, as served from `static/`, and the long id it is known by. */
 export const GPG_KEY_FILE = '/belikhun.asc';
@@ -139,51 +149,61 @@ export const STOPS: Stop[] = [
 	{
 		year: 2017,
 		title: 'HTSD',
+		emoji: { code: '1f3c6', char: '🏆' },
 		lines: ['a Pascal app for my school\'s Red Star team', '2nd prize, provincial youth innovation contest']
 	},
 	{
 		year: 2018,
 		title: 'Themis Web Interface',
+		emoji: { code: '1f4bb', char: '💻' },
 		lines: ['the first commit of a five-year project']
 	},
 	{
 		year: 2019,
 		title: 'provincial science fair',
+		emoji: { code: '1f3c6', char: '🏆' },
 		lines: ['2nd prize for Themis Web Interface', 'Deal Hunter Suite ships']
 	},
 	{
 		year: 2020,
 		title: 'Hanoi Open University',
+		emoji: { code: '2728', char: '✨' },
 		lines: ['information technology', 'a covid tracker extension']
 	},
 	{
 		year: 2021,
 		title: 'CTMS+',
+		emoji: { code: '1f680', char: '🚀' },
 		lines: ['an unofficial app for the student portal', 'E-HOU LMS · Opentrack, Korea']
 	},
 	{
 		year: 2022,
 		title: 'QCV',
+		emoji: { code: '1f4e6', char: '📦' },
 		lines: ['first job: WordPress themes and plugins', 'libraries · metronome', 'Vietcourse and LTV LMS']
 	},
 	{
 		year: 2023,
 		title: 'Videa EdTech',
+		emoji: { code: '26a1', char: '⚡' },
 		lines: ['the core of Vloom, written in week one', 'blink']
 	},
 	{
 		year: 2024,
 		title: 'client platforms',
+		emoji: { code: '1f4a1', char: '💡' },
 		lines: ['ABAII MOOC', 'Viettel Construction LMS', 'a smart home thesis']
 	},
 	{
 		year: 2025,
 		title: 'engineer\'s degree',
+		emoji: { code: '1f393', char: '🎓' },
 		lines: ['Hanoi Open University', 'Hong Kong University LMS']
 	},
 	{
 		year: 2026,
 		title: 'Manulife',
+		emoji: { code: '2693', char: '⚓' },
 		lines: ['Clover · Vloom Arena', 'Vloom App Platform', 'harbor · luna']
 	}
 ];
@@ -217,7 +237,8 @@ export const WORKS: Work[] = [
 		context: 'Videa EdTech',
 		years: '2023 → now',
 		body: 'a learning platform built on Moodle. i wrote its core framework in my first week and have led its r&d since.',
-		role: 'architect'
+		role: 'architect',
+		links: [{ text: 'docs', href: 'https://docs.vloom.vn' }]
 	},
 	{
 		kind: 'clover',
@@ -225,7 +246,8 @@ export const WORKS: Work[] = [
 		context: 'Videa EdTech',
 		years: '2026',
 		body: 'a frontend framework with its own compiler, runtime and editor support.',
-		role: 'sole author'
+		role: 'sole author',
+		links: [{ text: 'docs', href: 'https://docs.vloom.vn' }]
 	},
 	{
 		kind: 'arena',
@@ -268,6 +290,21 @@ export const WORKS: Work[] = [
 		links: [{ text: 'source', href: 'https://github.com/Belikhun/themis-web-interface' }]
 	},
 	{
+		kind: 'hunter',
+		name: 'Deal Hunter Suite',
+		short: 'Deal Hunter',
+		context: 'commercial product',
+		years: '2019 → 2022',
+		body: 'a chrome extension for flash sale hunters: two dozen scripts that watch a price and order the moment it drops, with a licence server behind them.',
+		role: 'core developer · ui designer',
+		links: [
+			{ text: 'extension', href: 'https://github.com/Belikhun/dhs-frontend' },
+			{ text: 'server', href: 'https://github.com/Belikhun/dhs-backend' },
+			{ text: 'proxy', href: 'https://github.com/Belikhun/dhs-proxy' },
+			{ text: 'archive', href: 'https://github.com/Belikhun/dhs-archive' }
+		]
+	},
+	{
 		kind: 'ctms',
 		name: 'CTMS+',
 		context: 'hobby',
@@ -291,12 +328,6 @@ export const ROWS: Row[] = [
 	{ name: 'libraries', what: 'ui kit', year: 2022, link: 'https://github.com/Belikhun/libraries' },
 	{ name: 'metronome', what: 'bpm finder', year: 2022, link: 'https://github.com/Belikhun/metronome' },
 	{ name: 'discord-chatgpt', what: 'discord bot', year: 2023, link: 'https://github.com/Belikhun/discord-chatgpt' },
-	{
-		name: 'Deal Hunter Suite',
-		what: 'chrome extension',
-		year: 2019,
-		preview: picture('rows/deal-hunter-suite.webp', 'Deal Hunter Suite splash screen')
-	},
 	{ name: 'thi-trac-nghiem', what: 'exam system', year: 2020, link: 'https://github.com/Belikhun/thi-trac-nghiem' },
 	{ name: 'covid tracker', what: 'chrome extension', year: 2020, link: 'https://github.com/Belikhun/corona-tracker-extension' },
 	{ name: 'BoatRacing', what: 'Minecraft plugin', year: 2025 },

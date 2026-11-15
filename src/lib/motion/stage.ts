@@ -13,6 +13,26 @@ const gate = new Promise<void>((resolve) => {
 	release = resolve;
 });
 
+const holds: Promise<void>[] = [];
+
+/**
+ * Asks the loader to stay up until something has loaded, so it is already
+ * there when its scene scrolls into view. Called while a scene mounts.
+ *
+ * @param asset settles when the thing has loaded or failed
+ */
+export function holdLoader(asset: Promise<unknown>): void {
+	holds.push(asset.then(
+		() => {},
+		() => {}
+	));
+}
+
+/** Everything the scenes have asked the loader to wait for so far. */
+export function loaderHolds(): Promise<void>[] {
+	return [...holds];
+}
+
 /** Resolves once the loader has left the screen and the hero may play its intro. */
 export function introReady(): Promise<void> {
 	return gate;

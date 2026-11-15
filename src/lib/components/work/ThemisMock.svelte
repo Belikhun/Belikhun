@@ -412,7 +412,7 @@
 
 		// on a phone the ranking keeps the first two problems only
 		@include below($bp-narrow) {
-			grid-template-columns: 2.2em minmax(0, 1fr) 3.8em repeat(2, 3.4em);
+			grid-template-columns: 2em minmax(0, 1fr) 3.6em repeat(2, 3em);
 			padding-right: 0.8em;
 
 			> :nth-child(n + 6) {

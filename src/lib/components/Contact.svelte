@@ -5,10 +5,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { EMAIL, GITHUB, GPG_KEY_FILE, GPG_KEY_ID } from '#lib/content/site.ts';
+	import { EMAIL, EMAIL_SECONDARY, GITHUB, GPG_KEY_FILE, GPG_KEY_ID, SOCIALS } from '#lib/content/site.ts';
 	import { gsap, MOTION, POINTER_MOTION, SplitText } from '#lib/motion/gsap.ts';
 
-	import Charm from './Charm.svelte';
+	import Charm, { type Face } from './Charm.svelte';
 	import Emoji from './Emoji.svelte';
 	import KeyRain from './KeyRain.svelte';
 
@@ -20,6 +20,12 @@
 		{ name: 'layout', tone: 'pink' },
 		{ name: 'mail', tone: 'blue' },
 		{ name: 'github', tone: 'paper' }
+	];
+
+	/** The two charms that drop into the card, each with its own string, face and side. */
+	const CHARMS: { side: string; string: number; face: Face; flip: boolean }[] = [
+		{ side: 'left', string: 150, face: 'happy', flip: false },
+		{ side: 'right', string: 100, face: 'calm', flip: true }
 	];
 
 	const SCALLOPS = Array.from({ length: 48 }, (_, index) => index);
@@ -166,6 +172,8 @@
 				gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 45%' } })
 					.from(split.chars, { yPercent: 115, duration: 0.9, stagger: 0.05, ease: 'power4.out' })
 					.from('.drop', { yPercent: -110, duration: 1.1, stagger: 0.15, ease: 'bounce.out' }, 0.2)
+					// the cursors carry the first two buttons up; the rest follow on their own once those have landed
+					.from('.social', { y: '4rem', autoAlpha: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out' }, 2.3)
 					.add(() => {
 						assemble(root!.querySelector('.card')!);
 					}, 0);
@@ -213,11 +221,11 @@
 
 		<h2 class="words">say hi</h2>
 
-		{#each [{ side: 'left', string: 150 }, { side: 'right', string: 100 }] as charm (charm.side)}
+		{#each CHARMS as charm (charm.side)}
 			<div class="drop {charm.side}">
 				<div class="lean">
 					<div class="swing">
-						<Charm string={charm.string} />
+						<Charm string={charm.string} face={charm.face} flip={charm.flip} />
 					</div>
 				</div>
 			</div>
@@ -246,6 +254,9 @@
 				</button>
 			</p>
 			<a class="github" href={GITHUB} target="_blank" rel="noreferrer">github ↗</a>
+			{#each SOCIALS as social (social.name)}
+				<a class="social" href={social.href} target="_blank" rel="noreferrer">{social.name} ↗</a>
+			{/each}
 		</div>
 
 		<footer>
@@ -255,6 +266,7 @@
 				{/each}
 			</div>
 			<p>© 2026 belikhun · served by harbor · <a class="key" href={GPG_KEY_FILE} download>pgp {GPG_KEY_ID}</a></p>
+			<p>also at <a class="key" href="mailto:{EMAIL_SECONDARY}">{EMAIL_SECONDARY}</a></p>
 		</footer>
 	</div>
 </section>
@@ -317,13 +329,14 @@
 	}
 
 	.mail,
-	.github {
+	.github,
+	.social {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
+		@include glass;
 		padding: 0.75rem 1.5rem;
 		border-radius: 2rem;
-		background: var(--bg);
 		font-weight: 500;
 	}
 
@@ -334,9 +347,9 @@
 
 		display: grid;
 		place-items: center;
+		@include glass;
 		padding: 0.5rem 0.875rem;
 		border-radius: 2rem;
-		background: var(--bg);
 		font-size: 1.5rem;
 		line-height: 1;
 	}
