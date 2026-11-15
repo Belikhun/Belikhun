@@ -23,8 +23,11 @@
 		animate(timeline: gsap.core.Timeline, at: number, shown: Span): void;
 	}
 
-	/** How much scroll each card gets, as a share of the viewport height. */
-	const SCROLL_PER_CARD = 66;
+	/**
+	 * How much scroll each card gets, as a share of the viewport height. More than a full screen,
+	 * so an ordinary turn of the wheel moves a card's animation a little and it can be scrubbed finely.
+	 */
+	const SCROLL_PER_CARD = 120;
 
 	/** Where in a card's unit of scroll the next card starts to slide over it; before that the finished visual rests. */
 	const HANDOVER_AT = 0.65;
